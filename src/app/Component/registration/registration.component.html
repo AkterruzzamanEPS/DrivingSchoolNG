@@ -1,0 +1,103 @@
+<div class="row g-0 justify-content-center align-items-center">
+    <div class="col-6 my-3 pt-3 h-100">
+        <div class="card">
+            <div class="card-header text-center">
+                Registration
+            </div>
+            <div class="card-body">
+                <div class="row g-0">
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="clientTypeCode" class="form-label">First Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.firstName"
+                                name="clientTypeCode" placeholder="Please enter first name">
+                        </div>
+                    </div>
+
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.lastName"
+                                name="lastName" placeholder="Please enter last name">
+                        </div>
+                    </div>
+
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="fullName" class="form-label">User Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.userName"
+                                name="fullName" placeholder="Please enter user name">
+                        </div>
+                    </div>
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.email"
+                                name="email" placeholder="Please enter email">
+                        </div>
+                    </div>
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="dateOfBirth" class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.dateOfBirth"
+                                name="dateOfBirth" placeholder="Please enter dateOfBirth">
+                        </div>
+                    </div>
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.phoneNumber"
+                                name="phoneNumber" placeholder="Please enter phone number">
+                        </div>
+                    </div>
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="Type" class="form-label">User Type</label>
+                            <select class="form-select" [(ngModel)]="oAspNetUsersRequestDto.type" name="type"
+                                aria-label="Default select example">
+                                <option value="0">-- select user type --</option>
+                                <option value="2">Admin</option>
+                                <option value="3">Instructor</option>
+                                <option value="4">Student</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" [(ngModel)]="oAspNetUsersRequestDto.gender" name="gender"
+                                aria-label="Default select example">
+                                <option value="Male">Male</option>
+                                <option value="Fimale">Fimale</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="text" class="form-control" [(ngModel)]="oAspNetUsersRequestDto.password"
+                                name="password" placeholder="Please enter password">
+                        </div>
+                    </div>
+                    <div class="col-6 px-1">
+                        <div class="mb-2">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control"
+                                [(ngModel)]="oAspNetUsersRequestDto.confirmPassword" name="confirmPassword"
+                                placeholder="Please enter confirm password">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-footer text-center">
+
+                <button type="button" class="btn btn-primary" (click)="Registration()">Registration</button>
+
+            </div>
+        </div>
+    </div>
+</div>

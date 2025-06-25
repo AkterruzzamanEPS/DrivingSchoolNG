@@ -1,0 +1,74 @@
+<!-- Category List  -->
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div *ngFor="let category of oPostCategoryList">
+            <h2 class="p-2">{{ category.categoryName }} </h2>
+            <div class="row g-0">
+                <div class="col-md-3 my-2 px-2" *ngFor="let post of category.posts">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ post.name }}
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-0">
+                                <div class="col-12 my-1">
+                                    {{ post.content }}
+                                </div>
+                                <div *ngIf="post.fileId>0" class="col-12 my-1">
+                                    <img [src]="GetImageUrl(post.fileId)" alt="Post" class="post-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- sub category List  -->
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+
+        <div *ngFor="let category of oPostSubCategoryList">
+
+            <h2 class="p-2">{{ category.subCategoryName }} </h2>
+
+
+            <div class="row g-0">
+                <div class="col-md-3 my-2 px-2" *ngFor="let post of category.posts">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ post.name }}
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-0">
+                                <div class="col-12 my-1">
+                                    {{ post.content }}
+                                </div>
+                                <div *ngIf="post.fileId>0" class="col-12 my-1">
+                                    <img [src]="GetImageUrl(post.fileId)" alt="Post" class="post-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="row g-0">
+    <div class="col-md-12">
+        <app-registration></app-registration>
+    </div>
+</div>

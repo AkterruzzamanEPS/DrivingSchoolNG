@@ -1,0 +1,82 @@
+<div class="bg-light">
+    <div class="container">
+        <div class="composer shadow-sm">
+            <div class="d-flex align-items-center mb-3">
+                <img src="default_pofile.png" class="rounded-circle profile me-2" alt="Profile Picture">
+                <input (click)="InputPostClick()" type="text" class="composer-input"
+                    placeholder="What's on your mind, Aktaruzzaman?">
+            </div>
+            <hr>
+            <div class="d-flex justify-content-around composer-actions">
+                <button (click)="InputPostClick()">
+                    <img src="https://img.icons8.com/color/48/000000/image.png" alt="Photo/Video">
+                    Photo/Video
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" id="openCommonModel" hidden data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
+    Create Post
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-header text-center border-bottom-0">
+                <h4 class="modal-title text-center" id="createPostModalLabel">Create post</h4>
+                <button type="button" class="btn-close" id="closeCommonModel" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- User Info -->
+                <div class="d-flex align-items-center mb-3">
+                    <img src="default_pofile.png" class="rounded-circle profile-pic me-2" alt="User">
+                    <div>
+                        <h6 class="mb-0">Aktaruzzaman Suroz</h6>
+                        <button class="btn btn-sm btn-light border rounded-pill mt-1" style="font-size: 12px;">🌍
+                            Public</button>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <textarea class="form-control text-area mb-3" [(ngModel)]="oPostRequestDto.content" name="content"
+                    rows="3" placeholder="What's on your mind, Aktaruzzaman?"></textarea>
+
+                <input hidden id="fileUpload" type="file" (change)="onImageFileChange($event)">
+                <!-- Upload Box -->
+                <div class="upload-box" (click)="FileUploaded()">
+                    <img *ngIf="oPostRequestDto.fileId>0" [src]="GetImageUrl(oPostRequestDto.fileId)"
+                        style="height: 200px;width: auto;"  alt="Uploaded Image" />
+                    <div *ngIf="oPostRequestDto.fileId==0" class="text-center">
+                        <div class="mb-2">
+                            <img src="https://img.icons8.com/ios-filled/50/000000/add-image.png" width="32" alt="Add">
+                        </div>
+                        <div>Add photos/videos<br><small class="text-muted">or drag and drop</small></div>
+                    </div>
+                    <button type="button"
+                        class="btn btn-sm btn-light rounded-circle position-absolute top-0 end-0 m-2">✕</button>
+                </div>
+
+                <!-- Add to your Post Options -->
+                <div class="mt-3">
+                    <div class="d-flex align-items-center gap-3 add-options">
+                        <button (click)="FileUploaded()"><img src="https://img.icons8.com/color/24/000000/picture.png"
+                                alt="Photo">
+                            Photo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-top-0">
+                <button type="button" class="btn btn-secondary w-100" (click)="CreatePost()">Post</button>
+            </div>
+        </div>
+    </div>
+</div> 

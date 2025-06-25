@@ -1,0 +1,74 @@
+.composer {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    background-color: #fff;
+  }
+  .composer-input {
+    background-color: #f0f2f5;
+    border-radius: 20px;
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+  }
+  .composer-actions button {
+    background: none;
+    border: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #555;
+  }
+  .composer-actions button:hover {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+  }
+  .composer-actions img {
+    width: 20px;
+    height: 20px;
+  }
+
+
+//   Post Model design
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+  .text-area {
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 12px;
+    resize: none;
+    padding: 10px 15px;
+  }
+  .upload-box {
+    background-color: #f0f2f5;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 15px;
+    position: relative;
+  }
+  .upload-box:hover {
+    background-color: #e9ecef;
+  }
+  .add-options button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #555;
+  }
+  .add-options button:hover {
+    background-color: #f0f2f5;
+    border-radius: 8px;
+  }

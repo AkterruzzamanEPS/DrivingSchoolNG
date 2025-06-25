@@ -1,0 +1,43 @@
+.post-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: white;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .post-header {
+    padding: 10px 15px;
+  }
+  .post-user {
+    font-weight: 600;
+  }
+  .post-time {
+    font-size: 12px;
+    color: gray;
+  }
+  .post-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .post-actions {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+  }
+  .post-actions button {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+  }
+  .reaction-summary {
+    padding: 0 15px;
+    font-size: 14px;
+    color: gray;
+  }
+  .reaction-summary img {
+    width: 18px;
+  }

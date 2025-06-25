@@ -1,0 +1,175 @@
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title fs-5" id="examplecardLabel">Student Booking Slot Assignment
+        </h1>
+    </div>
+    <div class="card-body">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="row g-0">
+
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="studentId" class="form-label">Student</label>
+                            <select class="form-select" disabled="true" [(ngModel)]="oBookingAssignRequestDto.studentId"
+                                name="studentId" aria-label="Default select example">
+                                <option value="">-- select student -- </option>
+                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="slotId" class="form-label">Slot</label>
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId"
+                                aria-label="Default select example">
+                                <option value="0">-- select slot -- </option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="instructorId" class="form-label">Instructor</label>
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.instructorId"
+                                name="instructorId" aria-label="Default select example">
+                                <option value="0">-- select instructor -- </option>
+                                <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
+                                    [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="vehicleId" class="form-label">Vehicle</label>
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.vehicleId"
+                                name="vehicleId" aria-label="Default select example">
+                                <option value="0">-- select vehicle -- </option>
+                                <option *ngFor="let item of vehicleList; trackBy: trackByvehicleFrom" [value]="item.id">
+                                    {{ item.make }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="purchaseDate" class="form-label">Purchase Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="purchaseDate" name="purchaseDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="packageStartDate" class="form-label">Package Start Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="packageStartDate"
+                                name="packageStartDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="expiryDate" name="expiryDate">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="expiryDate" class="form-label">Package Name</label>
+                            <input type="text" disabled="true" class="form-control"
+                                [(ngModel)]="oStudentResponseDto.packageName" name="expiryDate">
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="durationInDays" class="form-label">Duration In Days</label>
+                            <input type="text" disabled="true" class="form-control"
+                                [(ngModel)]="oStudentResponseDto.durationInDays" name="durationInDays">
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-2 px-1">
+                        <div class="mb-2">
+                            <label for="totalLessons" class="form-label">Total Lessons</label>
+                            <input type="text" disabled="true" class="form-control"
+                                [(ngModel)]="oStudentResponseDto.totalLessons" name="totalLessons">
+                        </div>
+                    </div>
+                    <div class="col-md-8 px-2 mb-3">
+                        <label for="remarks" class="form-label">Remarks</label>
+                        <textarea class="form-control" name="remarks" [(ngModel)]="oBookingAssignRequestDto.remarks"
+                            id="remarks" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <ag-grid-angular class="ag-theme-alpine" style="height: 48vh;width: 100%;" [columnDefs]="colDefsDay"
+                    [rowData]="rowDataDay" [rowSelection]="'multiple'" (gridReady)="onGridReadyDay($event)"
+                    [defaultColDef]="DeafultCol">
+                </ag-grid-angular>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-end">
+
+        <button type="button" class="btn btn-primary" (click)="GeneratedBookingSlot()">Generated Booking Slot</button>
+        <!-- @if (bookingId==0){
+        <button type="button" class="btn btn-primary" (click)="InsertBooking()">Save</button>
+        }
+        @if (bookingId>0){
+        <button type="button" class="btn btn-primary" (click)="UpdateBooking()">Update</button>
+        } -->
+    </div>
+</div>
+
+
+<div class="row g-0">
+    <div class="col-md-12 my-2">
+        <ag-grid-angular class="ag-theme-alpine" style="height: 50vh;width: 100%;" [columnDefs]="colDefsBookingSlot"
+            [rowData]="rowDataBookingSlot" [rowSelection]="'single'" (gridReady)="onGridReadyBookingSlot($event)"
+            [defaultColDef]="DeafultCol">
+        </ag-grid-angular>
+    </div>
+    <div class="col-md-12 text-end">
+         <button type="button" class="btn btn-success" (click)="ConfirmBookingSlot()">Confirm</button>
+    </div>
+</div>
+
+
+
+
+<button type="button" class="btn btn-primary" hidden data-bs-toggle="modal" id="openCommonDelete"
+    data-bs-target="#staticCommonBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticCommonBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Slot Assignment Delete</h1>
+                <button type="button" class="btn-close" id="closeCommonDelete" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-0">
+                    <div class="col-md-6 h2 text-center">
+                        are you confirm delete?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Close </button>
+                <button type="button" class="btn btn-primary" (click)="DeleteBooking()"> Confirm </button>
+            </div>
+        </div>
+    </div>
+</div>

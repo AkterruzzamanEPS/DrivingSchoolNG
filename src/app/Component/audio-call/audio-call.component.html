@@ -1,0 +1,20 @@
+<div class="audio-call-container">
+  <!-- Remote audio element -->
+  <audio #remoteAudio autoplay playsinline hidden></audio>
+
+  <!-- Call control buttons -->
+  <div class="controls">
+    <!-- Show Start Call Button if there's no ongoing call and no incoming call -->
+    <button *ngIf="!callStarted && !incomingCall && !isCalling" (click)="startCall()">Start Audio Call</button>
+    
+    <!-- Show End Call Button if the call has started -->
+    <button *ngIf="callStarted" (click)="endCall()">End Audio Call</button>
+  </div>
+
+  <!-- Incoming call popup -->
+  <div *ngIf="incomingCall" class="incoming-call-popup">
+    <p>{{ incomingCallerId }} is calling you (Audio call)!</p>
+    <button (click)="acceptCall()">Accept</button>
+    <button (click)="rejectCall()">Reject</button>
+  </div>
+</div>

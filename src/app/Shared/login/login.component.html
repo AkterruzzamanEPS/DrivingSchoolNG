@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4 my-3">
+            <div class="card rounded-3 overflow-hidden shadow-sm">
+                <div class="card-body p-4 theme-bg-smoke">
+                    <div class="text-center mb-4">
+                        <img src="logo.png" alt="Logo" class="img-fluid" style="max-width: 150px;">
+                    </div>
+
+                    <div class="mb-3 text-center fw-bold">
+                        <!-- Sign in to your account -->
+                        Sign in to your account
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="UserName" class="form-label">User Name/Email</label>
+                        <input type="text" [(ngModel)]="oLoginRequestDto.UserName" name="UserName"
+                            class="form-control" id="UserName" placeholder="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Password" class="form-label">Password</label>
+                        <input type="password" [(ngModel)]="oLoginRequestDto.Password" name="Password"
+                            class="form-control" id="Password">
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="button" (click)="Login()" class="btn btn-success fw-bold">
+                            Log in
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        Not have an account?
+                        <a routerLink="/registration" class="text-decoration-none">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

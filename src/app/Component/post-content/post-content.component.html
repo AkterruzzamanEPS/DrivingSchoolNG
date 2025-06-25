@@ -1,0 +1,77 @@
+<div *ngFor="let post of postList" class="bg-light">
+
+    <div class="post-card">
+        <!-- Post Header -->
+        <div class="d-flex justify-content-between align-items-center post-header">
+            <div class="d-flex align-items-center">
+                <img src="default_pofile.png" class="rounded-circle profile me-2" alt="User" width="40" height="40">
+                <div>
+                    <div class="post-user">স্বপ্ন • <span class="text-primary">Follow</span></div>
+                    <div class="post-time">27 April at 19:52</div>
+                </div>
+            </div>
+            <button class="btn btn-sm text-muted" style="font-size: 20px;">⋯</button>
+        </div>
+
+        <!-- Post Text -->
+        <div class="px-3 pb-2">
+            <p>{{post.content}}😐</p>
+        </div>
+
+        @if (post.contentType== "video/mp4" && post.fileId>0) {
+        <video style="max-width: 100%; min-width: 500px; width: calc(-325px + 100vh);" width="320" controls
+            autoplay muted loop>
+            <source src="{{GetImageUrl(post.fileId)}}" type="video/mp4">
+        </video>
+
+        }@else if(post.fileId>0) {
+
+        <!-- Post Image -->
+        <img [src]="GetImageUrl(post.fileId)" alt="Post" class="post-image">
+        }
+
+
+        <!-- Reaction Summary -->
+        <div class="reaction-summary d-flex justify-content-between align-items-center py-2">
+            <div class="d-flex align-items-center">
+                <img src="https://img.icons8.com/color/24/000000/facebook-like.png" alt="Like">
+                <img src="https://img.icons8.com/color/24/000000/facebook-love.png" alt="Love">
+                <img src="https://img.icons8.com/color/24/000000/facebook-wow.png" alt="Wow">
+                <span class="ms-2">{{post.likeCount}}</span>
+            </div>
+            <div>
+                <span>{{post.likeCount}} comments • 215 shares</span>
+            </div>
+        </div>
+
+        <!-- Post Actions -->
+        <div class="post-actions d-flex justify-content-around border-top">
+            <button (click)="InsertLike(post)"><img src="https://img.icons8.com/ios-glyphs/20/000000/facebook-like.png"
+                    class="me-1"> Like</button>
+            <button><img src="https://img.icons8.com/ios-glyphs/20/000000/comments.png" class="me-1"> Comment</button>
+            <button><img src="https://img.icons8.com/ios-glyphs/20/000000/filled-sent.png" class="me-1"> Send</button>
+            <button><img src="https://img.icons8.com/ios-glyphs/20/000000/share.png" class="me-1"> Share</button>
+        </div>
+        <div class="post-actions  border-top">
+            <div class="card p-3">
+                <div class="d-flex align-items-start">
+                    <img src="default_pofile.png" alt="User" class="rounded-circle me-2 profile" width="40" height="40">
+                    <div class="flex-grow-1">
+                        <textarea class="form-control mb-2" [(ngModel)]="oCommentRequestDto.content" name="content"
+                            placeholder="Comment as Aktaruzzaman Suroz" rows="2"></textarea>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <button class="btn btn-light btn-sm"><i class="bi bi-emoji-smile"></i></button>
+                                <button class="btn btn-light btn-sm"><i class="bi bi-image"></i></button>
+                                <button class="btn btn-light btn-sm"><i
+                                        class="bi bi-file-earmark-richtext"></i></button>
+                                <button class="btn btn-light btn-sm"><i class="bi bi-sticky"></i></button>
+                            </div>
+                            <button class="btn btn-primary btn-sm" (click)="InsertComment(post)">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

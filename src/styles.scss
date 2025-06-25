@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+    /* Set the font globally */
+}
+
+* {
+    // font-size: small;
+    font-weight: 500;
+}
+
+* {
+    font-size: small;
+}
+.ag-header-cell-label {
+    justify-content: center !important;
+}
+
+.ag-cell {
+    text-align: center !important;
+}
+
+/* Reduce padding inside cells */
+.custom-grid .ag-cell {
+    padding: 4px;
+}
+
+/* Reduce row height */
+.custom-grid .ag-row {
+    height: 30px;
+}
+
+/* Reduce padding inside header cells */
+.custom-grid .ag-header-cell {
+    padding: 4px;
+}
+
+.profile{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.Profile-img{
+    height: 140px;
+    width: 100%;
+} 

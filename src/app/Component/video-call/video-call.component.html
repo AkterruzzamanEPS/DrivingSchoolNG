@@ -1,0 +1,28 @@
+<div class="video-call-container">
+  <!-- Local video display -->
+  <video #localVideo autoplay muted playsinline class="video local"></video>
+
+  <!-- Remote video display -->
+  <video #remoteVideo autoplay playsinline class="video remote"></video>
+
+  <!-- Call control buttons -->
+  <div class="controls">
+    <!-- Show this button if the call has not started -->
+    <button *ngIf="!callStarted && !incomingCall && !isCalling" (click)="startCall()">Start Call</button>
+
+    <!-- Show this button if the call has started -->
+    <button *ngIf="callStarted" (click)="endCall()">End Call</button>
+
+    <!-- Video and Audio toggle buttons -->
+    <button *ngIf="callStarted" (click)="toggleVideo()">Toggle Video</button>
+    <button *ngIf="callStarted" (click)="toggleAudio()">Toggle Audio</button>
+  </div>
+
+  <!-- Incoming call popup -->
+  <div *ngIf="incomingCall" class="incoming-call-popup">
+    <p>{{ incomingCallerId }} is calling you!</p>
+    <p>Call type: {{ incomingCallType }}</p>
+    <button (click)="acceptCall()">Accept</button>
+    <button (click)="rejectCall()">Reject</button>
+  </div>
+</div>

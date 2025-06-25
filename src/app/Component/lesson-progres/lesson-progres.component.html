@@ -1,0 +1,61 @@
+<div class="">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title fs-5" id="cxampleCardLabel">Lesson Progress
+                @if (lessonprogresId==0){Create} @if (lessonprogresId>0){Update}
+            </h1>
+        </div>
+        <div class="card-body">
+            <div class="row g-0">
+                <div class="col-md-6 px-2">
+                    <div class="mb-2">
+                        <label for="lessonTitle" class="form-label">Lesson Title</label>
+                        <input type="text" class="form-control" [(ngModel)]="oLessonProgresRequestDto.lessonTitle"
+                            name="lessonTitle">
+                    </div>
+                </div>
+
+                <div class="col-md-6 px-2">
+                    <div class="mb-2">
+                        <label for="progressPercentage" class="form-label">Progress Percentage</label>
+                        <input type="number" class="form-control"
+                            [(ngModel)]="oLessonProgresRequestDto.progressPercentage" name="progressPercentage">
+                    </div>
+                </div>
+
+                <div class="col-md-6 px-2 mb-3">
+                    <label for="feedback" class="form-label">Feedback</label>
+                    <textarea class="form-control" name="feedback" [(ngModel)]="oLessonProgresRequestDto.feedback"
+                        id="feedback" rows="2"></textarea>
+                </div>
+                <div class="col-md-6 px-2">
+                    <div class="mb-2">
+                        <label for="vehicleId" class="form-label">Status</label>
+                        <select class="form-select" readonly [(ngModel)]="oLessonProgresRequestDto.status"
+                            name="vehicleId" aria-label="Default select example">
+                            <option value="1">Scheduled </option>
+                            <option value="2">Completed </option>
+                            <option value="3">Cancelled </option>
+                            <option value="4">Rescheduled </option>
+                            <option value="5">Rejected </option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="remarks" class="form-label">Remarks</label>
+                    <textarea class="form-control" name="remarks" [(ngModel)]="oLessonProgresRequestDto.remarks"
+                        id="remarks" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            @if (lessonprogresId==0){
+            <button type="button" class="btn btn-primary" (click)="InsertLessonProgres()">Confirm</button>
+            }
+            @if (lessonprogresId>0){
+            <button type="button" class="btn btn-primary" (click)="UpdateLessonProgres()">Update</button>
+            }
+        </div>
+    </div>
+</div>

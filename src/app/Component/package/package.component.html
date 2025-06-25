@@ -1,0 +1,91 @@
+<div class="row g-0">
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <input type="text" class="form-control" [(ngModel)]="oPackageFilterRequestDto.name" name="name"
+                placeholder="type name here ...">
+        </div>
+    </div>
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <select class="form-select" [(ngModel)]="oPackageFilterRequestDto.isActive" name="isActive"
+                aria-label="Default select example">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-1 px-1">
+        <div class="mb-2">
+            <button class="btn btn-success" (click)="Filter()">Search</button>
+        </div>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-success mx-1" (click)="add()"> <i class="bi bi-plus"></i> Add</button>
+         </div>
+
+
+    <div class="col-md-12">
+        <ag-grid-angular class="ag-theme-alpine" style="height: 70vh;width: 100%;" [columnDefs]="colDefsTransection"
+            [rowData]="rowData" [rowSelection]="'single'" (gridReady)="onGridReadyTransection($event)"
+            [defaultColDef]="DeafultCol">
+        </ag-grid-angular>
+    </div>
+
+
+    <div class="col-md-6 mt-1">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Page {{pageIndex}} of {{totalPages}}</span>
+        </div>
+    </div>
+    <div class="col-md-6 mt-1 text-end">
+        <nav aria-label="Page navigation example" style="display: inline-flex" *ngIf="totalPages > 0">
+            <ul class="pagination">
+                <li class="page-item me-1"><button [disabled]="!hasPreviousPage" class="page-link">Previous</button>
+                </li>
+                <ng-template ngFor let-item [ngForOf]="totalPageNumbers" let-i="index" [ngForTrackBy]="trackByFn">
+                    <li *ngIf="item<this.pageIndex+4" class="page-item mx-1">
+                        <button class="page-link" (click)="onPage(item)">{{item}}</button>
+                    </li>
+                </ng-template>
+
+                <li class="page-item ms-1"><button class="page-link" [disabled]="!hasNextPage">Next</button></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+
+<button type="button" class="btn btn-primary" hidden data-bs-toggle="modal" id="openCommonDelete"
+    data-bs-target="#staticCommonBackdrop">
+    Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticCommonBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Package Delete</h1>
+                <button type="button" class="btn-close" id="closeCommonDelete" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col h2 text-center">
+                        are you confirm <br>delete?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Close </button>
+                <button type="button" class="btn btn-primary" (click)="DeletePackage()"> Confirm </button>
+            </div>
+        </div>
+    </div>
+</div>

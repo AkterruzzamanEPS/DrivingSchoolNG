@@ -1,0 +1,139 @@
+<div class="row g-0">
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <input type="date" class="form-control" [(ngModel)]="startDate" name="startDate">
+        </div>
+    </div>
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <input type="date" class="form-control" [(ngModel)]="endDate" name="endDate">
+        </div>
+    </div>
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <select class="form-select" [(ngModel)]="oBookingFilterRequestDto.isActive" name="isActive"
+                aria-label="Default select example">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-2 px-1">
+        <div class="mb-2">
+            <button class="btn btn-success" (click)="Filter()">Search</button>
+        </div>
+    </div>
+
+    <div class="col text-end">
+        <button class="btn btn-success mx-1" (click)="edit()"><i class="bi bi-pencil-square"></i> Edit</button>
+    </div>
+
+
+    <div class="col-md-12">
+        <ag-grid-angular class="ag-theme-alpine" style="height: 70vh;width: 100%;" [columnDefs]="colDefsTransection"
+            [rowData]="rowData" [rowSelection]="'single'" (gridReady)="onGridReadyTransection($event)"
+            [defaultColDef]="DeafultCol">
+        </ag-grid-angular>
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" hidden id="openCommonModel" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Slot Assignment
+                    @if (bookingId==0){Create} @if (bookingId>0){Update}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeCommonModel"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-0">
+
+                    <div class="col-12 px-1">
+                        <div class="mb-2">
+                            <label for="studentId" class="form-label">Student</label>
+                            <select class="form-select" [(ngModel)]="oBookingRequestDto.studentId" name="studentId"
+                                aria-label="Default select example">
+                                <option value="">-- select student -- </option>
+                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 px-1">
+                        <div class="mb-2">
+                            <label for="slotId" class="form-label">Slot</label>
+                            <select class="form-select" readonly [(ngModel)]="oBookingRequestDto.slotId" name="slotId"
+                                aria-label="Default select example">
+                                <option value="0">-- select slot -- </option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1">
+                        <div class="mb-2">
+                            <label for="instructorId" class="form-label">Instructor</label>
+                            <select class="form-select"  readonly [(ngModel)]="oBookingRequestDto.instructorId"
+                                name="instructorId" aria-label="Default select example">
+                                <option value="0">-- select instructor -- </option>
+                                <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
+                                    [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 px-1">
+                        <div class="mb-2">
+                            <label for="vehicleId" class="form-label">Vehicle</label>
+                            <select class="form-select" readonly [(ngModel)]="oBookingRequestDto.vehicleId" name="vehicleId"
+                                aria-label="Default select example">
+                                <option value="0">-- select vehicle -- </option>
+                                <option *ngFor="let item of vehicleList; trackBy: trackByvehicleFrom" [value]="item.id">
+                                    {{ item.make }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 px-1">
+                        <div class="mb-2">
+                            <label for="classDate" readonly class="form-label">Available Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="classDate" name="classDate">
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label for="remarks" class="form-label">Remarks</label>
+                        <textarea class="form-control" name="remarks" [(ngModel)]="oBookingRequestDto.remarks"
+                            id="remarks" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if (bookingId==0){
+                <button type="button" class="btn btn-primary" (click)="InsertBooking()">Save</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<nav class="navbar bg-danger navbar-expand-lg sticky-top py-1" style="background-color: #FFFFFF;">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <img src="logo.png" class="rounded-circle border" style="height: 30px; width: 30px;" alt="Profile">
+    </a>
+    <a class="navbar-brand text-white" href="#">Admin Panel</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Center or left-side items -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      </ul>
+
+      <!-- Right-side items -->
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        @if (authService.isLogin()) {
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="https://fileserver.eps.com.bd/uploads/04c226cc-d886-4dd8-b2fb-5a119c4f0749.jpg"
+              class="rounded-circle border" style="height: 30px; width: 30px;" alt="">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" type="button">{{ userName }}</button></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><button class="dropdown-item text-center text-white" (click)="logOut()" type="button">Log out</button>
+            </li>
+          </ul>
+        </li>
+        }
+      </ul>
+
+    </div>
+  </div>
+</nav>
