@@ -34,6 +34,8 @@ import { ExpenditureHeadComponent } from './Component/expenditure-head/expenditu
 import { ExpenditureHeadCreateComponent } from './Component/expenditure-head-create/expenditure-head-create.component';
 import { PackageCreateComponent } from './Component/package-create/package-create.component';
 import { SlotCreateComponent } from './Component/slot-create/slot-create.component';
+import { DueListComponent } from './Component/due-list/due-list.component';
+import { PaymentCollectionReportsComponent } from './Component/payment-collection-reports/payment-collection-reports.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +58,8 @@ export const routes: Routes = [
             { path: 'student-registration', component: AdminRegistrationComponent, title: 'Registration' },
             { path: 'payment', component: PaymentComponent, title: 'Payment List' },
             { path: 'package', component: PackageComponent, title: 'Package List' },
+            { path: 'due-list', component: DueListComponent, title: 'Due List' },
+            { path: 'payment-collection-list', component: PaymentCollectionReportsComponent, title: 'Payment Collection Report' },
             { path: 'package/:id', component: PackageCreateComponent, title: 'Package Create' },
             { path: 'slot', component: SlotComponent, title: 'Slot List' },
             { path: 'slot/:id', component: SlotCreateComponent, title: 'Slot Create' },

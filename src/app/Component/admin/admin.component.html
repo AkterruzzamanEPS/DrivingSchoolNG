@@ -473,6 +473,33 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item" [class.menu-open]="reportOpen">
+                            <a href="#" class="nav-link" [class.active]="paymentOpen" (click)="toggleReport($event)">
+                                <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
+                                <p>
+                                    Reports
+                                    <i class="nav-arrow bi"
+                                        [ngClass]="reportOpen ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" [style.display]="reportOpen ? 'block' : 'none'">
+                                <li class="nav-item">
+                                    <a routerLink="/admin/due-list" class="nav-link" routerLinkActive="active">
+                                        <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
+                                        <p>Due List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                              <ul class="nav nav-treeview" [style.display]="reportOpen ? 'block' : 'none'">
+                                <li class="nav-item">
+                                    <a routerLink="/admin/payment-collection-list" class="nav-link" routerLinkActive="active">
+                                        <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
+                                        <p>Payment Collections</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </nav>
 

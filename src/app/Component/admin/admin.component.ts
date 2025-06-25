@@ -22,6 +22,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   bookingOpen = false;
   schedulingOpen = false;
   paymentOpen = false;
+  reportOpen = false;
 
   public userName: any = "";
   public searchTxt: any = "";
@@ -93,6 +94,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
   togglePayment(event: Event) {
     event.preventDefault();
     this.paymentOpen = !this.paymentOpen;
+  }
+   toggleReport(event: Event) {
+    event.preventDefault();
+    this.reportOpen = !this.reportOpen;
   }
 
 }
