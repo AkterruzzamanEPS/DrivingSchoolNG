@@ -32,20 +32,20 @@
               }
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/ag-grid-community/styles/ag-grid.css",
-              "node_modules/ag-grid-community/styles/ag-theme-alpine.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-              "node_modules/admin-lte/dist/css/adminlte.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ag-grid-community/styles/ag-grid.css",
+              "./node_modules/ag-grid-community/styles/ag-theme-alpine.css",
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "./node_modules/admin-lte/dist/css/adminlte.min.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
-              "node_modules/admin-lte/dist/js/adminlte.min.js",
-              "node_modules/pdfmake/build/pdfmake.js",
-              "node_modules/pdfmake/build/vfs_fonts.js"
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+              "./node_modules/admin-lte/dist/js/adminlte.min.js",
+              "./node_modules/pdfmake/build/pdfmake.js",
+              "./node_modules/pdfmake/build/vfs_fonts.js"
             ]
           },
           "configurations": {

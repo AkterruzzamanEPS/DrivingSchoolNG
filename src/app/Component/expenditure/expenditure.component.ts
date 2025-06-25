@@ -9,6 +9,7 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { PdfService } from '../../Shared/Service/pdf.service';
 
 @Component({
   selector: 'app-expenditure',
@@ -27,6 +28,8 @@ export class ExpenditureComponent implements OnInit {
   public oExpenditureFilterRequestDto = new ExpenditureFilterRequestDto();
   public oExpenditureRequestDto = new ExpenditureRequestDto();
 
+  public result: any[][] = [];
+
   public startDate: any;
   public endDate: any;
   public ExpenditureId = 0;
@@ -40,15 +43,16 @@ export class ExpenditureComponent implements OnInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'createdDate', width: 150, headerName: 'Date', filter: true,
-       valueGetter: (params: any) => this.datePipe.transform(params.data.createdDate, 'MMM d, y')
-     },
+    {
+      field: 'createdDate', width: 150, headerName: 'Date', filter: true,
+      valueGetter: (params: any) => this.datePipe.transform(params.data.createdDate, 'MMM d, y')
+    },
     { field: 'name', width: 150, headerName: 'Expenditure', filter: true },
     { field: 'expenditureHeadName', width: 150, headerName: 'Head', filter: true },
     { field: 'amount', width: 150, headerName: 'Amount', filter: true },
     { field: 'remarks', headerName: 'Remarks' },
     { field: '', headerName: '', width: 80, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
-    { field: '', headerName: '', width:80, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
+    { field: '', headerName: '', width: 80, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
   ];
   trackByFn: TrackByFunction<any> | any;
   trackByExpenditure: TrackByFunction<any> | any;
@@ -58,6 +62,7 @@ export class ExpenditureComponent implements OnInit {
     private toast: ToastrService,
     private http: HttpHelperService,
     private router: Router,
+    private pdfService: PdfService,
     private cdr: ChangeDetectorRef,// <-- Inject here
     private datePipe: DatePipe) {
     const today = new Date();
@@ -75,6 +80,11 @@ export class ExpenditureComponent implements OnInit {
     this.rowData = [];
   }
 
+  onBtnExport() {
+    this.ExpenditureGridApi.exportDataAsCsv();
+  }
+
+
   editToGrid(params: any) {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
@@ -88,7 +98,7 @@ export class ExpenditureComponent implements OnInit {
     eDiv.innerHTML = '<button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i> Delete</button>'
     eDiv.addEventListener('click', () => {
       this.ExpenditureId = Number(params.data.id);
-       this.cdr.detectChanges(); // 👈 Force change detection
+      this.cdr.detectChanges(); // 👈 Force change detection
       CommonHelper.CommonButtonClick("openCommonDelete");
     });
     return eDiv;
@@ -113,6 +123,7 @@ export class ExpenditureComponent implements OnInit {
         this.hasNextPage = res.hasNextPage;
         this.totalPageNumbers = CommonHelper.generateNumbers(this.pageIndex, this.totalPages)
         this.ExpenditureGridApi.sizeColumnsToFit();
+        this.ColumnDefinationSetUp(res.items);
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -175,6 +186,121 @@ export class ExpenditureComponent implements OnInit {
     }
   }
 
+
+  private ColumnDefinationSetUp(res: any[]) {
+    this.result = [];
+    let amount = 0;
+
+    if (res.length > 0) {
+      res.forEach((item: any, index: number) => {
+
+        amount += Number(item.amount);
+        const row: any[] = [
+          { text: index + 1, style: 'tableTextCenter' },
+          { text: this.datePipe.transform(item.createdDate, 'dd/MM/yyyy'), style: 'tableTextLeft' },
+          { text: item.name, style: 'tableTextLeft' },
+          { text: item.expenditureHeadName, style: 'tableTextLeft' },
+          { text: item.amount.toFixed(2), style: 'tableTextRight' },
+          { text: item.remarks, style: 'tableTextRight' },
+          { text: '', style: 'tableTextRight' },
+          { text: '', style: 'tableTextRight' },
+        ];
+        this.result.push(row);
+      });
+
+      // Header Row with Merged Columns for "Recharge History"
+      this.result.unshift([
+        { text: 'Serial No', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Date', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Name', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Head Name', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Total Amount', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Remarks ', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Remaining ', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Comment', style: 'tableColumnHeader', alignment: 'center' },
+      ]);
+
+      // Add footer row for totals
+      this.result.push([
+        { text: 'Total', style: 'tableColumnHeader', colSpan: 4, alignment: 'right' }, {}, {}, {},
+        { text: amount.toFixed(2), style: 'tableTextRight', alignment: 'right' },
+        { text: '', style: 'tableTextRight', alignment: 'right' },
+        { text: '', style: 'tableTextRight', alignment: 'right' },
+        {},
+      ]);
+
+    }
+
+
+  }
+
+  PDFGenerate() {
+
+    let title = "Expenditure Head Summary";
+    const documentDefinition = {
+      pageMargins: [20, 70, 20, 30], // [left, top, right, bottom]
+
+      content: [
+        { text: '\n' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [45, 45, '*', 50, 50, 50, 50, 45],
+            body: this.result,
+          },
+        },
+        { text: '\n' },
+      ],
+
+      styles: {
+        mainHeader: { fontSize: 14, bold: true, alignment: 'center' },
+        subHeader: { fontSize: 11, bold: true, margin: [0, 5, 0, 5] },
+        bodyText: { fontSize: 10, margin: [0, 1, 0, 1] },
+        tableColumnHeader: { bold: true, alignment: 'center', fontSize: 9 },
+        tableTextLeft: { alignment: 'left', fontSize: 8 },
+        tableTextCenter: { alignment: 'center', fontSize: 8 },
+        tableTextRight: { alignment: 'right', fontSize: 8 },
+        tableHeader: { bold: true, fillColor: '#e7e7e7', alignment: 'center', fontSize: 9 },
+      },
+
+      header: {
+        columns: [
+          {
+            stack: [
+              { text: title, style: { fontSize: 12, bold: true, alignment: 'center' } },
+              { text: '\nOnline Expenditure History\n', style: { fontSize: 10, bold: true, alignment: 'center' } },
+              { text: `From ${this.datePipe.transform(new Date(), 'MMMM d, y')} To ${this.datePipe.transform(new Date(), 'MMMM d, y')}`, style: { fontSize: 9, bold: true, alignment: 'center' } },
+
+            ],
+            alignment: 'center',
+            margin: [0, 20, 0, 10],
+          }
+        ],
+        canvas: [
+          {
+            type: 'line',
+            x1: 10,
+            y1: 10,
+            x2: 580,
+            y2: 10,
+            lineWidth: 1,
+            lineColor: 'black',
+          },
+        ],
+      },
+
+      footer: function (currentPage: number, pageCount: number) {
+        return {
+          text: `Software developed by: FawTime.`,
+          alignment: 'center',
+          margin: [0, 10, 0, 0]
+        };
+      }
+    };
+
+    // Generate PDF using pdfMake
+    this.pdfService.generatePdf(documentDefinition);
+  }
 
 }
 

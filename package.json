@@ -31,7 +31,7 @@
     "http-server": "^14.1.1",
     "jquery": "^3.7.1",
     "ngx-toastr": "^19.0.0",
-    "pdfmake": "^0.2.18",
+    "pdfmake": "^0.2.20",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -41,6 +41,7 @@
     "@angular/cli": "^18.1.2",
     "@angular/compiler-cli": "^18.1.0",
     "@types/jasmine": "~5.1.0",
+    "@types/pdfmake": "^0.2.11",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
