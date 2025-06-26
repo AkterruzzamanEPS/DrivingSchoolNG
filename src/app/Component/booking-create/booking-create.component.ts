@@ -77,7 +77,7 @@ export class BookingCreateComponent implements OnInit, AfterViewInit {
 
   public colDefsBookingSlot: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'date', width: 150, headerName: 'Class Date', filter: true },
+    { field: 'date', width: 150, headerName: 'Lesson Date', filter: true },
     { field: 'day', width: 150, headerName: 'Day', filter: true },
     { field: 'slotName', headerName: 'Slot' },
     { field: 'startTime', headerName: 'Start Time' },

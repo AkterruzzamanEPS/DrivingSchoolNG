@@ -50,16 +50,15 @@ export class BookingComponent implements OnInit, AfterViewInit {
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'userName', width: 150, headerName: 'Student Name', filter: true },
     { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
-    { field: 'vehicleName', width: 150, headerName: 'Vehicle Name', filter: true },
-    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
     {
-      field: 'classDate', width: 150, headerName: 'class Date', filter: true,
+      field: 'classDate', width: 150, headerName: 'Lesson Date', filter: true,
       valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'MMM d, y')
     },
     {
       field: 'classDate', width: 150, headerName: 'Day', filter: true,
       valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'EEEE')
     },
+    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
     { field: 'startTime', headerName: 'Start Time' },
     { field: 'endTime', headerName: 'End Time' },
     { field: 'statusName', headerName: 'Status' },
@@ -135,7 +134,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
     return eDiv;
   }
 
-   detailToGrid(params: any) {
+  detailToGrid(params: any) {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Detail</button>'
     eDiv.addEventListener('click', () => {

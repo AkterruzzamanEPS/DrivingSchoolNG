@@ -1,119 +1,128 @@
 <div class="card">
     <div class="card-header">
-        <h1 class="card-title fs-5" id="examplecardLabel">Student Booking Slot Assignment
+        <h1 class="card-title fs-5" id="examplecardLabel">Student Lesson Assignment
         </h1>
     </div>
     <div class="card-body">
         <div class="row g-0">
+            <!-- Left Section: Form -->
             <div class="col-md-8">
                 <div class="row g-0">
 
-                    <div class="col-md-4 px-2 px-1">
+                    <!-- Section: Student Info -->
+                    <div class="col-12 px-2 mb-3">
+                        <h5 class="border-bottom pb-1">Student Info</h5>
+                    </div>
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="studentId" class="form-label">Student</label>
-                            <select class="form-select" disabled="true" [(ngModel)]="oBookingAssignRequestDto.studentId"
-                                name="studentId" aria-label="Default select example">
+                            <label class="form-label">Student</label>
+                            <select class="form-select" disabled [(ngModel)]="oBookingAssignRequestDto.studentId"
+                                name="studentId">
                                 <option value="">-- select student -- </option>
-                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">
-                                    {{ item.name }}
-                                </option>
+                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">{{
+                                    item.name }}</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-4 px-2 px-1">
+                    <!-- Section: Booking Info -->
+                    <div class="col-12 px-2 mb-3 mt-3">
+                        <h5 class="border-bottom pb-1">Booking Info</h5>
+                    </div>
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="slotId" class="form-label">Slot</label>
-                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId"
-                                aria-label="Default select example">
+                            <label class="form-label">Slot</label>
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId">
                                 <option value="0">-- select slot -- </option>
-                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
-                                    {{ item.name }}
-                                </option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">{{
+                                    item.name }}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4 px-2 px-1">
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="instructorId" class="form-label">Instructor</label>
+                            <label class="form-label">Instructor</label>
                             <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.instructorId"
-                                name="instructorId" aria-label="Default select example">
+                                name="instructorId">
                                 <option value="0">-- select instructor -- </option>
                                 <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
-                                    [value]="item.id">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4 px-2 px-1">
-                        <div class="mb-2">
-                            <label for="vehicleId" class="form-label">Vehicle</label>
-                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.vehicleId"
-                                name="vehicleId" aria-label="Default select example">
-                                <option value="0">-- select vehicle -- </option>
-                                <option *ngFor="let item of vehicleList; trackBy: trackByvehicleFrom" [value]="item.id">
-                                    {{ item.make }}
-                                </option>
+                                    [value]="item.id">{{ item.name }}</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-4 px-2 px-1">
-                        <div class="mb-2">
-                            <label for="purchaseDate" class="form-label">Purchase Date</label>
-                            <input type="date" class="form-control" [(ngModel)]="purchaseDate" name="purchaseDate">
-                        </div>
+                    <!-- Section: Dates -->
+                    <div class="col-12 px-2 mb-3 mt-3">
+                        <h5 class="border-bottom pb-1">Schedule Info</h5>
                     </div>
-                    <div class="col-md-4 px-2 px-1">
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="packageStartDate" class="form-label">Package Start Date</label>
+                            <label class="form-label">Package Start Date</label>
                             <input type="date" class="form-control" [(ngModel)]="packageStartDate"
                                 name="packageStartDate">
                         </div>
                     </div>
-                    <div class="col-md-4 px-2 px-1">
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <label class="form-label">Expiry Date</label>
                             <input type="date" class="form-control" [(ngModel)]="expiryDate" name="expiryDate">
                         </div>
                     </div>
 
-                    <div class="col-md-4 px-2 px-1">
+                    <!-- Section: Package Info -->
+                    <div class="col-12 px-2 mb-3 mt-3">
+                        <h5 class="border-bottom pb-1">Package Info</h5>
+                    </div>
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="expiryDate" class="form-label">Package Name</label>
-                            <input type="text" disabled="true" class="form-control"
-                                [(ngModel)]="oStudentResponseDto.packageName" name="expiryDate">
+                            <label class="form-label">Package Name</label>
+                            <input type="text" class="form-control" disabled
+                                [(ngModel)]="oStudentResponseDto.packageName">
                         </div>
                     </div>
-                    <div class="col-md-4 px-2 px-1">
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="durationInDays" class="form-label">Duration In Days</label>
-                            <input type="text" disabled="true" class="form-control"
-                                [(ngModel)]="oStudentResponseDto.durationInDays" name="durationInDays">
+                            <label class="form-label">Duration In Days</label>
+                            <input type="text" class="form-control" disabled
+                                [(ngModel)]="oStudentResponseDto.durationInDays">
                         </div>
                     </div>
-                    <div class="col-md-4 px-2 px-1">
+
+                    <div class="col-md-4 px-2">
                         <div class="mb-2">
-                            <label for="totalLessons" class="form-label">Total Lessons</label>
-                            <input type="text" disabled="true" class="form-control"
-                                [(ngModel)]="oStudentResponseDto.totalLessons" name="totalLessons">
+                            <label class="form-label">Total Lessons</label>
+                            <input type="text" class="form-control" disabled
+                                [(ngModel)]="oStudentResponseDto.totalLessons">
                         </div>
                     </div>
-                    <div class="col-md-8 px-2 mb-3">
-                        <label for="remarks" class="form-label">Remarks</label>
-                        <textarea class="form-control" name="remarks" [(ngModel)]="oBookingAssignRequestDto.remarks"
-                            id="remarks" rows="3"></textarea>
+
+                    <!-- Section: Remarks -->
+                    <div class="col-12 px-2 mt-3">
+                        <h5 class="border-bottom pb-1">Remarks</h5>
+                        <textarea class="form-control" rows="3"
+                            [(ngModel)]="oBookingAssignRequestDto.remarks"></textarea>
                     </div>
+
                 </div>
             </div>
+
+            <!-- Right Section: Grid -->
             <div class="col-md-4">
-                <ag-grid-angular class="ag-theme-alpine" style="height: 48vh;width: 100%;" [columnDefs]="colDefsDay"
-                    [rowData]="rowDataDay" [rowSelection]="'multiple'" (gridReady)="onGridReadyDay($event)"
-                    [defaultColDef]="DeafultCol">
+                <h5 class="border-bottom pb-1">Schedule Table</h5>
+                <ag-grid-angular class="ag-theme-alpine" style="height: 48vh; width: 100%;" [columnDefs]="colDefsDay"
+                    [rowData]="rowDataDay" [rowSelection]="'multiple'" [defaultColDef]="DeafultCol"
+                    (gridReady)="onGridReadyDay($event)">
                 </ag-grid-angular>
             </div>
         </div>
+
 
     </div>
     <div class="card-footer text-end">
@@ -137,7 +146,7 @@
         </ag-grid-angular>
     </div>
     <div class="col-md-12 text-end">
-         <button type="button" class="btn btn-success" (click)="ConfirmBookingSlot()">Confirm</button>
+        <button type="button" class="btn btn-success" (click)="ConfirmBookingSlot()">Confirm</button>
     </div>
 </div>
 

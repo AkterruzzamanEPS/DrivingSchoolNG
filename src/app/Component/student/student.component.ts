@@ -41,15 +41,11 @@ export class StudentComponent implements OnInit {
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'name', width: 150, headerName: 'Name', filter: true },
-    { field: 'email', width: 150, headerName: 'Email', filter: true },
     { field: 'phone', width: 150, headerName: 'Phone', filter: true },
-    { field: 'postalCode', width: 150, headerName: 'Postal Code', filter: true },
-    { field: 'dateOfBirth', width: 150, headerName: 'Date Of Birth', filter: true },
-    { field: 'vehicleTypeName', width: 150, headerName: 'VehicleType', filter: true },
+    { field: 'packageName', width: 150, headerName: 'Package', filter: true },
+    { field: 'totalLessons', width: 150, headerName: 'Lessons', filter: true },
     { field: 'learningStageName', width: 150, headerName: 'Learning Stage', filter: true },
     { field: 'address', width: 150, headerName: 'Address', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
-    { field: 'isActive', headerName: 'Status' },
     { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
   ];
   trackByFn: TrackByFunction<any> | any;
@@ -79,7 +75,7 @@ export class StudentComponent implements OnInit {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Slot Assign</button>'
     eDiv.addEventListener('click', () => {
-      this.router.navigateByUrl('admin/booking/' + params.data.id)
+      this.router.navigateByUrl('admin/lesson/' + params.data.id)
     });
     return eDiv;
   }
