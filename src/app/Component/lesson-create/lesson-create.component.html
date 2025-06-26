@@ -1,0 +1,103 @@
+<div class="card card-warning card-outline mb-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Student Lesson Assignment</h5>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <!-- Left Section: Form -->
+            <div class="col-md-12">
+
+                <!-- Student Info -->
+                <div class="mb-4">
+                    <h6 class="text-primary border-bottom pb-2">Student Info</h6>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Student</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" (change)="changeStuden($event)"
+                                [(ngModel)]="oBookingAssignRequestDto.studentId" name="studentId">
+                                <option value="0">-- Select student --</option>
+                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">{{
+                                    item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Info -->
+                <div class="mb-4">
+                    <h6 class="text-primary border-bottom pb-2">Booking Info</h6>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Slot</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId">
+                                <option value="0">-- Select slot --</option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">{{
+                                    item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Instructor</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.instructorId"
+                                name="instructorId">
+                                <option value="0">-- Select instructor --</option>
+                                <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
+                                    [value]="item.id">{{ item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule Info -->
+                <div class="mb-4">
+                    <h6 class="text-primary border-bottom pb-2">Schedule Info</h6>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Lesson Date</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" [(ngModel)]="packageStartDate"
+                                name="packageStartDate">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Package Info -->
+                <div class="mb-4">
+                    <h6 class="text-primary border-bottom pb-2">Package Info </h6>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Package Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" disabled
+                                [(ngModel)]="oStudentResponseDto.packageName">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Total Lessons</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" disabled
+                                [(ngModel)]="oStudentResponseDto.totalLessons">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Remarks -->
+                <div class="mb-4">
+                    <h6 class="text-primary border-bottom pb-2">Remarks</h6>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" rows="3" [(ngModel)]="oBookingAssignRequestDto.remarks"
+                                name="remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-end">
+        <button type="button" class="btn btn-warning me-2" (click)="InsertBooking()">Lesson Assign</button>
+    </div>
+</div>

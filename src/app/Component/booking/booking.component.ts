@@ -270,9 +270,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
 
   }
   add() {
-    CommonHelper.CommonButtonClick("openCommonModel");
-    this.oBookingRequestDto = new BookingRequestDto();
-    this.bookingId = 0;
+    this.router.navigateByUrl('/admin/lesson-atecre/' + 0)
   }
 
   edit() {

@@ -36,6 +36,7 @@ import { PackageCreateComponent } from './Component/package-create/package-creat
 import { SlotCreateComponent } from './Component/slot-create/slot-create.component';
 import { DueListComponent } from './Component/due-list/due-list.component';
 import { PaymentCollectionReportsComponent } from './Component/payment-collection-reports/payment-collection-reports.component';
+import { LessonCreateComponent } from './Component/lesson-create/lesson-create.component';
 
 export const routes: Routes = [
     {
@@ -71,6 +72,7 @@ export const routes: Routes = [
             { path: 'vehicle', component: VehicleComponent, title: 'Vehicle List' },
             { path: 'lesson', component: BookingComponent, title: 'Lesson List' },
             { path: 'lesson/:id', component: BookingCreateComponent, title: 'Lesson Create' },
+            { path: 'lesson-atecre/:id', component: LessonCreateComponent, title: 'Lesson Create' },
             { path: 'booking-process', component: BookingProcessComponent, title: 'Booking Process List' },
             { path: 'booking-reschedule', component: BookingRescheduleComponent, title: 'Booking Reschedule List' },
             { path: 'attendance', component: AttendanceComponent, title: 'Attendance List' },
