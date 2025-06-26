@@ -1,149 +1,99 @@
-<div class="row g-0 justify-content-center align-items-center">
-    <div class="col-12 my-3 pt-3 h-100">
-        <div class="card">
-            <div class="card-header text-center">
-                Registration
-            </div>
-            <div class="card-body">
-                <div class="row g-0">
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.fullName"
-                                name="fullName" placeholder="Please enter first name">
-                        </div>
-                    </div>
+<div class="card card-warning card-outline mb-4">
+  <div class="card-header text-center">
+    <h5 class="card-title mb-0">Registration Form</h5>
+  </div>
 
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="fullName" class="form-label">User Name</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.userName"
-                                name="fullName" placeholder="Please enter user name">
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.email"
-                                name="email" placeholder="Please enter email">
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="dateOfBirth" class="form-label">Date Of Birth</label>
-                            <input type="date" class="form-control" [(ngModel)]="oRegistrationRequestDto.dateOfBirth"
-                                name="dateOfBirth" placeholder="Please enter dateOfBirth">
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.phoneNumber"
-                                name="phoneNumber" placeholder="Please enter phone number">
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="postalCode" class="form-label">Postal Code</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.postalCode"
-                                name="postalCode" placeholder="Please enter phone number">
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" [(ngModel)]="oRegistrationRequestDto.gender" name="gender"
-                                aria-label="Default select example">
-                                <option value="Male">Male</option>
-                                <option value="Fimale">Fimale</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <div class="mb-2">
-                                <label for="packageId" class="form-label">Package</label>
-                                <select class="form-select" [(ngModel)]="oRegistrationRequestDto.packageId"
-                                    name="packageId" aria-label="Default select example">
-                                    <option value="0">-- select package -- </option>
-                                    <option *ngFor="let item of packageList; trackBy: trackByPackage" [value]="item.id">
-                                        {{ item.name }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="vehicleType" class="form-label">Vehicle Type</label>
-                            <select class="form-select" [(ngModel)]="oRegistrationRequestDto.vehicleType"
-                                name="vehicleType" aria-label="Default select example">
-                                <option value="1">Car</option>
-                                <option value="2">Motorcycle</option>
-                                <option value="3">Truck</option>
-                                <option value="4">Bus</option>
-                                <option value="5">Van</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="learningStage" class="form-label">Learning Stage</label>
-                            <select class="form-select" [(ngModel)]="oRegistrationRequestDto.learningStage"
-                                name="learningStage" aria-label="Default select example">
-                                <option value="0">Not Started</option>
-                                <option value="1">Introduction</option>
-                                <option value="2">Intermediate</option>
-                                <option value="3">Advanced</option>
-                                <option value="4">Mastered</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" [(ngModel)]="oRegistrationRequestDto.password"
-                                name="password" placeholder="Please enter password">
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="confirmPassword" class="form-control"
-                                [(ngModel)]="oRegistrationRequestDto.confirmPassword" name="confirmPassword"
-                                placeholder="Please enter confirm password">
-                        </div>
-                    </div>
-
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="amount" class="form-label">Amount</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.amount"
-                                name="amount" placeholder="Please enter amount">
-                        </div>
-                    </div>
-                    <div class="col-6 px-1">
-                        <div class="mb-2">
-                            <label for="paymentMethod" class="form-label">Payment Method</label>
-                            <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.paymentMethod"
-                                name="paymentMethod" placeholder="Please enter payment method">
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="card-footer text-center">
-
-                <button type="button" class="btn btn-primary" (click)="Registration()">Registration</button>
-
-            </div>
+  <form>
+    <div class="card-body">
+      <!-- Section: Personal Information -->
+      <h6 class="mb-3 text-primary">Personal Information</h6>
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Full Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.fullName" name="fullName" placeholder="Enter full name">
         </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Gender</label>
+        <div class="col-sm-9">
+          <select class="form-select" [(ngModel)]="oRegistrationRequestDto.gender" name="gender">
+            <option value="">-- Select gender --</option>
+            <option value="Male">Male</option>
+            <option value="Fimale">Fimale</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Date of Birth</label>
+        <div class="col-sm-9">
+          <input type="date" class="form-control" [(ngModel)]="oRegistrationRequestDto.dateOfBirth" name="dateOfBirth">
+        </div>
+      </div>
+
+      <!-- Section: Contact Details -->
+      <h6 class="mb-3 text-primary mt-4">Contact Details</h6>
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.email" name="email" placeholder="Enter email">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Phone Number</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.phoneNumber" name="phoneNumber" placeholder="Enter phone number">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Postal Code</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.postalCode" name="postalCode" placeholder="Enter postal code">
+        </div>
+      </div>
+
+      <!-- Section: Package & Vehicle -->
+      <h6 class="mb-3 text-primary mt-4">Package </h6>
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Package</label>
+        <div class="col-sm-9">
+          <select class="form-select" [(ngModel)]="oRegistrationRequestDto.packageId" name="packageId">
+            <option value="0">-- Select package --</option>
+            <option *ngFor="let item of packageList; trackBy: trackByPackage" [value]="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Learning Stage</label>
+        <div class="col-sm-9">
+          <select class="form-select" [(ngModel)]="oRegistrationRequestDto.learningStage" name="learningStage">
+            <option value="0">Not Started</option>
+            <option value="1">Introduction</option>
+            <option value="2">Intermediate</option>
+            <option value="3">Advanced</option>
+            <option value="4">Mastered</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section: Payment -->
+      <h6 class="mb-3 text-primary mt-4">Payment Info</h6>
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Amount</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.amount" name="amount" placeholder="Enter amount">
+        </div>
+      </div>
     </div>
+
+    <div class="card-footer text-end">
+      <button type="button" class="btn btn-warning me-2" (click)="Registration()">Register</button>
+      <button type="reset" class="btn btn-secondary">Reset</button>
+    </div>
+  </form>
 </div>

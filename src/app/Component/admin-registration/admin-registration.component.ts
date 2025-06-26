@@ -56,6 +56,10 @@ export class AdminRegistrationComponent implements OnInit {
       this.toast.warning("Please enter fullName", "Warning!!", { progressBar: true });
       return;
     }
+    if (this.oRegistrationRequestDto.packageId == 0) {
+      this.toast.warning("Please select package", "Warning!!", { progressBar: true });
+      return;
+    }
     if (this.oRegistrationRequestDto.email == "") {
       this.toast.warning("Please enter email", "Warning!!", { progressBar: true });
       return;
@@ -74,17 +78,10 @@ export class AdminRegistrationComponent implements OnInit {
       return;
     }
 
-    if (this.oRegistrationRequestDto.password == "") {
-      this.toast.warning("Please enter password", "Warning!!", { progressBar: true });
-      return;
-    }
-
-    if (this.oRegistrationRequestDto.confirmPassword == "") {
-      this.toast.warning("Please enter confirm password", "Warning!!", { progressBar: true });
-      return;
-    }
-
-    this.oRegistrationRequestDto.vehicleType = Number(this.oRegistrationRequestDto.vehicleType);
+    this.oRegistrationRequestDto.userName = this.oRegistrationRequestDto.email;
+    this.oRegistrationRequestDto.password ='123456';
+    this.oRegistrationRequestDto.confirmPassword = '123456';
+    this.oRegistrationRequestDto.vehicleType = Number(1);
     this.oRegistrationRequestDto.isFixed = CommonHelper.booleanConvert(this.oRegistrationRequestDto.isFixed);
     this.oRegistrationRequestDto.discount = Number(this.oRegistrationRequestDto.discount);
     this.oRegistrationRequestDto.fileId = Number(this.oRegistrationRequestDto.fileId);
