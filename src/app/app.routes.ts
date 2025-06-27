@@ -37,6 +37,8 @@ import { SlotCreateComponent } from './Component/slot-create/slot-create.compone
 import { DueListComponent } from './Component/due-list/due-list.component';
 import { PaymentCollectionReportsComponent } from './Component/payment-collection-reports/payment-collection-reports.component';
 import { LessonCreateComponent } from './Component/lesson-create/lesson-create.component';
+import { StudentDetailComponent } from './Component/student-detail/student-detail.component';
+import { PaymentCreateComponent } from './Component/payment-create/payment-create.component';
 
 export const routes: Routes = [
     {
