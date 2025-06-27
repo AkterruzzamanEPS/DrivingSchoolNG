@@ -51,12 +51,6 @@
         </div>
     </div>
 
-    <div class="col text-end">
-        <button class="btn btn-success mx-1" (click)="add()"> <i class="bi bi-plus"></i> Add</button>
-        <button class="btn btn-success mx-1" (click)="edit()"><i class="bi bi-pencil-square"></i> Edit</button>
-        <button class="btn btn-danger mx-1" (click)="delete()"><i class="bi bi-trash3"></i> Delete</button>
-    </div>
-
 
     <div class="col-md-12">
         <ag-grid-angular class="ag-theme-alpine" style="height: 70vh;width: 100%;" [columnDefs]="colDefsTransection"
@@ -236,27 +230,11 @@
             <div class="modal-body">
                  <div class="row g-0">
 
-                    <div class="col-md-6 px-2 ">
-                        <div class="mb-2">
-                            <label for="transactionDate" class="form-label">Transaction Date</label>
-                            <input type="date" class="form-control" [(ngModel)]="transactionDate"
-                                name="transactionDate">
-                        </div>
-                    </div>
-
                     <div class="col-md-6  px-2">
                         <div class="mb-2">
                             <label for="amount" class="form-label">Amount</label>
                             <input type="text" class="form-control" [(ngModel)]="oPaymentRequestDto.amount"
                                 name="amount">
-                        </div>
-                    </div>
-
-                    <div class="col-12 ">
-                        <div class="mb-2">
-                            <label for="paymentMethod" class="form-label">Payment Method</label>
-                            <input type="text" class="form-control" [(ngModel)]="oPaymentRequestDto.paymentMethod"
-                                name="paymentMethod">
                         </div>
                     </div>
 

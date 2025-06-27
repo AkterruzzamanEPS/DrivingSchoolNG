@@ -56,11 +56,9 @@ export class UserPackageComponent implements OnInit, AfterViewInit {
     { field: 'userName', width: 150, headerName: 'User', filter: true },
     { field: 'packageName', width: 150, headerName: 'Package Name', filter: true },
     { field: 'totalLessons', width: 150, headerName: 'Total Lessons', filter: true },
-    { field: 'durationInDays', width: 150, headerName: 'Duration In Days', filter: true },
     { field: 'price', width: 150, headerName: 'Fees', filter: true },
     { field: 'remaingAmount', width: 150, headerName: 'Remaing', filter: true },
     { field: 'paymentAmount', width: 150, headerName: 'Payment', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
     { field: 'paymentStatusName', headerName: 'Status' },
     { field: 'Payment', headerName: 'Payment', width: 100, pinned: "right", resizable: true, cellRenderer: this.PaymentDetailToGrid.bind(this) },
 
@@ -246,15 +244,9 @@ export class UserPackageComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    if (this.oPaymentRequestDto.paymentMethod == "") {
-      this.toast.warning("Please enter payment method", "Warning!!", { progressBar: true });
-      return;
-    }
-
-
     this.oPaymentRequestDto.packageId = Number(this.oPaymentRequestDto.packageId);
     this.oPaymentRequestDto.status = Number(1);
-    this.oPaymentRequestDto.transactionDate = new Date(this.transactionDate);
+    this.oPaymentRequestDto.transactionDate = new Date();
     this.oPaymentRequestDto.amount = Number(this.oPaymentRequestDto.amount);
     this.oPaymentRequestDto.isActive = true;
     // After the hash is generated, proceed with the API call

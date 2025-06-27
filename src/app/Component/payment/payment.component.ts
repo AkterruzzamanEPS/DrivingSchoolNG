@@ -50,7 +50,6 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'userName', width: 150, headerName: 'Name', filter: true },
     { field: 'packageName', width: 150, headerName: 'Package', filter: true },
-    { field: 'paymentMethod', width: 150, headerName: 'Payment Method', filter: true },
     { field: 'amount', headerName: 'Amount' },
     { field: 'transactionDate', headerName: 'Transaction Date' },
     { field: 'remarks', headerName: 'Remarks' },
