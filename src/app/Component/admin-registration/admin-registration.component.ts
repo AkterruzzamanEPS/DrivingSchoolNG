@@ -49,6 +49,10 @@ export class AdminRegistrationComponent implements OnInit {
 
   }
 
+   BackToList() {
+    this.router.navigateByUrl('admin/student')
+  }
+
 
   Registration() {
     this.oRegistrationRequestDto.fullName = this.oRegistrationRequestDto.fullName;
