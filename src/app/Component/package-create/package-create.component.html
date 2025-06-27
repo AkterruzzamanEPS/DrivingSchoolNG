@@ -44,12 +44,12 @@
         <!--begin::Footer-->
         <div class="card-footer">
             @if (PackageId==0){
-            <button type="button" class="btn btn-success" (click)="InsertPackage()">Save</button>
+            <button type="button" class="btn btn-success float-end" (click)="InsertPackage()">Save</button>
             }
             @if (PackageId>0){
-            <button type="button" class="btn btn-success" (click)="UpdatePackage()">Update</button>
+            <button type="button" class="btn btn-success float-end" (click)="UpdatePackage()">Update</button>
             }
-            <button type="submit" class="btn btn-secondary float-end" (click)="Reset()">Reset</button>
+            <button type="submit" class="btn btn-secondary" (click)="Reset()">Reset</button>
         </div>
         <!--end::Footer-->
     </form>
