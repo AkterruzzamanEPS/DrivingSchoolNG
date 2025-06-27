@@ -1,0 +1,68 @@
+<div class="card card-warning card-outline mb-4">
+    <!--begin::Header-->
+    <div class="card-header">
+        <span class="card-title h1">Expenditure Head</span> 
+         <button type="submit" class="btn btn-success float-end" (click)="BackToList()">Back To List</button>
+    </div>
+    <!--end::Header-->
+    <!--begin::Form-->
+    <form>
+        <!--begin::Body-->
+        <div class="card-body">
+            <div class="row mb-3">
+                <label for="userId" class="col-sm-2 col-form-label">Student</label>
+                <div class="col-sm-10">
+                    <select class="form-select" [(ngModel)]="oPaymentRequestDto.userId" name="userId"
+                                aria-label="Default select example">
+                                <option value="">-- select user -- </option>
+                                <option *ngFor="let item of userList; trackBy: trackByUser" [value]="item.id">
+                                    {{ item.fullName }}
+                                </option>
+                            </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="packageId" class="col-sm-2 col-form-label">Package</label>
+                <div class="col-sm-10">
+                   <select class="form-select" [(ngModel)]="oPaymentRequestDto.packageId" name="packageId"
+                                aria-label="Default select example">
+                                <option value="0">-- select package -- </option>
+                                <option *ngFor="let item of packageList; trackBy: trackByPackage"
+                                    [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="amount" class="col-sm-2 col-form-label">Amount</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="amount" [(ngModel)]="oPaymentRequestDto.amount"
+                        name="amount" />
+                </div>
+            </div>
+  
+            <div class="row mb-3">
+                <label for="remarks" class="col-sm-2 col-form-label">Remarks</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" name="remarks" [(ngModel)]="oPaymentRequestDto.remarks"
+                        id="remarks" rows="3"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <!--end::Body-->
+        <!--begin::Footer-->
+        <div class="card-footer">
+            @if (PaymentId==0){
+            <button type="button" class="btn btn-success float-end" (click)="InsertPayment()">Save</button>
+            }
+            @if (PaymentId>0){
+            <button type="button" class="btn btn-success float-end" (click)="UpdatePayment()">Update</button>
+            }
+            <button type="submit" class="btn btn-secondary " (click)="Reset()">Reset</button>
+        </div>
+        <!--end::Footer-->
+    </form>
+    <!--end::Form-->
+</div>

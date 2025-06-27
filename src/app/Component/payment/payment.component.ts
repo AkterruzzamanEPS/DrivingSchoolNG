@@ -24,10 +24,10 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   public DeafultCol = AGGridHelper.DeafultCol;
   public rowData!: any[];
 
-  public packageList: any[] = [];
   public packageFromList: any[] = [];
-
+  
   public statusList: any[] = [];
+  public packageList: any[] = [];
   public userList: any[] = [];
 
   public oPaymentRequestDto = new PaymentRequestDto();
@@ -119,8 +119,8 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     this.oPaymentFilterRequestDto.startDate = new Date(this.startDate);
     this.oPaymentFilterRequestDto.endDate = new Date(this.endDate);
     this.oPaymentFilterRequestDto.packageId = Number(this.oPaymentFilterRequestDto.packageId);
-    this.oPaymentFilterRequestDto.status = Number(this.oPaymentFilterRequestDto.status);
-    this.oPaymentFilterRequestDto.isActive = CommonHelper.booleanConvert(this.oPaymentFilterRequestDto.isActive);
+    this.oPaymentFilterRequestDto.status = 1;
+    this.oPaymentFilterRequestDto.isActive = true;
     // After the hash is generated, proceed with the API call
     this.http.Post(`Payment/GetPayment?pageNumber=${this.pageIndex}`, this.oPaymentFilterRequestDto).subscribe(
       (res: any) => {
@@ -215,9 +215,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
   }
   add() {
-    CommonHelper.CommonButtonClick("openCommonModel");
-    this.oPaymentRequestDto = new PaymentRequestDto();
-    this.paymentId = 0;
+    this.router.navigateByUrl('/admin/payment/' + 0)
   }
 
   edit() {
