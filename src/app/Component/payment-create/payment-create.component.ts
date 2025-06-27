@@ -56,7 +56,7 @@ export class PaymentCreateComponent implements OnInit {
     this.oPaymentRequestDto = new PaymentRequestDto();
   }
   BackToList() {
-    this.router.navigateByUrl('admin/head')
+    this.router.navigateByUrl('admin/payment')
   }
 
   private GetAspNetUsersByType() {
