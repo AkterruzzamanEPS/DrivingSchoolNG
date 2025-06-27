@@ -1,1 +1,115 @@
-<p>student-detail works!</p>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title fs-5" id="examplecardLabel">Student Details 
+        </h1>
+    </div>
+    <div class="card-body">
+        <div class="row g-0">
+            <!-- Left Section: Form -->
+            <div class="col-md-7">
+                <div class="row g-0">
+
+                    <!-- Section: Student Info -->
+                    <div class="col-12 px-2 mb-3">
+                        <h5 class="border-bottom pb-1">Student Info</h5>
+                    </div>
+
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Student</label>
+                            <select class="form-select" disabled [(ngModel)]="oBookingAssignRequestDto.studentId"
+                                name="studentId">
+                                <option value="">-- select student -- </option>
+                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">{{
+                                    item.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" disabled [(ngModel)]="oStudentResponseDto.email"
+                                name="email">
+                        </div>
+                    </div>
+                        
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Phone</label>
+                            <input type="phone" class="form-control" disabled [(ngModel)]="oStudentResponseDto.phone"
+                                name="phone">
+                        </div>
+                    </div>
+
+                       <div class="col-md-6 px-2">
+                        <div class="mb-2"> 
+                            <label class="form-label">Date Of Birth</label>
+                            <input type="date" class="form-control" disabled [(ngModel)]="DateofBirthDate"
+                                name="phone">
+                        </div>
+                    </div>
+
+                    <!-- Section: Booking Info -->
+                    <div class="col-12 px-2 mb-3 mt-3">
+                        <h5 class="border-bottom pb-1">Packege Info</h5>
+                    </div>
+
+                     <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Package</label>
+                             <input type="Package" class="form-control" disabled [(ngModel)]="oStudentResponseDto.packageName"
+                                name="Package">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Amount</label>
+                            <input type="Amount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.email"
+                                name="Amount">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Payemnt Amount</label>
+                            <input type="Amount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.email"
+                                name="Amount">
+                        </div>
+                    </div>
+                        
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
+                            <label class="form-label">Pending Amount</label>
+                            <input type="PendingAmount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.phone"
+                                name="PendingAmount">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section: Grid -->
+            <div class="col-md-5">
+                <h5 class="border-bottom pb-1">Payment Info</h5>
+                <ag-grid-angular class="ag-theme-alpine" style="height: 50vh; width: 100%;" [columnDefs]="colDefsPayment"
+                    [rowData]="rowData" [rowSelection]="'multiple'" [defaultColDef]="DeafultCol"
+                    (gridReady)="onGridReadyDay($event)">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row g-0">
+    <div class="col-md-12 my-2">
+        <ag-grid-angular class="ag-theme-alpine" style="height: 50vh;width: 100%;" [columnDefs]="colDefsBookingSlot"
+            [rowData]="rowDataBookingSlot" [rowSelection]="'single'" (gridReady)="onGridReadyBookingSlot($event)"
+            [defaultColDef]="DeafultCol">
+        </ag-grid-angular>
+    </div>
+    <div class="col-md-12 text-end">
+        <!-- <button type="button" class="btn btn-success" (click)="ConfirmBookingSlot()">Close</button> -->
+    </div>
+</div>

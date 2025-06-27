@@ -37,6 +37,7 @@ import { SlotCreateComponent } from './Component/slot-create/slot-create.compone
 import { DueListComponent } from './Component/due-list/due-list.component';
 import { PaymentCollectionReportsComponent } from './Component/payment-collection-reports/payment-collection-reports.component';
 import { LessonCreateComponent } from './Component/lesson-create/lesson-create.component';
+import { StudentDetailComponent } from './Component/student-detail/student-detail.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +57,7 @@ export const routes: Routes = [
             { path: 'appointment', component: AppointmentComponent, title: 'Appointment List' },
             { path: 'instructor', component: InstructorComponent, title: 'Instructor List' },
             { path: 'student', component: StudentComponent, title: 'Student List' },
+            { path: 'student-detail/:id', component: StudentDetailComponent, title: 'Student Deatail' },
             { path: 'student-registration', component: AdminRegistrationComponent, title: 'Registration' },
             { path: 'payment', component: PaymentComponent, title: 'Payment List' },
             { path: 'package', component: PackageComponent, title: 'Package List' },

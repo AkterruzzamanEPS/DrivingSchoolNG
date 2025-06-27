@@ -46,7 +46,8 @@ export class StudentComponent implements OnInit {
     { field: 'totalLessons', width: 150, headerName: 'Lessons', filter: true },
     { field: 'learningStageName', width: 150, headerName: 'Learning Stage', filter: true },
     { field: 'address', width: 150, headerName: 'Address', filter: true },
-    { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
+    { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.SlotAssignToGrid.bind(this) },
+    { field: 'slotAssign', headerName: 'Detail', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
   ];
   trackByFn: TrackByFunction<any> | any;
   trackByUser: TrackByFunction<any> | any;
@@ -71,7 +72,7 @@ export class StudentComponent implements OnInit {
     this.rowData = [];
   }
 
-  detailToGrid(params: any) {
+  SlotAssignToGrid(params: any) {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Slot Assign</button>'
     eDiv.addEventListener('click', () => {
@@ -79,6 +80,16 @@ export class StudentComponent implements OnInit {
     });
     return eDiv;
   }
+  
+  detailToGrid(params: any) {
+    const eDiv = document.createElement('div');
+    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Detail</button>'
+    eDiv.addEventListener('click', () => {
+      this.router.navigateByUrl('admin/student-detail/' + params.data.id)
+    });
+    return eDiv;
+  }
+
 
   Filter() {
     this.GetStudent();
