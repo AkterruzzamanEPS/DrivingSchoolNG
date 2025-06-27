@@ -17,12 +17,8 @@
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Student</label>
-                            <select class="form-select" disabled [(ngModel)]="oBookingAssignRequestDto.studentId"
-                                name="studentId">
-                                <option value="">-- select student -- </option>
-                                <option *ngFor="let item of studentList; trackBy: trackByUser" [value]="item.id">{{
-                                    item.name }}</option>
-                            </select>
+                            <input type="phone" class="form-control" disabled [(ngModel)]="oStudentResponseDto.name"
+                                name="phone">
                         </div>
                     </div>
 
@@ -58,7 +54,7 @@
                      <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Package</label>
-                             <input type="Package" class="form-control" disabled [(ngModel)]="oStudentResponseDto.packageName"
+                             <input type="Package" class="form-control" disabled [(ngModel)]="oUserPackageResponse.packageName"
                                 name="Package">
                         </div>
                     </div>
@@ -66,7 +62,7 @@
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Amount</label>
-                            <input type="Amount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.email"
+                            <input type="Amount" class="form-control" disabled [(ngModel)]="oUserPackageResponse.price"
                                 name="Amount">
                         </div>
                     </div>
@@ -74,7 +70,7 @@
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Payemnt Amount</label>
-                            <input type="Amount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.email"
+                            <input type="Amount" class="form-control" disabled [(ngModel)]="oUserPackageResponse.paymentAmount"
                                 name="Amount">
                         </div>
                     </div>
@@ -82,7 +78,7 @@
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Pending Amount</label>
-                            <input type="PendingAmount" class="form-control" disabled [(ngModel)]="oStudentResponseDto.phone"
+                            <input type="PendingAmount" class="form-control" disabled [(ngModel)]="oUserPackageResponse.remaingAmount"
                                 name="PendingAmount">
                         </div>
                     </div>

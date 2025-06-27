@@ -5,10 +5,10 @@ import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
-import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { BookingAssignRequestDto, BookingFilterRequestDto, StudentResponseDto } from '../../Model/Booking';
 import { FormsModule } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
+import { ValueFormatterParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-student-detail',
@@ -31,6 +31,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   public oBookingAssignRequestDto = new BookingAssignRequestDto();
   public oBookingFilterRequestDto = new BookingFilterRequestDto();
   public oStudentResponseDto = new StudentResponseDto();
+  public oUserPackageResponse : any =  new Object();
 
   public purchaseDate: any = "";
   public DateofBirthDate: any = "";
@@ -71,8 +72,10 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
 
   public colDefsPayment: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true },
-    { field: 'PayemntDate', width: 150, headerName: 'Payment Date', filter: true },
-    { field: 'Amount', width: 150, headerName: 'Amount', filter: true },
+     { field: 'transactionDate', cellRenderer: (params: ValueFormatterParams) => {
+               return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
+             }, headerName: 'Payment Date' },
+    { field: 'amount', width: 150, headerName: 'Amount', filter: true },
   ];
 
   trackByFn: TrackByFunction<any> | any;
@@ -158,10 +161,10 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   }
 
   private GetUserPackageByStudentId() {
-    this.http.Get(`Student/GetUserPackageByStudentId/${this.studentId}`).subscribe(
+    this.http.Get(`UserPackage/GetUserPackageByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
-        this.oStudentResponseDto = res;
-        this.DateofBirthDate = this.datePipe.transform(this.oStudentResponseDto.dateOfBirth, 'yyyy-MM-dd');
+        this.oUserPackageResponse = res || {};
+        
         
       },
       (err) => {
@@ -172,10 +175,9 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   
 
   private GetBookingsByStudentId() {
-    this.http.Get(`Student/GetBookingByStudentId/${this.studentId}`).subscribe(
+    this.http.Get(`Booking/GetBookingByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
         this.rowDataBookingSlot = res || [];
-        this.bookingSlotGridApi.setRowData(this.rowDataBookingSlot);
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -184,10 +186,10 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   }
   
   private GetPaymentByStudentId() {
-    this.http.Get(`Student/GetPaymentByStudentId/${this.studentId}`).subscribe(
+    this.http.Get(`Payment/GetPaymentByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
         this.rowData = res || [];
-        this.dayGridApi.setRowData(this.rowData); 
+        console.log(this.rowData);
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
