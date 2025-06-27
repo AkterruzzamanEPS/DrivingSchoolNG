@@ -89,7 +89,7 @@
             <div class="col-md-5">
                 <h5 class="border-bottom pb-1">Payment Info</h5>
                 <ag-grid-angular class="ag-theme-alpine" style="height: 50vh; width: 100%;" [columnDefs]="colDefsPayment"
-                    [rowData]="rowData" [rowSelection]="'multiple'" [defaultColDef]="DeafultCol"
+                    [rowData]="rowData" [rowSelection]="'single'" [defaultColDef]="DeafultCol"
                     (gridReady)="onGridReadyDay($event)">
                 </ag-grid-angular>
             </div>

@@ -24,8 +24,8 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   private bookingSlotGridApi!: any;
   private dayGridApi!: any;
   public DeafultCol = AGGridHelper.DeafultCol;
-  public rowData!: any[];
-  public rowDataBookingSlot!: any[];
+  public rowData: any[] = [];
+  public rowDataBookingSlot: any[] = [];
   public studentList: any[] = [];
 
   public oBookingAssignRequestDto = new BookingAssignRequestDto();
@@ -74,7 +74,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   ];
 
   public colDefsPayment: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true },
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     {
       field: 'transactionDate', cellRenderer: (params: ValueFormatterParams) => {
         return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
@@ -103,7 +103,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.GetAllStudentes();
+    // this.GetAllStudentes();
   }
 
 
@@ -168,9 +168,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   private GetUserPackageByStudentId() {
     this.http.Get(`UserPackage/GetUserPackageByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
-        this.oUserPackageResponse = res || {};
-
-
+        this.oUserPackageResponse = res;
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -182,7 +180,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   private GetBookingsByStudentId() {
     this.http.Get(`Booking/GetBookingByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
-        this.rowDataBookingSlot = res || [];
+        this.rowDataBookingSlot = res;
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
