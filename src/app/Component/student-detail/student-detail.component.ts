@@ -27,11 +27,11 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
   public rowData!: any[];
   public rowDataBookingSlot!: any[];
   public studentList: any[] = [];
-  
+
   public oBookingAssignRequestDto = new BookingAssignRequestDto();
   public oBookingFilterRequestDto = new BookingFilterRequestDto();
   public oStudentResponseDto = new StudentResponseDto();
-  public oUserPackageResponse : any =  new Object();
+  public oUserPackageResponse: any = new Object();
 
   public purchaseDate: any = "";
   public DateofBirthDate: any = "";
@@ -63,8 +63,11 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
 
   public colDefsBookingSlot: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'date', width: 150, headerName: 'Lesson Date', filter: true },
-    { field: 'day', width: 150, headerName: 'Day', filter: true },
+    {
+      field: 'classDate', width: 150, headerName: 'Lesson Date', filter: true,
+      valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'dd MMM yyyy')
+    },
+    { field: 'classDate', width: 150, headerName: 'Day', filter: true, valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'EEEE') },
     { field: 'slotName', headerName: 'Slot' },
     { field: 'startTime', headerName: 'Start Time' },
     { field: 'endTime', headerName: 'End Time' },
@@ -72,9 +75,11 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
 
   public colDefsPayment: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true },
-     { field: 'transactionDate', cellRenderer: (params: ValueFormatterParams) => {
-               return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
-             }, headerName: 'Payment Date' },
+    {
+      field: 'transactionDate', cellRenderer: (params: ValueFormatterParams) => {
+        return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
+      }, headerName: 'Payment Date'
+    },
     { field: 'amount', width: 150, headerName: 'Amount', filter: true },
   ];
 
@@ -110,7 +115,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
       this.GetUserPackageByStudentId();
       this.GetBookingsByStudentId();
       this.GetPaymentByStudentId();
-    }    
+    }
   }
 
   private GetAllStudentes() {
@@ -152,7 +157,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
       (res: any) => {
         this.oStudentResponseDto = res;
         this.DateofBirthDate = this.datePipe.transform(this.oStudentResponseDto.dateOfBirth, 'yyyy-MM-dd');
-        
+
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -164,15 +169,15 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
     this.http.Get(`UserPackage/GetUserPackageByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
         this.oUserPackageResponse = res || {};
-        
-        
+
+
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
       }
     );
   }
-  
+
 
   private GetBookingsByStudentId() {
     this.http.Get(`Booking/GetBookingByStudentId/${this.studentId}`).subscribe(
@@ -184,7 +189,7 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  
+
   private GetPaymentByStudentId() {
     this.http.Get(`Payment/GetPaymentByStudentId/${this.studentId}`).subscribe(
       (res: any) => {
