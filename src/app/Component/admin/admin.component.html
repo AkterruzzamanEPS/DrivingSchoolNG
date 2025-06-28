@@ -265,12 +265,6 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a routerLink="/admin/user-package" class="nav-link" routerLinkActive="active">
-                                        <i class="nav-icon bi bi-journal-check"></i>
-                                        <p>Package Confirmation</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a routerLink="/admin/lesson" class="nav-link" routerLinkActive="active">
                                         <i class="nav-icon bi bi-journal-check"></i>
                                         <p>Lesson List</p>
@@ -317,6 +311,12 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a routerLink="/admin/head" class="nav-link" routerLinkActive="active">
+                                        <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
+                                        <p>Expenditure Head</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -329,37 +329,32 @@
                             <a href="#" class="nav-link" [class.active]="bookingOpen" (click)="toggleBooking($event)">
                                 <i class="nav-icon bi bi-journal-check"></i>
                                 <p>
-                                    Booking
+                                    Lesson
                                     <i class="nav-arrow bi"
                                         [ngClass]="bookingOpen ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview" [style.display]="bookingOpen ? 'block' : 'none'">
-                                <li class="nav-item">
-                                    <a routerLink="/admin/booking" class="nav-link" routerLinkActive="active">
-                                        <i class="nav-icon bi bi-journal-check"></i>
-                                        <p>Booking List</p>
-                                    </a>
-                                </li>
+
 
                                 <li class="nav-item">
                                     <a routerLink="/admin/booking-process" class="nav-link" routerLinkActive="active">
                                         <i class="nav-icon bi bi-journal-check"></i>
-                                        <p>Booking Process</p>
+                                        <p>Lesson Process</p>
                                     </a>
                                 </li>
 
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a routerLink="/admin/booking-reschedule" class="nav-link"
                                         routerLinkActive="active">
                                         <i class="nav-icon bi bi-arrow-repeat"></i>
                                         <p>Reschedule</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a routerLink="/admin/user-package" class="nav-link" routerLinkActive="active">
                                         <i class="nav-icon bi bi-briefcase-fill"></i>
-                                        <p>User Package</p>
+                                        <p>Lesson Report</p>
                                     </a>
                                 </li>
                             </ul>
@@ -390,12 +385,7 @@
                                         <p>Expenditure</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a routerLink="/admin/head" class="nav-link" routerLinkActive="active">
-                                        <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
-                                        <p>Expenditure Head</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 

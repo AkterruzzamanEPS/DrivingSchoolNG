@@ -49,7 +49,7 @@ export class AdminRegistrationComponent implements OnInit {
 
   }
 
-   BackToList() {
+  BackToList() {
     this.router.navigateByUrl('admin/student')
   }
 
@@ -83,10 +83,11 @@ export class AdminRegistrationComponent implements OnInit {
     }
 
     this.oRegistrationRequestDto.userName = this.oRegistrationRequestDto.email;
-    this.oRegistrationRequestDto.password ='123456';
+    this.oRegistrationRequestDto.password = '123456';
     this.oRegistrationRequestDto.confirmPassword = '123456';
     this.oRegistrationRequestDto.vehicleType = Number(1);
     this.oRegistrationRequestDto.isFixed = CommonHelper.booleanConvert(this.oRegistrationRequestDto.isFixed);
+    this.oRegistrationRequestDto.amount = Number(this.oRegistrationRequestDto.amount);
     this.oRegistrationRequestDto.discount = Number(this.oRegistrationRequestDto.discount);
     this.oRegistrationRequestDto.fileId = Number(this.oRegistrationRequestDto.fileId);
     this.oRegistrationRequestDto.type = Number(4);

@@ -1,7 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <h1 class="card-title fs-5" id="examplecardLabel">Student Details 
+        <h1 class="card-title fs-5" id="examplecardLabel">Student Details
         </h1>
+        <button type="button" class="btn btn-secondary float-end" (click)="BackToList()">Back To List</button>
     </div>
     <div class="card-body">
         <div class="row g-0">
@@ -29,7 +30,7 @@
                                 name="email">
                         </div>
                     </div>
-                        
+
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Phone</label>
@@ -38,11 +39,10 @@
                         </div>
                     </div>
 
-                       <div class="col-md-6 px-2">
-                        <div class="mb-2"> 
+                    <div class="col-md-6 px-2">
+                        <div class="mb-2">
                             <label class="form-label">Date Of Birth</label>
-                            <input type="date" class="form-control" disabled [(ngModel)]="DateofBirthDate"
-                                name="phone">
+                            <input type="date" class="form-control" disabled [(ngModel)]="DateofBirthDate" name="phone">
                         </div>
                     </div>
 
@@ -51,11 +51,11 @@
                         <h5 class="border-bottom pb-1">Packege Info</h5>
                     </div>
 
-                     <div class="col-md-6 px-2">
+                    <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Package</label>
-                             <input type="Package" class="form-control" disabled [(ngModel)]="oUserPackageResponse.packageName"
-                                name="Package">
+                            <input type="Package" class="form-control" disabled
+                                [(ngModel)]="oUserPackageResponse.packageName" name="Package">
                         </div>
                     </div>
 
@@ -66,20 +66,20 @@
                                 name="Amount">
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Payemnt Amount</label>
-                            <input type="Amount" class="form-control" disabled [(ngModel)]="oUserPackageResponse.paymentAmount"
-                                name="Amount">
+                            <input type="Amount" class="form-control" disabled
+                                [(ngModel)]="oUserPackageResponse.paymentAmount" name="Amount">
                         </div>
                     </div>
-                        
+
                     <div class="col-md-6 px-2">
                         <div class="mb-2">
                             <label class="form-label">Pending Amount</label>
-                            <input type="PendingAmount" class="form-control" disabled [(ngModel)]="oUserPackageResponse.remaingAmount"
-                                name="PendingAmount">
+                            <input type="PendingAmount" class="form-control" disabled
+                                [(ngModel)]="oUserPackageResponse.remaingAmount" name="PendingAmount">
                         </div>
                     </div>
                 </div>
@@ -88,9 +88,9 @@
             <!-- Right Section: Grid -->
             <div class="col-md-5">
                 <h5 class="border-bottom pb-1">Payment Info</h5>
-                <ag-grid-angular class="ag-theme-alpine" style="height: 50vh; width: 100%;" [columnDefs]="colDefsPayment"
-                    [rowData]="rowData" [rowSelection]="'single'" [defaultColDef]="DeafultCol"
-                    (gridReady)="onGridReadyDay($event)">
+                <ag-grid-angular class="ag-theme-alpine" style="height: 50vh; width: 100%;"
+                    [columnDefs]="colDefsPayment" [rowData]="rowData" [rowSelection]="'single'"
+                    [defaultColDef]="DeafultCol" (gridReady)="onGridReadyDay($event)">
                 </ag-grid-angular>
             </div>
         </div>

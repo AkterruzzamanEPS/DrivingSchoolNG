@@ -59,7 +59,7 @@ export class UserPackageComponent implements OnInit, AfterViewInit {
     { field: 'price', width: 150, headerName: 'Fees', filter: true },
     { field: 'remaingAmount', width: 150, headerName: 'Remaing', filter: true },
     { field: 'paymentAmount', width: 150, headerName: 'Payment', filter: true },
-    { field: 'paymentStatusName', headerName: 'Status' },
+    // { field: 'paymentStatusName', headerName: 'Status' },
     { field: 'Payment', headerName: 'Payment', width: 100, pinned: "right", resizable: true, cellRenderer: this.PaymentDetailToGrid.bind(this) },
 
   ];

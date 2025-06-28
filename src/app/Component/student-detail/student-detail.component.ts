@@ -118,6 +118,11 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
+  
+  BackToList() {
+    this.router.navigateByUrl('admin/student')
+  }
+
   private GetAllStudentes() {
     // After the hash is generated, proceed with the API call
     this.http.Get(`Student/GetAllStudentes`).subscribe(

@@ -40,6 +40,7 @@ export class StudentComponent implements OnInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
+    { field: 'studentIdNo', width: 150, headerName: 'IdNo', filter: true },
     { field: 'name', width: 150, headerName: 'Name', filter: true },
     { field: 'phone', width: 150, headerName: 'Phone', filter: true },
     { field: 'packageName', width: 150, headerName: 'Package', filter: true },

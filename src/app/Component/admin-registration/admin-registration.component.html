@@ -35,6 +35,14 @@
         </div>
       </div>
 
+      <div class="row mb-3">
+        <label for="address" class="col-sm-3 col-form-label">Address</label>
+        <div class="col-sm-9">
+          <textarea class="form-control" name="address" [(ngModel)]="oRegistrationRequestDto.address" id="address"
+            rows="2"></textarea>
+        </div>
+      </div>
+
       <!-- Section: Contact Details -->
       <h6 class="mb-3 text-primary mt-4">Contact Details</h6>
       <div class="row mb-3">
@@ -88,6 +96,7 @@
 
       <!-- Section: Payment -->
       <h6 class="mb-3 text-primary mt-4">Payment Info</h6>
+
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Amount</label>
         <div class="col-sm-9">
@@ -95,6 +104,14 @@
             placeholder="Enter amount">
         </div>
       </div>
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Discount Amount</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.discount" name="discount"
+            placeholder="Enter discount amount">
+        </div>
+      </div>
+
     </div>
 
     <div class="card-footer">
