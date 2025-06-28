@@ -89,7 +89,7 @@ export class PaymentCollectionReportsComponent implements OnInit, AfterViewInit 
     this.oPaymentFilterRequestDto.name = this.username;
     this.http.Post(`Payment/GetPayment?pageNumber=${this.pageIndex}`, this.oPaymentFilterRequestDto).subscribe(
       (res: any) => {
-        console.log(res);
+        console.log(res); 
         this.rowData = res.items;
         this.pageIndex = res.pageIndex;
         this.totalPages = res.totalPages;
