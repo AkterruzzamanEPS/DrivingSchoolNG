@@ -2,6 +2,7 @@ export class UserPackageFilterRequestDto {
 
     constructor() {
         this.name = '';
+        this.idNo = '';
         this.packageId = 0;
         this.startDate = new Date();
         this.endDate = new Date();
@@ -9,6 +10,7 @@ export class UserPackageFilterRequestDto {
         this.isActive = true;
     }
     public name: string;
+    public idNo: string;
     public packageId: number;
     public startDate: Date;
     public endDate: Date;

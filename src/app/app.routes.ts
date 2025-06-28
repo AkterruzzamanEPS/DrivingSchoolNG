@@ -39,6 +39,8 @@ import { PaymentCollectionReportsComponent } from './Component/payment-collectio
 import { LessonCreateComponent } from './Component/lesson-create/lesson-create.component';
 import { StudentDetailComponent } from './Component/student-detail/student-detail.component';
 import { PaymentCreateComponent } from './Component/payment-create/payment-create.component';
+import { ProfitAndLossComponent } from './Component/profit-and-loss/profit-and-loss.component';
+import { ProfitAndLossDetailComponent } from './Component/profit-and-loss-detail/profit-and-loss-detail.component';
 
 export const routes: Routes = [
     {
@@ -64,6 +66,8 @@ export const routes: Routes = [
             { path: 'payment/:id', component: PaymentCreateComponent, title: 'Payment Create' },
             { path: 'package', component: PackageComponent, title: 'Package List' },
             { path: 'due-list', component: DueListComponent, title: 'Due List' },
+            { path: 'profit-loss', component: ProfitAndLossComponent, title: 'Profit And Loss List' },
+            { path: 'profit-loss-detail', component: ProfitAndLossDetailComponent, title: 'Profit And Loss Detail List' },
             { path: 'payment-collection-list', component: PaymentCollectionReportsComponent, title: 'Payment Collection Report' },
             { path: 'package/:id', component: PackageCreateComponent, title: 'Package Create' },
             { path: 'slot', component: SlotComponent, title: 'Slot List' },

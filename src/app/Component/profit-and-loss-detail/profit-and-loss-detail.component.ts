@@ -1,24 +1,25 @@
+import { CommonModule, DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, TrackByFunction } from '@angular/core';
-import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
-import { UserPackageFilterRequestDto } from '../../Model/UserPackage';
-import { AuthService } from '../../Shared/Service/auth.service';
-import { ToastrService } from 'ngx-toastr';
-import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { FormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { UserPackageFilterRequestDto } from '../../Model/UserPackage';
+import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
+import { AuthService } from '../../Shared/Service/auth.service';
+import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 import { PdfService } from '../../Shared/Service/pdf.service';
+import { ValueFormatterParams } from 'ag-grid-community';
 
 @Component({
-  selector: 'app-due-list',
+  selector: 'app-profit-and-loss-detail',
   standalone: true,
   imports: [CommonModule, FormsModule, AgGridAngular],
-  templateUrl: './due-list.component.html',
-  styleUrl: './due-list.component.scss',
+  templateUrl: './profit-and-loss-detail.component.html',
+  styleUrl: './profit-and-loss-detail.component.scss',
   providers: [DatePipe]
 })
-export class DueListComponent implements OnInit, AfterViewInit {
+export class ProfitAndLossDetailComponent implements OnInit, AfterViewInit {
 
   private userpackageGridApi!: any;
   public DeafultCol = AGGridHelper.DeafultCol;
@@ -32,13 +33,15 @@ export class DueListComponent implements OnInit, AfterViewInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'StudentIdNo', width: 150, headerName: 'IdNo', filter: true },
-    { field: 'UserName', width: 150, headerName: 'Name', filter: true },
-    { field: 'PackageName', width: 150, headerName: 'Package Name', filter: true },
-    { field: 'TotalLessons', width: 150, headerName: 'Total Lessons', filter: true },
-    { field: 'Price', width: 150, headerName: 'Amount', filter: true },
-    { field: 'PaymentAmount', width: 150, headerName: 'Paid Amount', filter: true },
-    { field: 'RemaingAmount', width: 150, headerName: 'Due Amount', filter: true },
+    {
+      field: 'Date', width: 150, headerName: 'Date ', filter: true,
+      cellRenderer: (params: ValueFormatterParams) => {
+        return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
+      }
+    },
+    { field: 'Type', width: 150, headerName: 'Type ', filter: true },
+    { field: 'Description', width: 150, headerName: 'Description ', filter: true },
+    { field: 'Amount', width: 150, headerName: 'Amount', filter: true },
   ];
   trackByFn: TrackByFunction<any> | any;
   trackByUser: TrackByFunction<any> | any;
@@ -82,7 +85,7 @@ export class DueListComponent implements OnInit, AfterViewInit {
     this.oUserPackageFilterRequestDto.startDate = new Date(this.startDate);
     this.oUserPackageFilterRequestDto.endDate = new Date(this.endDate);
     // After the hash is generated, proceed with the API call
-    this.http.Post(`UserPackage/GetUserPackageDueList`, this.oUserPackageFilterRequestDto).subscribe(
+    this.http.Post(`UserPackage/GetProfitAndLossDetail`, this.oUserPackageFilterRequestDto).subscribe(
       (res: any) => {
         this.rowData = res;
         this.userpackageGridApi.sizeColumnsToFit();
@@ -102,27 +105,23 @@ export class DueListComponent implements OnInit, AfterViewInit {
 
   private ColumnDefinationSetUp(res: any[]) {
     this.result = [];
-    let TotalLessons = 0;
-    let Price = 0;
-    let PaymentAmount = 0;
-    let RemaingAmount = 0;
+
+    let TotalIncome = 0;
+    let TotalExpense = 0;
+    let ProfitOrLoss = 0;
 
     if (res.length > 0) {
       res.forEach((item: any, index: number) => {
 
-        TotalLessons += Number(item.TotalLessons);
-        Price += Number(item.Price);
-        PaymentAmount += Number(item.PaymentAmount);
-        RemaingAmount += Number(item.RemaingAmount);
+        TotalIncome += Number(item.TotalIncome);
+        TotalExpense += Number(item.TotalExpense);
+        ProfitOrLoss += Number(item.ProfitOrLoss);
         const row: any[] = [
           { text: index + 1, style: 'tableTextCenter' },
-          { text: item.StudentIdNo, style: 'tableTextLeft' },
-          { text: item.UserName, style: 'tableTextLeft' },
-          { text: item.PackageName, style: 'tableTextLeft' },
-          { text: item.TotalLessons.toFixed(2), style: 'tableTextRight' },
-          { text: item.Price, style: 'tableTextRight' },
-          { text: item.PaymentAmount, style: 'tableTextRight' },
-          { text: item.RemaingAmount, style: 'tableTextRight' },
+          { text: this.datePipe.transform(item.Date, 'dd/MM/yyyy'), style: 'tableTextLeft' },
+          { text: item.Type, style: 'tableTextRight' },
+          { text: item.Description, style: 'tableTextRight' },
+          { text: item.Amount.toFixed(2), style: 'tableTextRight' },
         ];
         this.result.push(row);
       });
@@ -130,22 +129,19 @@ export class DueListComponent implements OnInit, AfterViewInit {
       // Header Row with Merged Columns for "Recharge History"
       this.result.unshift([
         { text: 'SL No', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'ID No', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Name', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Package Name', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Total Lessons', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Amount ', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Payment Amount ', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Due Amount', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Date ', style: 'tableColumnHeader', alignment: 'left' },
+        { text: 'Type ', style: 'tableColumnHeader', alignment: 'left' },
+        { text: 'Description', style: 'tableColumnHeader', alignment: 'left' },
+        { text: 'Amount', style: 'tableColumnHeader', alignment: 'center' }
       ]);
 
       // Add footer row for totals
       this.result.push([
-        { text: 'Total', style: 'tableColumnHeader', colSpan: 4, alignment: 'right' }, {}, {},{},
-        { text: TotalLessons.toFixed(2), style: 'tableTextRight', alignment: 'right' },
-        { text: Price.toFixed(2), style: 'tableTextRight', alignment: 'right' },
-        { text: PaymentAmount.toFixed(2), style: 'tableTextRight', alignment: 'right' },
-        { text: RemaingAmount.toFixed(2), style: 'tableTextRight', alignment: 'right' },
+        { text: 'Total', style: 'tableColumnHeader', colSpan: 2, alignment: 'right' },
+        {},
+        {},
+        {},
+        { text: ProfitOrLoss.toFixed(2), style: 'tableTextRight', alignment: 'right' },
       ]);
 
     }
@@ -157,7 +153,7 @@ export class DueListComponent implements OnInit, AfterViewInit {
 
   PDFGenerate() {
 
-    let title = "Du Summary";
+    let title = "Profit And Loss Summary";
     const documentDefinition = {
       pageMargins: [20, 70, 20, 30], // [left, top, right, bottom]
 
@@ -166,7 +162,7 @@ export class DueListComponent implements OnInit, AfterViewInit {
         {
           table: {
             headerRows: 1,
-            widths: [45, 45, '*', 50, 50, 50, 50, 45],
+            widths: [45, 45, '*', '*', '*'],
             body: this.result,
           },
         },
@@ -189,7 +185,7 @@ export class DueListComponent implements OnInit, AfterViewInit {
           {
             stack: [
               { text: title, style: { fontSize: 12, bold: true, alignment: 'center' } },
-              { text: '\nDue List\n', style: { fontSize: 10, bold: true, alignment: 'center' } },
+              { text: '\nProfit And Loss List\n', style: { fontSize: 10, bold: true, alignment: 'center' } },
               { text: `From ${this.datePipe.transform(new Date(), 'MMMM d, y')} To ${this.datePipe.transform(new Date(), 'MMMM d, y')}`, style: { fontSize: 9, bold: true, alignment: 'center' } },
 
             ],
@@ -224,5 +220,7 @@ export class DueListComponent implements OnInit, AfterViewInit {
   }
 
 
+
 }
+
 

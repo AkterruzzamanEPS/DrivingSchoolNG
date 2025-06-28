@@ -9,6 +9,7 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { ValueFormatterParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-booking-process',
@@ -47,7 +48,9 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'classDate', headerName: 'Available Date' },
+    { field: 'classDate', headerName: 'Available Date',cellRenderer: (params: ValueFormatterParams) => {
+                return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
+              } },
     { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
     { field: 'vehicleName', width: 150, headerName: 'Vehicle Name', filter: true },
     { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },

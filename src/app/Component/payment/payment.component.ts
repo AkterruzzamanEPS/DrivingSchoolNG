@@ -9,6 +9,7 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { ValueFormatterParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-payment',
@@ -51,7 +52,9 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     { field: 'userName', width: 150, headerName: 'Name', filter: true },
     { field: 'packageName', width: 150, headerName: 'Package', filter: true },
     { field: 'amount', headerName: 'Amount' },
-    { field: 'transactionDate', headerName: 'Transaction Date' },
+    { field: 'transactionDate', headerName: 'Transaction Date' ,cellRenderer: (params: ValueFormatterParams) => {
+                return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
+              }},
     { field: 'remarks', headerName: 'Remarks' },
     { field: 'isActive', headerName: 'Status' },
   ];
