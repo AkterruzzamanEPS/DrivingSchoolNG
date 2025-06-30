@@ -99,31 +99,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-12 px-1">
-                        <div class="mb-2">
-                            <label for="instructorId" class="form-label">Instructor</label>
-                            <select class="form-select" [(ngModel)]="oBookingRequestDto.instructorId"
-                                name="instructorId" aria-label="Default select example">
-                                <option value="0">-- select instructor -- </option>
-                                <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
-                                    [value]="item.id">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 px-1">
-                        <div class="mb-2">
-                            <label for="vehicleId" class="form-label">Vehicle</label>
-                            <select class="form-select" [(ngModel)]="oBookingRequestDto.vehicleId" name="vehicleId"
-                                aria-label="Default select example">
-                                <option value="0">-- select vehicle -- </option>
-                                <option *ngFor="let item of vehicleList; trackBy: trackByvehicleFrom" [value]="item.id">
-                                    {{ item.make }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="col-12 px-1">
                         <div class="mb-2">

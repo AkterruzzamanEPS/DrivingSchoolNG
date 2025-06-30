@@ -1,18 +1,16 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { GridApi, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { ToastrService } from 'ngx-toastr';
 import { Holiday, OffDayDetailsDto, OffDayFormDto, OffDayProjectDto } from '../../Model/Holiday';
-import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 
 @Component({
   selector: 'app-calender',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.scss',
   providers: [DatePipe]
@@ -26,46 +24,44 @@ export class CalenderComponent implements OnInit {
   public modulename = "org"
   selectedDates: Holiday[] = [];
   da = new Date();
-  rowData = [];
-  rowClass: any;
-  private gridApi!: GridApi;
-  public domLayout: 'normal' | 'autoHeight' | 'print' = 'autoHeight';
-  public defaultColDef = AGGridHelper.DeafultCol;
-  // oOrgOffDayDetailsDto = new OrgOffDayDetailsDto();
+
   oOrgOffDayDetailsDto = new OffDayDetailsDto();
-  constructor(private service: HttpHelperService, private toast: ToastrService, private router: Router) { }
+  constructor(private http: HttpHelperService, private toast: ToastrService, private router: Router) { }
 
   year = 2023;
   month = 3;
   days: any[] = [];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  nTotalDay = 0;
-  nOffDay = 0;
-  nWorkingDay = 0;
-  // weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   offDayList = [];
   offDaySubmitList: any[] = [];
 
 
-  columnDefs1: ColDef[] = [
-    { field: 'monthName', headerName: 'Month Name', sortable: true, filter: true, cellStyle: { 'border-right': '0.5px solid silver' } },
-    { field: 'countOrgOffDay', headerName: 'No Of Off Day', sortable: true, filter: true },
-  ];
 
   ngOnInit() {
     const d = new Date();
     this.year = d.getFullYear();
     this.month = d.getMonth() + 1;
     this.days = this.generateDays(this.year, this.month);
+    this.GetMonthlySlotAvailability();
     this.dataSet();
-    this.nOffDay = this.selectedDates.length;
-    this.nTotalDay = new Date(this.year, this.month, 0).getDate();
-    this.nWorkingDay = this.nTotalDay - this.nOffDay;
     this.GetOrgOffDayDetails();// get data for dat
   }
 
+  private GetMonthlySlotAvailability() {
+    const startDate = `${this.year}-${('0' + this.month).slice(-2)}-01`;
+    // After the hash is generated, proceed with the API call
+    this.http.Get(`Booking/GetMonthlySlotAvailability?StartDate=${startDate}`).subscribe(
+      (res: any) => {
+        console.log(res);
+
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+
+  }
 
   GetOrgOffDayDetails() {
 
@@ -76,23 +72,17 @@ export class CalenderComponent implements OnInit {
       this.offDayDTO.offDayDepartmentId = 0;
       this.offDayDTO.offDayRelatedModule = this.modulename;
 
-      this.service.Get("this.offDayFormDto").subscribe(res => {
+      // this.service.Get("this.offDayFormDto").subscribe(res => {
 
-        this.oOrgOffDayDetailsDto = res as unknown as OffDayDetailsDto;
-        // this.gridApi.setRowData(this.oOrgOffDayDetailsDto.monthlyOffDayCountList)
+      //   this.oOrgOffDayDetailsDto = res as unknown as OffDayDetailsDto;
+      //   // this.gridApi.setRowData(this.oOrgOffDayDetailsDto.monthlyOffDayCountList)
 
-      }, (err) => {
-        this.oOrgOffDayDetailsDto = new OffDayDetailsDto();
-      });
+      // }, (err) => {
+      //   this.oOrgOffDayDetailsDto = new OffDayDetailsDto();
+      // });
     } catch (e) {
 
     }
-  }
-
-
-  onGridReady(params: GridReadyEvent) {
-    params.api.sizeColumnsToFit();
-    this.gridApi = params.api;
   }
 
   dataSet() {
@@ -117,35 +107,10 @@ export class CalenderComponent implements OnInit {
   }
 
   daymathod(day: any) {
-    this.oHoliday = new Holiday();
-    this.oHoliday = day;
-    const found = this.selectedDates.find(element => element.dateTxt == this.oHoliday.dateTxt);
-    if (found == undefined && this.oHoliday.isMonth == true) {
-      this.selectedDates.push(this.oHoliday);
-    }
-    this.selectedDates.forEach(element => {
+    console.log("day", day)
+    this.router.navigateByUrl('/admin/calender/'+day.dateTxt)
+  }
 
-      if (found != undefined) {
-        if (found.dateTxt === element.dateTxt) {
-          // document.getElementById(element.dateTxt).style.backgroundColor = 'white';
-          // document.getElementById(element.dateTxt).style.color = 'black';
-          // this.selectedDates = this.selectedDates.filter(x => x.dateTxt != found.dateTxt);
-        } else {
-          // document.getElementById(element.dateTxt).style.backgroundColor = 'red';
-          // document.getElementById(element.dateTxt).style.color = 'white';
-        }
-      } else {
-        // document.getElementById(element.dateTxt).style.backgroundColor = 'red';
-        // document.getElementById(element.dateTxt).style.color = 'white';
-      }
-    });
-  }
-  closeModal() {
-    document.getElementById("modalclose")?.click()
-  }
-  submitDate() {
-    this.closeModal()
-  }
 
 
   incrementMonth(increment: number) {
@@ -162,6 +127,7 @@ export class CalenderComponent implements OnInit {
     this.days = this.generateDays(this.year, this.month);
     this.dataSet();
     this.GetOrgOffDayDetails();
+    this.GetMonthlySlotAvailability();
   }
 
   incrementYear(increment: any) {
@@ -169,7 +135,9 @@ export class CalenderComponent implements OnInit {
     this.days = this.generateDays(this.year, this.month);
     this.dataSet();
     this.GetOrgOffDayDetails();
+    this.GetMonthlySlotAvailability();
   }
+
   private generateDays(year: number, month: number) {
     const increment = this.getIncrement(year, month);
     const totalDaysInMonth = new Date(year, month, 0).getDate();
@@ -190,12 +158,6 @@ export class CalenderComponent implements OnInit {
 
     return days;
   }
-
-  // private getIncrement(year: number, month: number): number {
-  //   let date = new Date("" + year + "-" + month + "-1");
-  //   let increment = date.getDay() > 0 ? date.getDay() - 2 : 5;
-  //   return increment;
-  // }
 
   private getIncrement(year: number, month: number): number {
     const firstDay = new Date(year, month - 1, 1).getDay();

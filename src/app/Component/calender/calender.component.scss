@@ -1,7 +1,8 @@
 p {
     font-family: Lato;
-  }
-  .day {
+}
+
+.day {
     display: inline-block;
     width: 14%;
     height: 8vh;
@@ -9,62 +10,79 @@ p {
     text-align: center;
     font-size: 22px;
     font-weight: 700;
-  }
-  
-  .holiday {
+}
+
+.holiday {
     height: 8vh;
-  }
-  
-  .holiday::-moz-focus-inner {
+}
+
+.holiday::-moz-focus-inner {
     background-color: red;
-  }
-  
-  .day:hover {
+}
+
+.day:hover {
     background-color: red;
     color: white;
-    cursor: pointer!important;
-  }
-  
-  .week-day {
+    cursor: pointer !important;
+}
+
+.week-day {
     display: inline-block;
     width: 14%;
     text-align: center;
     margin-bottom: .5rem
-  }
-  
-  .muted {
+}
+
+.muted {
     color: silver;
-  }
-  
-  .arrow {
+}
+
+.arrow {
     border: solid black;
     border-width: 0 1px 1px 0;
     display: inline-block;
     padding: .25rem;
-  }
-  
-  .arrow.right {
+}
+
+.arrow.right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
-  }
-  
-  .arrow.left {
+}
+
+.arrow.left {
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
-  }
-  
-  .arrow.up {
+}
+
+.arrow.up {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
-  }
-  
-  .arrow.down {
+}
+
+.arrow.down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
-  }
-  
-  .icon-font-size{
-    font-size: 20px!important;
+}
+
+.icon-font-size {
+    font-size: 20px !important;
     color: red;
-  }
-  .pointer {cursor: pointer;}
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.available-day {
+    background-color: #d4edda;
+    cursor: pointer;
+}
+
+.unavailable-day {
+    background-color: #f8f9fa;
+    color: #ccc;
+}
+
+.not-current-month {
+    opacity: 0.4;
+}

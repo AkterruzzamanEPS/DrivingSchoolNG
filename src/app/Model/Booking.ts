@@ -16,8 +16,6 @@ export class BookingRequestDto {
     constructor() {
         this.studentId = 0;
         this.slotId = 0;
-        this.instructorId = 0;
-        this.vehicleId = 0;
         this.classDate = new Date();
         this.status = 0;
         this.isActive = true;
@@ -25,8 +23,6 @@ export class BookingRequestDto {
     }
     public studentId: number;
     public slotId: number;
-    public instructorId: number;
-    public vehicleId: number;
     public classDate: Date;
     public status: number;
     public remarks: string;
@@ -39,8 +35,6 @@ export class BookingAssignRequestDto {
         this.studentId = 0;
         this.packageId = 0;
         this.slotId = 0;
-        this.instructorId = 0;
-        this.vehicleId = 0;
         this.purchaseDate = new Date();
         this.expiryDate = new Date();
         this.packageStartDate = new Date();
@@ -53,8 +47,6 @@ export class BookingAssignRequestDto {
     public studentId: number;
     public slotId: number;
     public packageId: number;
-    public instructorId: number;
-    public vehicleId: number;
     public purchaseDate: Date;
     public expiryDate: Date;
     public packageStartDate: Date;
