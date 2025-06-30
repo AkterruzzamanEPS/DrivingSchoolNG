@@ -180,7 +180,6 @@ export class SlotAssignmentComponent implements OnInit, AfterViewInit {
 
   public UpdateSlotAssignment() {
     this.oSlotAssignmentRequestDto.slotId = Number(this.oSlotAssignmentRequestDto.slotId);
-    this.oSlotAssignmentRequestDto.instructorId = Number(this.oSlotAssignmentRequestDto.instructorId);
 
     this.oSlotAssignmentRequestDto.isActive = CommonHelper.booleanConvert(this.oSlotAssignmentRequestDto.isActive);
     // After the hash is generated, proceed with the API call

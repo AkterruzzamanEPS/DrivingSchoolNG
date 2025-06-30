@@ -237,8 +237,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
     this.oBookingAssignRequestDto.userId = this.oStudentResponseDto.userId;
     this.oBookingAssignRequestDto.packageId = Number(this.oStudentResponseDto.packageId);
-    this.oBookingAssignRequestDto.instructorId = Number(this.oBookingAssignRequestDto.instructorId);
-    this.oBookingAssignRequestDto.vehicleId = Number(this.oBookingAssignRequestDto.vehicleId);
     this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
@@ -258,8 +256,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   public InsertBooking() {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
-    this.oBookingAssignRequestDto.instructorId = Number(this.oBookingAssignRequestDto.instructorId);
-    this.oBookingAssignRequestDto.vehicleId = Number(this.oBookingAssignRequestDto.vehicleId);
     this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
@@ -281,8 +277,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   public UpdateBooking() {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
-    this.oBookingAssignRequestDto.instructorId = Number(this.oBookingAssignRequestDto.instructorId);
-    this.oBookingAssignRequestDto.vehicleId = Number(this.oBookingAssignRequestDto.vehicleId);
     this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);

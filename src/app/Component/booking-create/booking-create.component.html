@@ -42,17 +42,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 px-2">
-                        <div class="mb-2">
-                            <label class="form-label">Instructor</label>
-                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.instructorId"
-                                name="instructorId">
-                                <option value="0">-- select instructor -- </option>
-                                <option *ngFor="let item of instructorList; trackBy: trackByInstructorFrom"
-                                    [value]="item.id">{{ item.name }}</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <!-- Section: Dates -->
                     <div class="col-12 px-2 mb-3 mt-3">

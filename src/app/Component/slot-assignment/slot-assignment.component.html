@@ -125,19 +125,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 px-2">
-                        <div class="mb-2">
-                            <label for="instructorId" class="form-label">Instructor</label>
-                            <select class="form-select" [(ngModel)]="oSlotAssignmentRequestDto.instructorId"
-                                name="instructorId" aria-label="Default select example">
-                                <option value="0">-- select instructor -- </option>
-                                <option *ngFor="let item of instructorFromList; trackBy: trackByInstructorFrom"
-                                    [value]="item.id">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+
 
                      <div class="col-md-6 px-2">
                         <div class="mb-2">

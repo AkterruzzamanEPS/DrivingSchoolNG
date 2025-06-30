@@ -182,8 +182,6 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
 
   public InsertBooking() {
     this.oBookingRequestDto.slotId = Number(this.oBookingRequestDto.slotId);
-    this.oBookingRequestDto.instructorId = Number(this.oBookingRequestDto.instructorId);
-    this.oBookingRequestDto.vehicleId = Number(this.oBookingRequestDto.vehicleId);
     this.oBookingRequestDto.status = 1;
     this.oBookingRequestDto.classDate = new Date(this.classDate);
     this.oBookingRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingRequestDto.isActive);
@@ -233,8 +231,6 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
     this.bookingId = 0;
     this.oBookingRequestDto.studentId = Number(getSelectedItem.studentId);
     this.oBookingRequestDto.slotId = Number(getSelectedItem.slotId);
-    this.oBookingRequestDto.instructorId = Number(getSelectedItem.instructorId);
-    this.oBookingRequestDto.vehicleId = Number(getSelectedItem.vehicleId);
     this.oBookingRequestDto.classDate = new Date(getSelectedItem.classDate);
     this.oBookingRequestDto.isActive = CommonHelper.booleanConvert(getSelectedItem.isActive);
     this.oBookingRequestDto.remarks = getSelectedItem.remarks;
@@ -248,8 +244,6 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
     }
     this.bookingId = Number(getSelectedItem.id);
     this.oBookingRequestDto.slotId = Number(getSelectedItem.slotId);
-    this.oBookingRequestDto.instructorId = Number(getSelectedItem.instructorId);
-    this.oBookingRequestDto.vehicleId = Number(getSelectedItem.vehicleId);
     this.oBookingRequestDto.classDate = new Date(getSelectedItem.classDate);
     this.oBookingRequestDto.isActive = CommonHelper.booleanConvert(getSelectedItem.isActive);
     this.oBookingRequestDto.remarks = getSelectedItem.remarks;
