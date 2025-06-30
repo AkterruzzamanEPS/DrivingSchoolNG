@@ -11,11 +11,12 @@ import { PostContentComponent } from "../post-content/post-content.component";
 import { LeftsideBarComponent } from "../leftside-bar/leftside-bar.component";
 import { RightsideBarComponent } from "../rightside-bar/rightside-bar.component";
 import { VideoCallComponent } from "../video-call/video-call.component";
+import { CalenderComponent } from "../calender/calender.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, PostComponent, PostContentComponent, LeftsideBarComponent, RightsideBarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, PostComponent, PostContentComponent, LeftsideBarComponent, RightsideBarComponent, CalenderComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   providers:[DatePipe]

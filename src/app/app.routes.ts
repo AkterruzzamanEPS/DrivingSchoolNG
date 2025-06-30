@@ -41,6 +41,7 @@ import { StudentDetailComponent } from './Component/student-detail/student-detai
 import { PaymentCreateComponent } from './Component/payment-create/payment-create.component';
 import { ProfitAndLossComponent } from './Component/profit-and-loss/profit-and-loss.component';
 import { ProfitAndLossDetailComponent } from './Component/profit-and-loss-detail/profit-and-loss-detail.component';
+import { CalenderComponent } from './Component/calender/calender.component';
 
 export const routes: Routes = [
     {
@@ -91,6 +92,7 @@ export const routes: Routes = [
             { path: 'expenditure/:id', component: ExpenditureCreateComponent, title: 'Expenditure Create' },
             { path: 'head', component: ExpenditureHeadComponent, title: 'Expenditure Head' },
             { path: 'head/:id', component: ExpenditureHeadCreateComponent, title: ' Expenditure Head Create' },
+            { path: 'calender', component: CalenderComponent, title: ' Calender Create' },
             { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
         ]
     },
