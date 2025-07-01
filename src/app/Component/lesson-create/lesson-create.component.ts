@@ -240,6 +240,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
+    this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);
     this.oBookingAssignRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isActive);
     this.oBookingAssignRequestDto.slots = AGGridHelper.GetRows(this.bookingSlotGridApi);
@@ -255,10 +256,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   public InsertBooking() {
+    debugger
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
-    this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
+    this.oBookingAssignRequestDto.status = Number( Number(this.oBookingAssignRequestDto.studentId)==0?1:2);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
+    this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);
     this.oBookingAssignRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isActive);
 
@@ -269,7 +272,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
         this.toast.success("Data Save Successfully!!", "Success!!", { progressBar: true });
       },
       (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+        this.toast.error(err.error, "Error!!", { progressBar: true });
       }
     );
 
@@ -279,6 +282,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
     this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
+    this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);
 
     this.oBookingAssignRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isActive);

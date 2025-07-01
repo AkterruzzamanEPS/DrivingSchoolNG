@@ -44,21 +44,20 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'userName', width: 150, headerName: 'Student Name', filter: true },
+    { field: 'UserName', width: 150, headerName: 'Student Name', filter: true },
     {
-      field: 'classDate', width: 150, headerName: 'Lesson Date', filter: true,
-      valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'MMM d, y')
+      field: 'ClassDate', width: 150, headerName: 'Lesson Date', filter: true,
+      valueGetter: (params: any) => this.datePipe.transform(params.data.ClassDate, 'MMM d, y')
     },
     {
-      field: 'classDate', width: 150, headerName: 'Day', filter: true,
-      valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'EEEE')
+      field: 'ClassDate', width: 150, headerName: 'Day', filter: true,
+      valueGetter: (params: any) => this.datePipe.transform(params.data.ClassDate, 'EEEE')
     },
-    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
-    { field: 'startTime', headerName: 'Start Time' },
-    { field: 'endTime', headerName: 'End Time' },
-    { field: 'statusName', headerName: 'Status' },
-    { field: '', headerName: 'Progress', width: 120, pinned: "right", resizable: true, cellRenderer: this.progressToGrid.bind(this) },
-    { field: '', headerName: 'Detail', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
+    { field: 'StartTime', headerName: 'Start Time' },
+    { field: 'EndTime', headerName: 'End Time' },
+    { field: 'StatusName', headerName: 'Status' },
+    { field: '', headerName: 'Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.progressToGrid.bind(this) },
+    { field: '', headerName: 'Register', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
 
   ];
   trackByFn: TrackByFunction<any> | any;
@@ -90,9 +89,11 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
     if (id != null) {
       const currentDate = new Date(id);
       this.startDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+
     }
     this.GetAllSlotes();
     this.GetAllStudentes();
+    this.GetDayWiseBookings();
   }
 
   PageChange(event: any) {
@@ -116,12 +117,11 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
 
   onGridReadyTransection(params: any) {
     this.bookingGridApi = params.api;
-    this.rowData = [];
   }
 
   progressToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Progress</button>'
+    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Assign</button>'
     eDiv.addEventListener('click', () => {
       this.router.navigateByUrl('admin/lesson-progres/' + params.data.id)
     });
@@ -130,7 +130,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
 
   detailToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Detail</button>'
+    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Register</button>'
     eDiv.addEventListener('click', () => {
       this.router.navigateByUrl('admin/progres-detail/' + params.data.id)
     });
@@ -144,6 +144,8 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
   private GetDayWiseBookings() {
     this.http.Get(`Booking/GetDayWiseBookings?StartDate=${this.datePipe.transform(this.startDate, 'yyyy-MM-dd')}`).subscribe(
       (res: any) => {
+        debugger
+        this.rowData = [];
         this.rowData = res;
         this.bookingGridApi.sizeColumnsToFit();
       },

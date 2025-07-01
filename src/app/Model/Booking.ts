@@ -37,6 +37,7 @@ export class BookingAssignRequestDto {
         this.slotId = 0;
         this.purchaseDate = new Date();
         this.expiryDate = new Date();
+        this.classDate = new Date();
         this.packageStartDate = new Date();
         this.status = 0;
         this.isActive = true;
@@ -48,6 +49,7 @@ export class BookingAssignRequestDto {
     public slotId: number;
     public packageId: number;
     public purchaseDate: Date;
+    public classDate: Date;
     public expiryDate: Date;
     public packageStartDate: Date;
     public status: number;
