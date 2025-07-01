@@ -1,8 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Holiday, OffDayDetailsDto, OffDayFormDto, OffDayProjectDto } from '../../Model/Holiday';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
@@ -17,6 +16,7 @@ import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 })
 export class CalenderComponent implements OnInit {
 
+  calenderEvent = output<Holiday>();
   oHoliday = new Holiday();
   oHolidays: Holiday[] = [];
   public offDayFormDto: OffDayFormDto = new OffDayFormDto();
@@ -107,8 +107,10 @@ export class CalenderComponent implements OnInit {
   }
 
   daymathod(day: any) {
+    debugger
     console.log("day", day)
-    this.router.navigateByUrl('/calender/'+day.dateTxt)
+    // this.router.navigateByUrl('/calender/' + day.dateTxt)
+    this.calenderEvent.emit(day);
   }
 
 
