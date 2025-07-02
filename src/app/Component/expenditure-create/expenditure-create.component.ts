@@ -55,6 +55,27 @@ export class ExpenditureCreateComponent implements OnInit {
     this.router.navigateByUrl('admin/expenditure')
   }
 
+
+  public onFileChange(event: any): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.http.UploadFile(`UploadedFile/Upload`, file).subscribe(
+        (res: any) => {
+          this.oExpenditureRequestDto.fileId = res.id;
+        },
+        (err) => {
+          console.log(err.ErrorMessage);
+        }
+      );
+    }
+
+  }
+
+  GetImageUrl(fileId: number): string {
+    return `${this.http.appUrl}UploadedFile/GetImage/${fileId}`;
+  }
+
   private GetExpenditureById() {
     this.http.Get(`ExpenditureHead/GetExpenditureById/${this.ExpenditureId}`).subscribe(
       (res: any) => {

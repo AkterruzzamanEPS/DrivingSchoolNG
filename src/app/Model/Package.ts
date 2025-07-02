@@ -15,7 +15,7 @@ export class PackageRequestDto {
         this.description = '';
         this.price = 0;
         this.totalLessons = 0;
-        this.durationInDays = 0;
+        this.rate = 0;
         this.fileId = 0;
         this.isActive = true;
         this.remarks = "";
@@ -24,7 +24,7 @@ export class PackageRequestDto {
     public description: string;
     public price: number;
     public totalLessons: number;
-    public durationInDays: number;
+    public rate: number;
     public fileId: number;
     public remarks: string;
     public isActive: boolean;

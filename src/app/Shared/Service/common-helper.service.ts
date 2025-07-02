@@ -31,6 +31,9 @@ export class CommonHelper {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
   }
+  public static RateCalCulate(price: number, Lesson: number): number {
+    return Math.round(price / Lesson);
+  }
 
   // Pagination Number generated 
   public static generateNumbers(start: number, end: number): number[] {

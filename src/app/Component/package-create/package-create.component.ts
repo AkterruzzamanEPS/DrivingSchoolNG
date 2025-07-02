@@ -46,6 +46,10 @@ export class PackageCreateComponent implements OnInit {
     }
   }
 
+  public ChangeRate(event: any) {
+    this.oPackageRequestDto.rate = CommonHelper.RateCalCulate(Number(this.oPackageRequestDto.price), Number(this.oPackageRequestDto.totalLessons))
+  }
+
   Reset() {
     this.oPackageRequestDto = new PackageRequestDto();
   }
@@ -59,6 +63,7 @@ export class PackageCreateComponent implements OnInit {
         this.oPackageRequestDto.name = res.name;
         this.oPackageRequestDto.totalLessons = Number(res.totalLessons);
         this.oPackageRequestDto.price = Number(res.price);
+        this.oPackageRequestDto.rate = Number(res.rate);
         this.oPackageRequestDto.isActive = true;
         this.oPackageRequestDto.remarks = res.remarks;
       },
@@ -78,6 +83,7 @@ export class PackageCreateComponent implements OnInit {
 
     this.oPackageRequestDto.totalLessons = Number(this.oPackageRequestDto.totalLessons);
     this.oPackageRequestDto.price = Number(this.oPackageRequestDto.price);
+    this.oPackageRequestDto.rate = Number(this.oPackageRequestDto.rate);
     this.oPackageRequestDto.isActive = CommonHelper.booleanConvert(this.oPackageRequestDto.isActive);
     // After the hash is generated, proceed with the API call
     this.http.Post(`Package/InsertPackage`, this.oPackageRequestDto).subscribe(
@@ -100,6 +106,7 @@ export class PackageCreateComponent implements OnInit {
     }
     this.oPackageRequestDto.totalLessons = Number(this.oPackageRequestDto.totalLessons);
     this.oPackageRequestDto.price = Number(this.oPackageRequestDto.price);
+    this.oPackageRequestDto.rate = Number(this.oPackageRequestDto.rate);
     this.oPackageRequestDto.isActive = CommonHelper.booleanConvert(this.oPackageRequestDto.isActive);
     // After the hash is generated, proceed with the API call
     this.http.Post(`Package/UpdatePackage/${this.PackageId}`, this.oPackageRequestDto).subscribe(

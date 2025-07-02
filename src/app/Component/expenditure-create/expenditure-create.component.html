@@ -12,8 +12,9 @@
             <div class="row mb-3">
                 <label for="expenditureHeadId" class="col-sm-2 col-form-label">Expenditure Head</label>
                 <div class="col-sm-10">
-                    <select class="form-select" id="expenditureHeadId" [(ngModel)]="oExpenditureRequestDto.expenditureHeadId"
-                        name="expenditureHeadId" aria-label="Default select example">
+                    <select class="form-select" id="expenditureHeadId"
+                        [(ngModel)]="oExpenditureRequestDto.expenditureHeadId" name="expenditureHeadId"
+                        aria-label="Default select example">
                         <option value="">-- select head -- </option>
                         <option *ngFor="let item of ExpenditureList; trackBy: trackByExpenditure" [value]="item.id">
                             {{ item.name }}
@@ -35,6 +36,13 @@
                         name="amount" />
                 </div>
             </div>
+            <div class="row mb-3">
+                <label for="amount" class="col-sm-2 col-form-label">Amount</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control" id="uploadFile" (change)="onFileChange($event)"
+                        placeholder="Select file to upload">
+                </div>
+            </div>
 
             <div class="row mb-3">
                 <label for="remarks" class="col-sm-2 col-form-label">Remarks</label>
@@ -43,6 +51,12 @@
                         id="remarks" rows="3"></textarea>
                 </div>
             </div>
+
+            @if(oExpenditureRequestDto.fileId>0) {
+
+            <!-- Post Image -->
+            <img [src]="GetImageUrl(oExpenditureRequestDto.fileId)" alt="Post" style="height: 200px;width: 200px;" class="post-image">
+            }
 
         </div>
         <!--end::Body-->

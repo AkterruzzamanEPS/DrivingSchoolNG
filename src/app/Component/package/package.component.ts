@@ -141,7 +141,7 @@ export class PackageComponent implements OnInit {
     this.oPackageRequestDto.name = getSelectedItem.name;
     this.oPackageRequestDto.description = getSelectedItem.description;
     this.oPackageRequestDto.totalLessons = Number(getSelectedItem.totalLessons);
-    this.oPackageRequestDto.durationInDays = Number(getSelectedItem.durationInDays);
+    this.oPackageRequestDto.rate = Number(getSelectedItem.rate);
     this.oPackageRequestDto.fileId = Number(getSelectedItem.fileId);
     this.oPackageRequestDto.price = Number(getSelectedItem.price);
     this.oPackageRequestDto.isActive = getSelectedItem.isActive;
