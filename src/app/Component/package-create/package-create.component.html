@@ -19,14 +19,14 @@
             <div class="row mb-3">
                 <label for="totalLessons" class="col-sm-2 col-form-label">Lessons</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="totalLessons" (change)="ChangeRate($event)" [(ngModel)]="oPackageRequestDto.totalLessons"
+                    <input type="number" class="form-control" id="totalLessons" (keyup)="ChangeRate($event)" [(ngModel)]="oPackageRequestDto.totalLessons"
                         name="totalLessons" />
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="price" class="col-sm-2 col-form-label">Fees</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="price" (change)="ChangeRate($event)" [(ngModel)]="oPackageRequestDto.price"
+                    <input type="number" class="form-control" id="price" (keyup)="ChangeRate($event)" [(ngModel)]="oPackageRequestDto.price"
                         name="price" />
                 </div>
             </div>

@@ -123,16 +123,22 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Assign</button>'
     eDiv.addEventListener('click', () => {
-      this.router.navigateByUrl('admin/lesson-progres/' + params.data.id)
+      if (params.data.StudentId <= 0) {
+        this.router.navigateByUrl('/admin/lesson-create/' + params.data.Id)
+      }
     });
+
     return eDiv;
   }
 
   detailToGrid(params: any) {
     const eDiv = document.createElement('div');
+
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Register</button>'
     eDiv.addEventListener('click', () => {
-      this.router.navigateByUrl('admin/progres-detail/' + params.data.id)
+      if (params.data.StudentId <= 0) {
+        this.router.navigateByUrl('admin/progres-detail/' + params.data.Id)
+      }
     });
     return eDiv;
   }
@@ -185,7 +191,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
 
   }
   add() {
-    this.router.navigateByUrl('/admin/lesson-atecre/' + 0)
+    this.router.navigateByUrl('/admin/lesson-create/' + 0)
   }
 
 

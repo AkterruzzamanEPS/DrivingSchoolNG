@@ -55,7 +55,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     { field: 'feedback', headerName: 'Feedback' },
     { field: 'progressPercentage', headerName: 'Progress Percentage' },
     { field: 'addedBy', headerName: 'Added By' },
-    { field: 'addedDate', headerName: 'Added Date' ,valueGetter: (params: any) => this.datePipe.transform(params.data.addedDate, 'MMM d, y')},
+    { field: 'addedDate', headerName: 'Added Date', valueGetter: (params: any) => this.datePipe.transform(params.data.addedDate, 'MMM d, y') },
     { field: 'remarks', headerName: 'Remarks' },
     { field: 'isActive', headerName: 'Status' },
   ];
@@ -171,7 +171,8 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
       (res: any) => {
         this.oBookingResponseDto = res;
-        this.oLessonProgresRequestDto.lessonTitle=this.oBookingResponseDto.slotName;
+        this.oLessonProgresRequestDto.lessonTitle = this.oBookingResponseDto.slotName;
+        this.oLessonProgresRequestDto.status = Number(this.oBookingResponseDto.status);
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });

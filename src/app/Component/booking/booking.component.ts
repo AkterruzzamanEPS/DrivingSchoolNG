@@ -266,7 +266,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
 
   }
   add() {
-    this.router.navigateByUrl('/admin/lesson-atecre/' + 0)
+    this.router.navigateByUrl('/admin/lesson-create/' + 0)
   }
 
   edit() {

@@ -40,6 +40,7 @@ export class PackageComponent implements OnInit {
     { field: 'name', width: 150, headerName: 'Name', filter: true },
     { field: 'price', width: 150, headerName: 'Fees', filter: true },
     { field: 'totalLessons', width: 150, headerName: 'Total Lessons', filter: true },
+    { field: 'rate', width: 150, headerName: 'Rate', filter: true },
     { field: 'remarks', headerName: 'Remarks' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },

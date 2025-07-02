@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
-import { BookingAssignRequestDto, BookingFilterRequestDto, StudentResponseDto } from '../../Model/Booking';
+import { BookingAssignRequestDto, BookingFilterRequestDto, BookingRequestDto, StudentResponseDto } from '../../Model/Booking';
 import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
@@ -36,6 +36,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   public oBookingAssignRequestDto = new BookingAssignRequestDto();
   public oBookingFilterRequestDto = new BookingFilterRequestDto();
   public oStudentResponseDto = new StudentResponseDto();
+  public oBookingRequestDto = new BookingRequestDto();
 
   public purchaseDate: any = "";
   public expiryDate: any = "";
@@ -51,7 +52,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   ];
 
   public bookingId = 0;
-  public studentId = 0;
   // pagination setup
   public pageIndex: number = 1;
   public totalRecords: number = 0;
@@ -120,9 +120,13 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.GetAllInstructores();
+
+    var id = this.route.snapshot.paramMap.get('id');
+    if (id != null) {
+      this.bookingId = Number(id);
+      this.GetBookingById();
+    }
     this.GetAllSlotes();
-    this.GetAllVehicles();
   }
 
 
@@ -209,27 +213,16 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     );
 
   }
-  private GetAllInstructores() {
-    this.http.Get(`Instructor/GetAllInstructores`).subscribe(
+  private GetBookingById() {
+    this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
       (res: any) => {
-        this.instructorList = res;
+        this.oBookingRequestDto = res;
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
       }
     );
 
-  }
-
-  private GetAllVehicles() {
-    this.http.Get(`Vehicle/GetAllVehicles`).subscribe(
-      (res: any) => {
-        this.vehicleList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
   }
 
   ConfirmBookingSlot() {
@@ -258,7 +251,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   public InsertBooking() {
     debugger
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
-    this.oBookingAssignRequestDto.status = Number( Number(this.oBookingAssignRequestDto.studentId)==0?1:2);
+    this.oBookingAssignRequestDto.status = Number(Number(this.oBookingAssignRequestDto.studentId) == 0 ? 1 : 2);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
