@@ -43,6 +43,8 @@ import { ProfitAndLossComponent } from './Component/profit-and-loss/profit-and-l
 import { ProfitAndLossDetailComponent } from './Component/profit-and-loss-detail/profit-and-loss-detail.component';
 import { CalenderComponent } from './Component/calender/calender.component';
 import { DayWiseBookingComponent } from './Component/day-wise-booking/day-wise-booking.component';
+import { CheckListComponent } from './Component/check-list/check-list.component';
+import { CheckListCreateComponent } from './Component/check-list-create/check-list-create.component';
 
 export const routes: Routes = [
     {
@@ -91,6 +93,8 @@ export const routes: Routes = [
             { path: 'progres-detail/:id', component: ProgressDetailComponent, title: 'LessonProgres Detail' },
             { path: 'expenditure', component: ExpenditureComponent, title: 'Expenditure' },
             { path: 'expenditure/:id', component: ExpenditureCreateComponent, title: 'Expenditure Create' },
+            { path: 'checklist', component: CheckListComponent, title: 'CheckList' },
+            { path: 'checklist/:id', component: CheckListCreateComponent, title: 'CheckList Create' },
             { path: 'head', component: ExpenditureHeadComponent, title: 'Expenditure Head' },
             { path: 'head/:id', component: ExpenditureHeadCreateComponent, title: ' Expenditure Head Create' },
             { path: 'calender', component: CalenderComponent, title: ' Calender Create' },

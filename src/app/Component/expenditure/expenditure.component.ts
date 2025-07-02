@@ -89,7 +89,8 @@ export class ExpenditureComponent implements OnInit {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
     eDiv.addEventListener('click', () => {
-      this.router.navigateByUrl('expenditure/' + params.data.id)
+      debugger
+      this.router.navigateByUrl('/admin/expenditure/' + params.data.id)
     });
     return eDiv;
   }
@@ -201,9 +202,7 @@ export class ExpenditureComponent implements OnInit {
           { text: item.name, style: 'tableTextLeft' },
           { text: item.expenditureHeadName, style: 'tableTextLeft' },
           { text: item.amount.toFixed(2), style: 'tableTextRight' },
-          { text: item.remarks, style: 'tableTextRight' },
-          { text: '', style: 'tableTextRight' },
-          { text: '', style: 'tableTextRight' },
+          { text: item.remarks, style: 'tableTextRight' }
         ];
         this.result.push(row);
       });
@@ -214,19 +213,15 @@ export class ExpenditureComponent implements OnInit {
         { text: 'Date', style: 'tableColumnHeader', alignment: 'center' },
         { text: 'Name', style: 'tableColumnHeader', alignment: 'center' },
         { text: 'Head Name', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Total Amount', style: 'tableColumnHeader', alignment: 'center' },
+        { text: 'Amount', style: 'tableColumnHeader', alignment: 'center' },
         { text: 'Remarks ', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Remaining ', style: 'tableColumnHeader', alignment: 'center' },
-        { text: 'Comment', style: 'tableColumnHeader', alignment: 'center' },
       ]);
 
       // Add footer row for totals
       this.result.push([
-        { text: 'Total', style: 'tableColumnHeader', colSpan: 4, alignment: 'right' }, {}, {}, {},
+        { text: 'Total', style: 'tableColumnHeader', colSpan: 4, alignment: 'right' },  {}, {}, {},
         { text: amount.toFixed(2), style: 'tableTextRight', alignment: 'right' },
-        { text: '', style: 'tableTextRight', alignment: 'right' },
-        { text: '', style: 'tableTextRight', alignment: 'right' },
-        {},
+        { text: '', style: 'tableTextRight', alignment: 'right' }
       ]);
 
     }
@@ -235,7 +230,8 @@ export class ExpenditureComponent implements OnInit {
   }
 
   PDFGenerate() {
-
+    debugger
+    console.log(this.result);
     let title = "Expenditure Head Summary";
     const documentDefinition = {
       pageMargins: [20, 70, 20, 30], // [left, top, right, bottom]
@@ -245,7 +241,7 @@ export class ExpenditureComponent implements OnInit {
         {
           table: {
             headerRows: 1,
-            widths: [45, 45, '*', 50, 50, 50, 50, 45],
+            widths: [45, 45, '*', 50, 50, 50],
             body: this.result,
           },
         },

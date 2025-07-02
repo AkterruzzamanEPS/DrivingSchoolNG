@@ -36,6 +36,7 @@ export class ExpenditureCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllExpenditureHeades();
+    debugger
     var id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.ExpenditureId = Number(id);
@@ -77,10 +78,11 @@ export class ExpenditureCreateComponent implements OnInit {
   }
 
   private GetExpenditureById() {
-    this.http.Get(`ExpenditureHead/GetExpenditureById/${this.ExpenditureId}`).subscribe(
+    this.http.Get(`Expenditure/GetExpenditureById/${this.ExpenditureId}`).subscribe(
       (res: any) => {
         this.oExpenditureRequestDto.name = res.name;
         this.oExpenditureRequestDto.expenditureHeadId = Number(res.expenditureHeadId);
+        this.oExpenditureRequestDto.fileId = Number(res.fileId);
         this.oExpenditureRequestDto.amount = Number(res.amount);
         this.oExpenditureRequestDto.isActive = CommonHelper.booleanConvert(res.isActive);
         this.oExpenditureRequestDto.remarks = res.remarks;
@@ -119,6 +121,7 @@ export class ExpenditureCreateComponent implements OnInit {
     this.oExpenditureRequestDto.expenditureHeadId = Number(this.oExpenditureRequestDto.expenditureHeadId);
     this.oExpenditureRequestDto.amount = Number(this.oExpenditureRequestDto.amount);
     this.oExpenditureRequestDto.isActive = CommonHelper.booleanConvert(this.oExpenditureRequestDto.isActive);
+    
     // After the hash is generated, proceed with the API call
     this.http.Post(`Expenditure/InsertExpenditure`, this.oExpenditureRequestDto).subscribe(
       (res: any) => {
