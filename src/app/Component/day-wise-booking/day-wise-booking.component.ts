@@ -137,7 +137,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Register</button>'
     eDiv.addEventListener('click', () => {
       if (params.data.StudentId <= 0) {
-        this.router.navigateByUrl('admin/progres-detail/' + params.data.Id)
+        this.router.navigateByUrl('/admin/student-registration/' + params.data.Id)
       }
     });
     return eDiv;
