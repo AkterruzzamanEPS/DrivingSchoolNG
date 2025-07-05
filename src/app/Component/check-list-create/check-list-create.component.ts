@@ -13,10 +13,10 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './check-list-create.component.html',
-  styleUrl: './check-list-create.component.scss', 
+  styleUrl: './check-list-create.component.scss',
   providers: [DatePipe]
 })
-export class CheckListCreateComponent  implements OnInit {
+export class CheckListCreateComponent implements OnInit {
 
   public CheckListList: any[] = [];
   public oCheckListRequestDto = new CheckListRequestDto();
@@ -47,18 +47,18 @@ export class CheckListCreateComponent  implements OnInit {
     }
   }
 
-  
+
   GetImageUrl(fileId: number): string {
     return `${this.http.appUrl}UploadedFile/GetImage/${fileId}`;
   }
 
-   public onFileChange(event: any): void {
+  public onFileChange(event: any): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.http.UploadFile(`UploadedFile/Upload`, file).subscribe(
         (res: any) => {
-          this.oCheckListRequestDto.fileId = res.id;
+          this.oCheckListRequestDto.fileId = Number(res.id);
         },
         (err) => {
           console.log(err.ErrorMessage);
@@ -79,6 +79,9 @@ export class CheckListCreateComponent  implements OnInit {
     this.http.Get(`CheckList/GetCheckListById/${this.CheckListId}`).subscribe(
       (res: any) => {
         this.oCheckListRequestDto.name = res.name;
+        this.oCheckListRequestDto.description = res.description;
+        this.oCheckListRequestDto.weight = Number(res.weight);
+        this.oCheckListRequestDto.fileId = Number(res.fileId);
         this.oCheckListRequestDto.isActive = CommonHelper.booleanConvert(res.isActive);
         this.oCheckListRequestDto.remarks = res.remarks;
       },
@@ -96,6 +99,8 @@ export class CheckListCreateComponent  implements OnInit {
       return;
     }
 
+    this.oCheckListRequestDto.weight = Number(this.oCheckListRequestDto.weight);
+    this.oCheckListRequestDto.fileId = Number(this.oCheckListRequestDto.fileId);
     this.oCheckListRequestDto.isActive = CommonHelper.booleanConvert(this.oCheckListRequestDto.isActive);
     // After the hash is generated, proceed with the API call
     this.http.Post(`CheckList/InsertCheckList`, this.oCheckListRequestDto).subscribe(
@@ -116,7 +121,8 @@ export class CheckListCreateComponent  implements OnInit {
       this.toast.warning("Please enter name", "Warning!!", { progressBar: true });
       return;
     }
-
+    this.oCheckListRequestDto.weight = Number(this.oCheckListRequestDto.weight);
+    this.oCheckListRequestDto.fileId = Number(this.oCheckListRequestDto.fileId);
     this.oCheckListRequestDto.isActive = CommonHelper.booleanConvert(this.oCheckListRequestDto.isActive);
     // After the hash is generated, proceed with the API call
     this.http.Post(`CheckList/UpdateCheckList/${this.CheckListId}`, this.oCheckListRequestDto).subscribe(

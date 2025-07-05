@@ -9,11 +9,12 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-expenditure-head',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './expenditure-head.component.html',
   styleUrl: './expenditure-head.component.scss',
   providers: [DatePipe]
@@ -41,7 +42,6 @@ export class ExpenditureHeadComponent implements OnInit {
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'name', width: 150, headerName: 'Expenditure Head', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
     { field: 'isActive', headerName: 'Status' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
@@ -58,6 +58,11 @@ export class ExpenditureHeadComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.GetExpenditureHead();
+  }
+
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
     this.GetExpenditureHead();
   }
 

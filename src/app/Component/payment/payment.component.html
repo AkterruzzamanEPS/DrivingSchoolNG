@@ -48,20 +48,9 @@
             <span class="input-group-text" id="basic-addon1">Page {{pageIndex}} of {{totalPages}}</span>
         </div>
     </div>
-    <div class="col-md-6 mt-1 text-end">
-        <nav aria-label="Page navigation example" style="display: inline-flex" *ngIf="totalPages > 0">
-            <ul class="pagination">
-                <li class="page-item me-1"><button [disabled]="!hasPreviousPage" class="page-link">Previous</button>
-                </li>
-                <ng-template ngFor let-item [ngForOf]="totalPageNumbers" let-i="index" [ngForTrackBy]="trackByFn">
-                    <li *ngIf="item<this.pageIndex+4" class="page-item mx-1">
-                        <button class="page-link" (click)="onPage(item)">{{item}}</button>
-                    </li>
-                </ng-template>
-
-                <li class="page-item ms-1"><button class="page-link" [disabled]="!hasNextPage">Next</button></li>
-            </ul>
-        </nav>
+    <div class="col-md-12">
+        <app-pagination [pageSize]="10" [currentPage]="pageIndex" [totalItems]="totalRecords"
+            (pageChange)="PageChange($event)"></app-pagination>
     </div>
 </div>
 

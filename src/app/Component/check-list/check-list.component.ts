@@ -9,11 +9,12 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-check-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './check-list.component.html',
   styleUrl: './check-list.component.scss',
   providers: [DatePipe]
@@ -42,7 +43,7 @@ export class CheckListComponent implements OnInit {
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'name', width: 150, headerName: 'Name', filter: true },
     { field: 'description', width: 150, headerName: 'Description', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
+    { field: 'weight', headerName: 'Weight' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
   ];
@@ -58,6 +59,11 @@ export class CheckListComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.GetCheckList();
+  }
+
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
     this.GetCheckList();
   }
 

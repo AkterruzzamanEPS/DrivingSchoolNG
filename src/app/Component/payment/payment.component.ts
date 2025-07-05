@@ -10,11 +10,12 @@ import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 import { ValueFormatterParams } from 'ag-grid-community';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
   providers: [DatePipe]
@@ -55,7 +56,6 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     { field: 'transactionDate', headerName: 'Transaction Date' ,cellRenderer: (params: ValueFormatterParams) => {
                 return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
               }},
-    { field: 'remarks', headerName: 'Remarks' },
     { field: 'isActive', headerName: 'Status' },
   ];
   trackByFn: TrackByFunction<any> | any;
@@ -78,7 +78,10 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.GetPayment();
   }
-
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
+    this.GetPayment();
+  }
 
   ngOnInit(): void {
     this.GetAspNetUsersByType();

@@ -17,12 +17,14 @@ export class CheckListRequestDto {
         this.name = '';
         this.description = "";
         this.fileId = 0;
+        this.weight = 0;
         this.isActive = true;
         this.remarks = "";
     }
     public name: string;
     public description: string;
     public fileId: number;
+    public weight: number;
     public remarks: string;
     public isActive: boolean;
 }
