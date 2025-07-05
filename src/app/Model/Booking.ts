@@ -55,7 +55,7 @@ export class BookingAssignRequestDto {
     public status: number;
     public remarks: string;
     public isActive: boolean;
-    public slots:any[]
+    public slots: any[]
 }
 
 
@@ -68,7 +68,14 @@ export class StudentResponseDto {
         this.packageId = 0;
         this.price = 0;
         this.totalLessons = 0;
-        this.durationInDays = 0;
+        this.netAmount = 0;
+        this.paymentAmount = 0;
+        this.remainingAmount = 0;
+        this.nooflesson = 0;
+        this.bookingLesson = 0;
+        this.remainingLesson = 0;
+        this.completeLesson = 0;
+        this.totalLessons = 0;
         this.name = "0";
         this.email = "0";
         this.phone = "";
@@ -82,6 +89,8 @@ export class StudentResponseDto {
         this.discount = 0.00;
         this.isFixed = false;
         this.id = 0;
+        this.lessonRate = 0;
+        this.amount = 0;
         this.remarks = "";
         this.isActive = true;
         this.createdBy = "";
@@ -89,7 +98,8 @@ export class StudentResponseDto {
         this.lastModifiedBy = "";
         this.lastModifiedDate = null;
     }
-  
+
+
     public vehicleTypeName: string;
     public learningStageName: string;
     public packageName: string;
@@ -97,7 +107,13 @@ export class StudentResponseDto {
     public price: number;
     public packageId: number;
     public totalLessons: number;
-    public durationInDays: number;
+    public netAmount: number;
+    public paymentAmount: number;
+    public remainingAmount: number;
+    public nooflesson: number;
+    public bookingLesson: number;
+    public remainingLesson: number;
+    public completeLesson: number;
     public name: string;
     public email: string;
     public phone: string;
@@ -111,6 +127,8 @@ export class StudentResponseDto {
     public discount: number;
     public isFixed: boolean;
     public id: number;
+    public lessonRate: number;
+    public amount: number;
     public remarks: string;
     public isActive: boolean;
     public createdBy: string;

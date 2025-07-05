@@ -217,25 +217,11 @@
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" role="menu" data-accordion="false">
 
-                        <!-- Dashboard -->
-                        <li class="nav-item" [class.menu-open]="dashboardOpen">
-                            <a href="#" class="nav-link" [class.active]="dashboardOpen"
-                                (click)="toggleDashboard($event)">
+                        <li class="nav-item">
+                            <a routerLink="/dashboard/v1" class="nav-link" routerLinkActive="active">
                                 <i class="nav-icon bi bi-speedometer"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="nav-arrow bi"
-                                        [ngClass]="dashboardOpen ? 'bi-chevron-down' : 'bi-chevron-right'"></i>
-                                </p>
+                                <p>Dashboard</p>
                             </a>
-                            <ul class="nav nav-treeview" [style.display]="dashboardOpen ? 'block' : 'none'">
-                                <li class="nav-item">
-                                    <a routerLink="/dashboard/v1" class="nav-link" routerLinkActive="active">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <!-- Dashboard -->
 
@@ -315,7 +301,7 @@
                                     <a routerLink="/admin/checklist" class="nav-link" routerLinkActive="active">
                                         <i class="nav-icon bi bi-car-front-fill"></i>
                                         <p>Check List</p>
-                                    </a>    
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -416,7 +402,8 @@
                             </ul>
                             <ul class="nav nav-treeview" [style.display]="reportOpen ? 'block' : 'none'">
                                 <li class="nav-item">
-                                    <a routerLink="/admin/profit-loss-detail" class="nav-link" routerLinkActive="active">
+                                    <a routerLink="/admin/profit-loss-detail" class="nav-link"
+                                        routerLinkActive="active">
                                         <i class="nav-icon bi bi-credit-card-2-front-fill"></i>
                                         <p>Profit Loss Detail</p>
                                     </a>

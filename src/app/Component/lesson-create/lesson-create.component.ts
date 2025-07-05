@@ -13,7 +13,7 @@ import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 @Component({
   selector: 'app-lesson-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './lesson-create.component.html',
   styleUrl: './lesson-create.component.scss',
   providers: [DatePipe]
@@ -53,27 +53,6 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   public bookingId = 0;
   // pagination setup
-  public pageIndex: number = 1;
-  public totalRecords: number = 0;
-  public totalPages: number = 0;
-  public hasPreviousPage: boolean = false;
-  public hasNextPage: boolean = false;
-  public totalPageNumbers: number[] = [];
-
-  public colDefsTransection: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'userName', width: 150, headerName: 'Student Name', filter: true },
-    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
-    { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
-    { field: 'vehicleName', width: 150, headerName: 'Vehicle Name', filter: true },
-    { field: 'startTime', headerName: 'Start Time' },
-    { field: 'endTime', headerName: 'End Time' },
-    { field: 'statusName', headerName: 'Status' },
-    { field: 'remarks', headerName: 'Remarks' },
-    { field: 'isActive', headerName: 'Status' },
-
-  ];
-
 
   public colDefsBookingSlot: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
@@ -217,6 +196,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
       (res: any) => {
         this.oBookingRequestDto = res;
+        this.oBookingAssignRequestDto.studentId = Number(this.oBookingRequestDto.studentId);
+        this.oBookingAssignRequestDto.slotId = Number(this.oBookingRequestDto.slotId);
+        this.packageStartDate = this.datePipe.transform(new Date(this.oBookingRequestDto.classDate), 'yyyy-MM-dd');
+        if (this.oBookingAssignRequestDto.studentId > 0) {
+          this.GetStudentById();
+        }
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -230,7 +215,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
     this.oBookingAssignRequestDto.userId = this.oStudentResponseDto.userId;
     this.oBookingAssignRequestDto.packageId = Number(this.oStudentResponseDto.packageId);
-    this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
+    this.oBookingAssignRequestDto.status = this.oBookingAssignRequestDto.studentId > 0 ? 2 : 1;
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.packageStartDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
@@ -273,7 +258,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
 
   public UpdateBooking() {
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
-    this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.status);
+    this.oBookingAssignRequestDto.status = Number(this.oBookingAssignRequestDto.studentId == 0 ? 1 : 2);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
     this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);
