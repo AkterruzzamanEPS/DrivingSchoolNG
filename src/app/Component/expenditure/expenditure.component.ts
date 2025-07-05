@@ -51,6 +51,7 @@ export class ExpenditureComponent implements OnInit {
     { field: 'expenditureHeadName', width: 150, headerName: 'Head', filter: true },
     { field: 'amount', width: 150, headerName: 'Amount', filter: true },
     { field: 'remarks', headerName: 'Remarks' },
+    { field: '', headerName: 'Atachment', width: 100, cellRenderer: this.attachmentToGrid.bind(this) },
     { field: '', headerName: '', width: 80, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 80, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
   ];
@@ -94,6 +95,25 @@ export class ExpenditureComponent implements OnInit {
     });
     return eDiv;
   }
+
+  attachmentToGrid(params: any) {
+    const eDiv = document.createElement('div');
+    if (params.data.fileId > 0) {
+      eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye"></i></button>'
+      eDiv.addEventListener('click', async () => {
+        
+        const url = await this.GetImageUrl(params.data.fileId);
+        window.open(url, '_blank');
+      });
+    }
+    return eDiv;
+  }
+
+  
+  async GetImageUrl(fileId: number): Promise<string> {
+    return `${this.http.appUrl}UploadedFile/GetImage/${fileId}`;
+  }
+
   deleteToGrid(params: any) {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = '<button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i> Delete</button>'
