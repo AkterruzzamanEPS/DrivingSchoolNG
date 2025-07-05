@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
@@ -20,17 +20,22 @@ export class AdminRegistrationComponent implements OnInit {
   public oRegistrationRequestDto = new RegistrationRequestDto();
   currentRole: any;
   public packageList: any[] = [];
-
+  public bookingId: number = 0;
   public trackByPackage: TrackByFunction<any> | any;
   constructor(
     public authService: AuthService,
     private toast: ToastrService,
     private http: HttpHelperService,
     private router: Router,
+     private route: ActivatedRoute,
     private datePipe: DatePipe) {
     this.currentRole = authService.GetCurrentUserRole();
   }
   ngOnInit(): void {
+     var id = this.route.snapshot.paramMap.get('id');
+    if (id != null) {
+      this.bookingId = Number(id);
+    }
     this.GetAllPackages();
 
   }
@@ -56,7 +61,7 @@ export class AdminRegistrationComponent implements OnInit {
   PackageChange() {
     debugger
     if (this.oRegistrationRequestDto.packageId > 0) {
-      const selectedPackage = this.packageList.find(pkg => pkg.id === parseInt(this.oRegistrationRequestDto.packageId.toString()));  
+      const selectedPackage = this.packageList.find(pkg => pkg.id === parseInt(this.oRegistrationRequestDto.packageId.toString()));
       console.log(selectedPackage);
       this.oRegistrationRequestDto.amount = selectedPackage.price;
       this.oRegistrationRequestDto.discount = 0;
@@ -71,8 +76,8 @@ export class AdminRegistrationComponent implements OnInit {
     this.DisCountChange();
   }
 
-  DisCountChange(){
-    this.oRegistrationRequestDto.netAmount = this.oRegistrationRequestDto.amount -this.oRegistrationRequestDto.discount;
+  DisCountChange() {
+    this.oRegistrationRequestDto.netAmount = this.oRegistrationRequestDto.amount - this.oRegistrationRequestDto.discount;
   }
 
   Registration() {
@@ -106,7 +111,7 @@ export class AdminRegistrationComponent implements OnInit {
       this.toast.warning("Please enter no of lesson", "Warning!!", { progressBar: true });
       return;
     }
-     if (this.oRegistrationRequestDto.lessonRate == 0) {
+    if (this.oRegistrationRequestDto.lessonRate == 0) {
       this.toast.warning("Please enter lesson per rate", "Warning!!", { progressBar: true });
       return;
     }
@@ -122,17 +127,19 @@ export class AdminRegistrationComponent implements OnInit {
     this.oRegistrationRequestDto.vehicleType = Number(1);
     this.oRegistrationRequestDto.isFixed = CommonHelper.booleanConvert(this.oRegistrationRequestDto.isFixed);
     this.oRegistrationRequestDto.amount = Number(this.oRegistrationRequestDto.amount);
+    this.oRegistrationRequestDto.bookingId = Number(this.bookingId);
     this.oRegistrationRequestDto.discount = Number(this.oRegistrationRequestDto.discount);
+    this.oRegistrationRequestDto.netAmount = Number(this.oRegistrationRequestDto.netAmount);
+    this.oRegistrationRequestDto.paymentAmount = Number(this.oRegistrationRequestDto.paymentAmount);
     this.oRegistrationRequestDto.fileId = Number(this.oRegistrationRequestDto.fileId);
     this.oRegistrationRequestDto.type = Number(4);
-    let currentUser = CommonHelper.GetUser();
 
     // After the hash is generated, proceed with the API call
     this.http.Post(`AspNetUsers/Registration`, this.oRegistrationRequestDto).subscribe(
       (res: any) => {
         this.toast.success("Data Save Successfully!!", "Success!!", { progressBar: true });
         this.oRegistrationRequestDto = new RegistrationRequestDto();
-
+        this.BackToList();
       },
       (err) => {
         debugger

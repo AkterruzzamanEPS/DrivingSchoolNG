@@ -9,11 +9,12 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-student',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './student.component.html',
   styleUrl: './student.component.scss',
   providers: [DatePipe]
@@ -44,9 +45,13 @@ export class StudentComponent implements OnInit {
     { field: 'name', width: 150, headerName: 'Name', filter: true },
     { field: 'phone', width: 150, headerName: 'Phone', filter: true },
     { field: 'packageName', width: 150, headerName: 'Package', filter: true },
-    { field: 'totalLessons', width: 150, headerName: 'Lessons', filter: true },
+    { field: 'nooflesson', width: 150, headerName: 'Lessons', filter: true },
+    { field: 'completeLesson', width: 150, headerName: 'Complete Lessons', filter: true },
+    { field: 'remainingLesson', width: 150, headerName: 'Remaining Lessons', filter: true },
     { field: 'learningStageName', width: 150, headerName: 'Learning Stage', filter: true },
-    { field: 'address', width: 150, headerName: 'Address', filter: true },
+    { field: 'netAmount', width: 150, headerName: 'Net Amount', filter: true },
+    { field: 'remainingAmount', width: 150, headerName: 'Remaining Amount', filter: true },
+    { field: 'paymentAmount', width: 150, headerName: 'Payment Amount', filter: true },
     { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.SlotAssignToGrid.bind(this) },
     { field: 'slotAssign', headerName: 'Detail', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
   ];
@@ -68,6 +73,11 @@ export class StudentComponent implements OnInit {
     this.GetStudent();
   }
 
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
+    this.GetStudent();
+  }
+
   onGridReadyTransection(params: any) {
     this.studentGridApi = params.api;
     this.rowData = [];
@@ -81,7 +91,7 @@ export class StudentComponent implements OnInit {
     });
     return eDiv;
   }
-  
+
   detailToGrid(params: any) {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Detail</button>'
