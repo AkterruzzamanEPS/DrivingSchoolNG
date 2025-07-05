@@ -9,16 +9,18 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-slot',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './slot.component.html',
   styleUrl: './slot.component.scss',
   providers: [DatePipe]
 })
 export class SlotComponent implements OnInit {
+
 
   private slotGridApi!: any;
   public DeafultCol = AGGridHelper.DeafultCol;
@@ -40,7 +42,7 @@ export class SlotComponent implements OnInit {
     { field: 'name', width: 150, headerName: 'Slot Name', filter: true },
     { field: 'startTime', width: 150, headerName: 'Start Time', filter: true },
     { field: 'endTime', width: 150, headerName: 'End Time', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
+    // { field: 'remarks', headerName: 'Remarks' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
 
@@ -70,10 +72,14 @@ export class SlotComponent implements OnInit {
     this.GetSlot();
   }
 
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
+    this.GetSlot();
+  }
 
   editToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
+    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i></button>'
     eDiv.addEventListener('click', () => {
       this.router.navigateByUrl('admin/slot/' + params.data.id)
     });
@@ -82,7 +88,7 @@ export class SlotComponent implements OnInit {
 
   deleteToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i> Delete</button>'
+    eDiv.innerHTML = ' <button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i></button>'
     eDiv.addEventListener('click', () => {
       this.slotId = Number(params.data.id);
       this.cdr.detectChanges(); // 👈 Force change detection
