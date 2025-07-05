@@ -9,11 +9,12 @@ import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-package',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './package.component.html',
   styleUrl: './package.component.scss',
   providers: [DatePipe]
@@ -41,7 +42,7 @@ export class PackageComponent implements OnInit {
     { field: 'price', width: 150, headerName: 'Fees', filter: true },
     { field: 'totalLessons', width: 150, headerName: 'Total Lessons', filter: true },
     { field: 'rate', width: 150, headerName: 'Rate', filter: true },
-    { field: 'remarks', headerName: 'Remarks' },
+    // { field: 'remarks', headerName: 'Remarks' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
 
@@ -60,6 +61,10 @@ export class PackageComponent implements OnInit {
     this.GetPackage();
   }
 
+    PageChange(event: any) {
+    this.pageIndex = Number(event);
+    this.GetPackage();
+  }
   onGridReadyTransection(params: any) {
     this.packageGridApi = params.api;
     this.rowData = [];
@@ -68,7 +73,7 @@ export class PackageComponent implements OnInit {
 
   editToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
+    eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i></button>'
     eDiv.addEventListener('click', () => {
       this.router.navigateByUrl('admin/package/' + params.data.id)
     });
@@ -77,7 +82,7 @@ export class PackageComponent implements OnInit {
 
   deleteToGrid(params: any) {
     const eDiv = document.createElement('div');
-    eDiv.innerHTML = ' <button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i> Delete</button>'
+    eDiv.innerHTML = ' <button class="btn btn-danger p-0 px-1"> <i class="bi bi-trash"></i></button>'
     eDiv.addEventListener('click', () => {
       this.packageId = Number(params.data.id);
       this.cdr.detectChanges(); // 👈 Force change detection

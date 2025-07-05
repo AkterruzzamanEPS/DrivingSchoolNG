@@ -10,11 +10,12 @@ import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 import { PdfService } from '../../Shared/Service/pdf.service';
+import { PaginationComponent } from "../../Shared/pagination/pagination.component";
 
 @Component({
   selector: 'app-expenditure',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgGridAngular],
+  imports: [CommonModule, FormsModule, AgGridAngular, PaginationComponent],
   templateUrl: './expenditure.component.html',
   styleUrl: './expenditure.component.scss',
   providers: [DatePipe]
@@ -128,7 +129,10 @@ export class ExpenditureComponent implements OnInit {
   Filter() {
     this.GetExpenditure();
   }
-
+  PageChange(event: any) {
+    this.pageIndex = Number(event);
+    this.GetExpenditure();
+  }
   private GetExpenditure() {
     this.oExpenditureFilterRequestDto.startDate = new Date(this.startDate);
     this.oExpenditureFilterRequestDto.endDate = new Date(this.endDate);

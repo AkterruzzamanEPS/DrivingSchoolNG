@@ -51,8 +51,6 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
     { field: 'classDate', headerName: 'Available Date',cellRenderer: (params: ValueFormatterParams) => {
                 return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
               } },
-    { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
-    { field: 'vehicleName', width: 150, headerName: 'Vehicle Name', filter: true },
     { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
     { field: 'startTime', headerName: 'Start Time' },
     { field: 'endTime', headerName: 'End Time' },
@@ -88,10 +86,7 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.GetAllInstructores();
     this.GetAllSlotes();
-    this.GetAllVehicles();
-
   }
 
 
@@ -155,29 +150,7 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
     );
 
   }
-  private GetAllInstructores() {
-    this.http.Get(`Instructor/GetAllInstructores`).subscribe(
-      (res: any) => {
-        this.instructorList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
 
-  }
-
-  private GetAllVehicles() {
-    this.http.Get(`Vehicle/GetAllVehicles`).subscribe(
-      (res: any) => {
-        this.vehicleList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
 
 
   public InsertBooking() {
