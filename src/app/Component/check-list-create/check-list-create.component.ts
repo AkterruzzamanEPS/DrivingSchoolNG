@@ -47,11 +47,32 @@ export class CheckListCreateComponent  implements OnInit {
     }
   }
 
+  
+  GetImageUrl(fileId: number): string {
+    return `${this.http.appUrl}UploadedFile/GetImage/${fileId}`;
+  }
+
+   public onFileChange(event: any): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.http.UploadFile(`UploadedFile/Upload`, file).subscribe(
+        (res: any) => {
+          this.oCheckListRequestDto.fileId = res.id;
+        },
+        (err) => {
+          console.log(err.ErrorMessage);
+        }
+      );
+    }
+
+  }
+
   Reset() {
     this.oCheckListRequestDto = new CheckListRequestDto();
   }
   BackToList() {
-    this.router.navigateByUrl('admin/head')
+    this.router.navigateByUrl('admin/checklist')
   }
 
   private GetCheckListById() {

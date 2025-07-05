@@ -40,9 +40,9 @@ export class CheckListComponent implements OnInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'name', width: 150, headerName: 'Expenditure Head', filter: true },
+    { field: 'name', width: 150, headerName: 'Name', filter: true },
+    { field: 'description', width: 150, headerName: 'Description', filter: true },
     { field: 'remarks', headerName: 'Remarks' },
-    { field: 'isActive', headerName: 'Status' },
     { field: '', headerName: '', width: 60, pinned: "right", resizable: true, cellRenderer: this.editToGrid.bind(this) },
     { field: '', headerName: '', width: 70, pinned: "right", resizable: true, cellRenderer: this.deleteToGrid.bind(this) },
   ];
@@ -70,7 +70,7 @@ export class CheckListComponent implements OnInit {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
     eDiv.addEventListener('click', () => {
-      this.router.navigateByUrl('admin/head/' + params.data.id)
+      this.router.navigateByUrl('admin/checklist/' + params.data.id)
     });
     return eDiv;
   }
@@ -127,7 +127,7 @@ export class CheckListComponent implements OnInit {
 
   }
   add() {
-    this.router.navigateByUrl('/admin/head/' + 0)
+    this.router.navigateByUrl('/admin/checklist/' + 0)
   }
 
   delete() {
