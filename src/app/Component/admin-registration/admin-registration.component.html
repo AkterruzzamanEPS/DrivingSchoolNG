@@ -74,10 +74,27 @@
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Package</label>
         <div class="col-sm-9">
-          <select class="form-select" [(ngModel)]="oRegistrationRequestDto.packageId" name="packageId">
+          <select class="form-select" (change)="PackageChange()" [(ngModel)]="oRegistrationRequestDto.packageId" name="packageId">
             <option value="0">-- Select package --</option>
             <option *ngFor="let item of packageList; trackBy: trackByPackage" [value]="item.id">{{ item.name }}</option>
           </select>
+        </div>
+      </div>
+        
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">No Of Lesson</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.nooflesson" (keyup)="LessonRateChange()" name="nooflesson"
+            placeholder="Enter no of lesson">
+        </div>
+      </div>
+
+            
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Lesson Rate</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.lessonRate" (keyup)="LessonRateChange()" name="lessonRate"
+            placeholder="Enter lesson per rate">
         </div>
       </div>
 
@@ -94,23 +111,34 @@
         </div>
       </div>
 
+
+
       <!-- Section: Payment -->
       <h6 class="mb-3 text-primary mt-4">Payment Info</h6>
 
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Amount</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.amount" name="amount"
+          <input type="text" class="form-control" disabled [(ngModel)]="oRegistrationRequestDto.amount" name="amount"
             placeholder="Enter amount">
         </div>
       </div>
       <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Discount Amount</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.discount" name="discount"
+          <input type="text" class="form-control" [(ngModel)]="oRegistrationRequestDto.discount" (keyup)="DisCountChange()" name="discount"
             placeholder="Enter discount amount">
         </div>
       </div>
+
+       <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Net Amount</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" disabled [(ngModel)]="oRegistrationRequestDto.netAmount" name="netAmount"
+            placeholder="">
+        </div>
+      </div>
+
 
     </div>
 

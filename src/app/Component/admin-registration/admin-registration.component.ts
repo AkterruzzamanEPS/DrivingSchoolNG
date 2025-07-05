@@ -53,6 +53,27 @@ export class AdminRegistrationComponent implements OnInit {
     this.router.navigateByUrl('admin/student')
   }
 
+  PackageChange() {
+    debugger
+    if (this.oRegistrationRequestDto.packageId > 0) {
+      const selectedPackage = this.packageList.find(pkg => pkg.id === parseInt(this.oRegistrationRequestDto.packageId.toString()));  
+      console.log(selectedPackage);
+      this.oRegistrationRequestDto.amount = selectedPackage.price;
+      this.oRegistrationRequestDto.discount = 0;
+      this.oRegistrationRequestDto.netAmount = parseFloat(this.oRegistrationRequestDto.amount.toString()) - parseFloat(this.oRegistrationRequestDto.discount.toString());
+      this.oRegistrationRequestDto.nooflesson = selectedPackage.totalLessons;
+      this.oRegistrationRequestDto.lessonRate = selectedPackage.rate;
+    }
+  }
+
+  LessonRateChange() {
+    this.oRegistrationRequestDto.amount = this.oRegistrationRequestDto.nooflesson * this.oRegistrationRequestDto.lessonRate;
+    this.DisCountChange();
+  }
+
+  DisCountChange(){
+    this.oRegistrationRequestDto.netAmount = this.oRegistrationRequestDto.amount -this.oRegistrationRequestDto.discount;
+  }
 
   Registration() {
     this.oRegistrationRequestDto.fullName = this.oRegistrationRequestDto.fullName;
@@ -79,6 +100,19 @@ export class AdminRegistrationComponent implements OnInit {
     }
     if (!CommonHelper.isValidNumber(this.oRegistrationRequestDto.phoneNumber)) {
       this.toast.warning("Number must be exactly 11 digits.", "Warning!!", { progressBar: true });
+      return;
+    }
+    if (this.oRegistrationRequestDto.nooflesson == 0) {
+      this.toast.warning("Please enter no of lesson", "Warning!!", { progressBar: true });
+      return;
+    }
+     if (this.oRegistrationRequestDto.lessonRate == 0) {
+      this.toast.warning("Please enter lesson per rate", "Warning!!", { progressBar: true });
+      return;
+    }
+
+    if (this.oRegistrationRequestDto.amount == 0) {
+      this.toast.warning("Please enter amount", "Warning!!", { progressBar: true });
       return;
     }
 
