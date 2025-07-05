@@ -48,7 +48,15 @@ import { CheckListCreateComponent } from './Component/check-list-create/check-li
 
 export const routes: Routes = [
     {
-        path: "", component: HomeComponent, title: "Driving",
+        path: '',
+        redirectTo: 'admin/login',
+        pathMatch: 'full'
+    },
+
+    {
+        path: "home",
+        component: HomeComponent,
+        title: "Driving",
         children: [
             { path: '', component: DrivingComponent, title: 'Driving Home' },
         ]
