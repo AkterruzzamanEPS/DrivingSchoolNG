@@ -22,6 +22,10 @@ export class RegistrationRequestDto {
         this.vehicleType=0;
         this.type=0;
         this.packageId=0;
+        this.bookingId=0;
+        this.nooflesson=0;
+        this.lessonRate=0;
+        this.netAmount=0;
         this.amount=0;
         this.discount=0;
         this.isFixed=false;
@@ -43,8 +47,12 @@ export class RegistrationRequestDto {
     public type:number;
     public isFixed:boolean;
     public packageId:number;
+    public bookingId:number;
+    public nooflesson:number;
+    public lessonRate:number;
     public amount:number;
     public discount:number;
+    public netAmount:number;
     public paymentMethod:string;
     public phoneNumber:string;
     public dateOfBirth:Date;
