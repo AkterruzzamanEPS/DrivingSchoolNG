@@ -36,7 +36,7 @@ export class CalenderComponent implements OnInit {
   offDayList = [];
   offDaySubmitList: any[] = [];
 
-
+  currentDate: any;
 
   ngOnInit() {
     const d = new Date();
@@ -46,6 +46,7 @@ export class CalenderComponent implements OnInit {
     this.GetMonthlySlotAvailability();
     this.dataSet();
     this.GetOrgOffDayDetails();// get data for dat
+    this.currentDate= d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2)
   }
 
   private GetMonthlySlotAvailability() {
