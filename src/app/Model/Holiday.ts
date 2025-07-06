@@ -9,6 +9,7 @@ export class Holiday {
         this.AvailableSlots = 0;
         this.IsSlotAvailable = true;
         this.TotalSlots = 0;
+        this.Slots = [];
     }
     public dateTxt: string;// PK. DO NOT SHOW IN THE GRID
     public date?: string;
@@ -19,6 +20,7 @@ export class Holiday {
     public AvailableSlots: number;
     public IsSlotAvailable: boolean;
     public TotalSlots: number;
+    public Slots: any[];
 }
 
 
@@ -91,11 +93,11 @@ export class OffDayFormDto extends OffDayProjectDto {
 export class OffDayDetailsDto {
 
     constructor() {
-        this.noOfTotalDay=0;
-        this.noOfWorkingDay=0;
-        this.noOfOffDay=0;
-        this.offDayDatetimeList=[];
-        this.monthlyOffDayCountList=[];
+        this.noOfTotalDay = 0;
+        this.noOfWorkingDay = 0;
+        this.noOfOffDay = 0;
+        this.offDayDatetimeList = [];
+        this.monthlyOffDayCountList = [];
     }
     public noOfTotalDay: number;
     public noOfWorkingDay: number;
@@ -107,9 +109,9 @@ export class OffDayDetailsDto {
 
 export class MonthlyOffDayCountDto {
 
-        constructor() {
-        this.monthName="";
-        this.countOffDay=0;
+    constructor() {
+        this.monthName = "";
+        this.countOffDay = 0;
     }
     public monthName: string;
     public countOffDay: number;

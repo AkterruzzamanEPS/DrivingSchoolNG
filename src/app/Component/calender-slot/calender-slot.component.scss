@@ -1,0 +1,94 @@
+p {
+    font-family: Lato;
+}
+
+.day {
+    display: inline-block;
+    width: 14%;
+    height: 20vh;
+    border: 1px solid silver;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.holiday {
+    height: 8vh;
+}
+
+.holiday::-moz-focus-inner {
+    background-color: red;
+}
+
+.day:hover {
+    background-color: red;
+    color: white;
+    cursor: pointer !important;
+}
+
+.week-day {
+    display: inline-block;
+    width: 14%;
+    text-align: center;
+    margin-bottom: .5rem
+}
+
+.muted {
+    color: silver;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: .25rem;
+}
+
+.arrow.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.arrow.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.arrow.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.icon-font-size {
+    font-size: 20px !important;
+    color: red;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.available-day {
+    background-color: #d4edda;
+    cursor: pointer;
+}
+
+.unavailable-day {
+    background-color: #f8f9fa;
+    color: #ccc;
+}
+
+.not-current-month {
+    opacity: 0.4;
+}
+
+.today {
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+}

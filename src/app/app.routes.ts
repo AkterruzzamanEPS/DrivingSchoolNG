@@ -45,6 +45,7 @@ import { CalenderComponent } from './Component/calender/calender.component';
 import { DayWiseBookingComponent } from './Component/day-wise-booking/day-wise-booking.component';
 import { CheckListComponent } from './Component/check-list/check-list.component';
 import { CheckListCreateComponent } from './Component/check-list-create/check-list-create.component';
+import { CalenderSlotComponent } from './Component/calender-slot/calender-slot.component';
 
 export const routes: Routes = [
     {
@@ -83,6 +84,7 @@ export const routes: Routes = [
             { path: 'payment-collection-list', component: PaymentCollectionReportsComponent, title: 'Payment Collection Report' },
             { path: 'package/:id', component: PackageCreateComponent, title: 'Package Create' },
             { path: 'slot', component: SlotComponent, title: 'Slot List' },
+            { path: 'calender-slot', component: CalenderSlotComponent, title: 'Calender Slot List' },
             { path: 'slot/:id', component: SlotCreateComponent, title: 'Slot Create' },
             { path: 'content', component: ContentComponent, title: 'Content List' },
             { path: 'instructor-availability', component: SlotAssignmentComponent, title: 'Instructor Availability List' },

@@ -1,5 +1,5 @@
 <div class="row g-0 justify-content-center">
-    <div class="col-md-11">
+    <div class="col-md-12">
         <div class="row g-0">
             <div class="col-md">
 
@@ -25,13 +25,71 @@
                     <div class="week-day " *ngFor="let date of weekdays">{{date}}</div>
                 </div>
                 <div class="row g-0">
-                    <div class="day"  (click)="daymathod(day)" [class.muted]="!day.isMonth"
-                        *ngFor="let day of oHolidays" [class.today]="currentDate==day.dateTxt ">
-                        <div class="holiday pt-3" id="{{ day.dateTxt }}">{{day.day}}</div>
+                    <div class="day" (click)="daymathod(day)" [class.muted]="!day.isMonth" *ngFor="let day of oHolidays"
+                        [class.today]="currentDate==day.dateTxt ">
+                        <div class="holiday pt-" id="{{ day.dateTxt }}">
+                            {{day.day}}
+                            <div class="row g-0" >
+                                <div class="col-12 my-1 bg-info"  *ngFor="let slot of day.Slots" (click)="daymathod(day,slot)" #manageBtn>
+                                    {{slot.StartTime}} To  {{slot.EndTime}}
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" hidden id="openCommonModel" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Slot 
+                    @if (SlotId==0){Create} @if (SlotId>0){Update}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeCommonModel"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-0">
+
+                    <div class="row mb-3">
+                        <label for="startTime" class="col-sm-2 col-form-label">Start Time</label>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="startTime" [(ngModel)]="startTime"
+                                name="startTime" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="endTime" class="col-sm-2 col-form-label">End Time</label>
+                        <div class="col-sm-10">
+                            <input type="time" class="form-control" id="endTime" [(ngModel)]="endTime" name="endTime" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if (SlotId==0){
+                <button type="button" class="btn btn-success float-end" (click)="InsertSlot()">Save</button>
+                }
+                @if (SlotId>0){
+                <button type="button" class="btn btn-success float-end" (click)="UpdateSlot()">Update</button>
+                }
             </div>
         </div>
     </div>
