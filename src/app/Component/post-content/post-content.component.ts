@@ -49,7 +49,7 @@ export class PostContentComponent implements OnInit {
   }
 
   public InsertLike(item: any) {
-    debugger
+    
     this.oLikeRequestDto.postId = item.id;
     this.oLikeRequestDto.userId = this.currentUser?.userId;
     this.http.Post(`Like/InsertLike/`, this.oLikeRequestDto).subscribe(

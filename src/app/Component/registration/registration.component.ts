@@ -74,7 +74,7 @@ export class RegistrationComponent {
 
       },
       (err) => {
-        debugger
+        
         this.toast.error(err.error.message, "Error!!", { progressBar: true });
       }
     );

@@ -201,7 +201,7 @@ export class BookingCreateComponent implements OnInit, AfterViewInit {
   }
   private GetAllSlotes() {
     // After the hash is generated, proceed with the API call
-    this.http.Get(`Slot/GetAllSlotes`).subscribe(
+    this.http.Get(`Slot/GetAllSlotes?StartDate=`).subscribe(
       (res: any) => {
         this.slotList = res;
       },

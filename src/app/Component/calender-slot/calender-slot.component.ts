@@ -71,7 +71,7 @@ export class CalenderSlotComponent implements OnInit, AfterViewInit {
   triggerSlotClickManually(index: number) {
     const btn = this.manageButtons.toArray()[index];
     if (btn) {
-      btn.nativeElement.click(); // This will trigger daymathod() as if user clicked it
+      // btn.nativeElement.click(); // This will trigger daymathod() as if user clicked it
     }
   }
 

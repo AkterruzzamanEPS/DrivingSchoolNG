@@ -36,7 +36,7 @@ export class ExpenditureCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetAllExpenditureHeades();
-    debugger
+    
     var id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.ExpenditureId = Number(id);

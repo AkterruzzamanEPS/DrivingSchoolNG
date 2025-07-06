@@ -104,7 +104,7 @@ export class CalenderComponent implements OnInit {
   }
 
   daymathod(day: any) {
-    debugger
+    
     console.log("day", day)
     // this.router.navigateByUrl('/calender/' + day.dateTxt)
     this.calenderEvent.emit(day);

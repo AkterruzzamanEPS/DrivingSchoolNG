@@ -59,7 +59,7 @@ export class AdminRegistrationComponent implements OnInit {
   }
 
   PackageChange() {
-    debugger
+    
     if (this.oRegistrationRequestDto.packageId > 0) {
       const selectedPackage = this.packageList.find(pkg => pkg.id === parseInt(this.oRegistrationRequestDto.packageId.toString()));
       console.log(selectedPackage);
@@ -142,7 +142,7 @@ export class AdminRegistrationComponent implements OnInit {
         this.BackToList();
       },
       (err) => {
-        debugger
+        
         this.toast.error(err.error.message, "Error!!", { progressBar: true });
       }
     );

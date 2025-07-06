@@ -150,7 +150,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
   private GetDayWiseBookings() {
     this.http.Get(`Booking/GetDayWiseBookings?StartDate=${this.datePipe.transform(this.startDate, 'yyyy-MM-dd')}`).subscribe(
       (res: any) => {
-        debugger
+        
         this.rowData = [];
         this.rowData = res;
         this.bookingGridApi.sizeColumnsToFit();
@@ -164,7 +164,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
 
   private GetAllSlotes() {
     // After the hash is generated, proceed with the API call
-    this.http.Get(`Slot/GetAllSlotes`).subscribe(
+    this.http.Get(`Slot/GetAllSlotes?StartDate=${this.startDate}`).subscribe(
       (res: any) => {
         this.slotList = res;
       },

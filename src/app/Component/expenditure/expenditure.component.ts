@@ -91,7 +91,7 @@ export class ExpenditureComponent implements OnInit {
     const eDiv = document.createElement('div');
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-pencil-square"></i> Edit</button>'
     eDiv.addEventListener('click', () => {
-      debugger
+      
       this.router.navigateByUrl('/admin/expenditure/' + params.data.id)
     });
     return eDiv;
@@ -254,7 +254,7 @@ export class ExpenditureComponent implements OnInit {
   }
 
   PDFGenerate() {
-    debugger
+    
     console.log(this.result);
     let title = "Expenditure Head Summary";
     const documentDefinition = {

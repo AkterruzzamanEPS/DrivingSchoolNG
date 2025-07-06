@@ -184,7 +184,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
   private GetAllSlotes() {
     // After the hash is generated, proceed with the API call
-    this.http.Get(`Slot/GetAllSlotes`).subscribe(
+    this.http.Get(`Slot/GetAllSlotes?StartDate=`).subscribe(
       (res: any) => {
         this.slotList = res;
       },
@@ -242,7 +242,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   public InsertBooking() {
-    debugger
+    
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
     this.oBookingAssignRequestDto.status = Number(Number(this.oBookingAssignRequestDto.studentId) == 0 ? 1 : 2);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);

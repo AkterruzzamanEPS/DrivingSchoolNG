@@ -38,7 +38,7 @@ export class FriendComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
+    
     this.activatedRoute.queryParams.subscribe((params: any) => {
       if (params.searchTxt) {
         this.searchTxt = params.searchTxt;
@@ -52,14 +52,14 @@ export class FriendComponent implements OnInit {
 
   private GetAllUsers() {
 
-    debugger
+    
     this.oAspNetUsersFilterRequestDto.name = this.searchTxt;
     this.http.Post(`AspNetUsers/GetAllUsers`, this.oAspNetUsersFilterRequestDto).subscribe(
       (res: any) => {
         this.userList = res;
       },
       (err) => {
-        debugger
+        
         this.toast.error(err.error.message, "Error!!", { progressBar: true });
       }
     );
@@ -79,11 +79,11 @@ export class FriendComponent implements OnInit {
     this.oFriendRequestRequestDto.toUserId = user.id;
     this.http.Post(`FriendRequest/InsertFriendRequest`, this.oFriendRequestRequestDto).subscribe(
       (res: any) => {
-        debugger
+        
         this.GetAllUsers();
       },
       (err) => {
-        debugger
+        
         this.toast.error(err.error.message, "Error!!", { progressBar: true });
       }
     );

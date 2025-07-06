@@ -73,7 +73,7 @@ export class CommonHelper {
 
   public static getLessonSlots(startDate: Date, selectedDays: string[], totalLessons: number, slot: any): any[] {
     const result: any[] = [];
-    debugger
+    
     let date = startDate;
 
     const dayMap: Record<string, number> = {
