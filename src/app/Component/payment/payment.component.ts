@@ -11,6 +11,8 @@ import { CommonHelper } from '../../Shared/Service/common-helper.service';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 import { ValueFormatterParams } from 'ag-grid-community';
 import { PaginationComponent } from "../../Shared/pagination/pagination.component";
+import { PdfService } from '../../Shared/Service/pdf.service';
+import { MoneyReceiptService } from '../../Shared/Service/money-receipt.service';
 
 @Component({
   selector: 'app-payment',
@@ -47,6 +49,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   public hasPreviousPage: boolean = false;
   public hasNextPage: boolean = false;
   public totalPageNumbers: number[] = [];
+  public result: any[][] = [];
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
@@ -69,6 +72,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   constructor(
     public authService: AuthService,
     private toast: ToastrService,
+    private pdfService: MoneyReceiptService,
     private http: HttpHelperService,
     private router: Router,
     private datePipe: DatePipe) {
@@ -279,6 +283,17 @@ export class PaymentComponent implements OnInit, AfterViewInit {
       this.pageIndex++;
       this.GetPayment();
     }
+  }
+
+  public PDFGenerate() {
+     let getSelectedItem = AGGridHelper.GetSelectedRow(this.paymentGridApi);
+    if (getSelectedItem == null) {
+      this.toast.warning("Please select an item", "Warning!!", { progressBar: true })
+      return;
+    }
+    this.paymentId = Number(getSelectedItem.id);
+    this.pdfService.GenerateMoneyReceiptPDF( this.paymentId);
+
   }
 
 
