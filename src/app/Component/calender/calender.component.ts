@@ -39,14 +39,16 @@ export class CalenderComponent implements OnInit {
   currentDate: any;
 
   ngOnInit() {
+    this.GetMonthlySlotAvailability();
     const d = new Date();
     this.year = d.getFullYear();
     this.month = d.getMonth() + 1;
     this.days = this.generateDays(this.year, this.month);
-    this.GetMonthlySlotAvailability();
     this.dataSet();
     this.GetOrgOffDayDetails();// get data for dat
-    this.currentDate= d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2)
+    this.currentDate = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+
+    console.log(this.oHolidays)
   }
 
   private GetMonthlySlotAvailability() {
@@ -55,6 +57,9 @@ export class CalenderComponent implements OnInit {
     this.http.Get(`Booking/GetMonthlySlotAvailability?StartDate=${startDate}`).subscribe(
       (res: any) => {
         console.log(res);
+        res.forEach((item: any) => {
+
+        });
 
       },
       (err) => {
@@ -72,15 +77,6 @@ export class CalenderComponent implements OnInit {
       this.offDayDTO.offDayProjectId = 0;
       this.offDayDTO.offDayDepartmentId = 0;
       this.offDayDTO.offDayRelatedModule = this.modulename;
-
-      // this.service.Get("this.offDayFormDto").subscribe(res => {
-
-      //   this.oOrgOffDayDetailsDto = res as unknown as OffDayDetailsDto;
-      //   // this.gridApi.setRowData(this.oOrgOffDayDetailsDto.monthlyOffDayCountList)
-
-      // }, (err) => {
-      //   this.oOrgOffDayDetailsDto = new OffDayDetailsDto();
-      // });
     } catch (e) {
 
     }

@@ -5,12 +5,20 @@ export class Holiday {
         this.day = 0;
         this.isMonth = true;
         this.description = ""
+        this.AssignedSlots = 0;
+        this.AvailableSlots = 0;
+        this.IsSlotAvailable = true;
+        this.TotalSlots = 0;
     }
     public dateTxt: string;// PK. DO NOT SHOW IN THE GRID
     public date?: string;
     public day: number;
     public isMonth: boolean;
     public description?: string;
+    public AssignedSlots: number;
+    public AvailableSlots: number;
+    public IsSlotAvailable: boolean;
+    public TotalSlots: number;
 }
 
 
@@ -42,15 +50,6 @@ export class OffDayDto {
     public dayList: Date[];
     public relatedModule: string
 }
-// public class OrgOffDayDetailsDto
-// {
-//     public int NoOfTotalDay { get; set; }
-//     public int NoOfWorkingDay { get; set; }
-//     public int NoOfOffDay { get; set; }
-//     public List<DateTime> OffDayList { get; set; }
-//     public List<OrgMonthlyOffDayCountDto> OrgMonthlyOffDayCountList { get; set; }
-// }
-
 export class OrgMonthlyOffDayCountDto {
     constructor() {
         this.MonthName = "";
