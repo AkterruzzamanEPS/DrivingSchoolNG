@@ -103,7 +103,9 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     var id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.bookingId = Number(id);
-      this.GetBookingById();
+      if (this.bookingId > 0) {
+        this.GetBookingById();
+      }
     }
     this.GetAllSlotes();
   }
@@ -192,6 +194,12 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     );
 
   }
+
+  BackToList() {
+    this.router.navigateByUrl('admin/lesson')
+  }
+
+
   private GetBookingById() {
     this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
       (res: any) => {

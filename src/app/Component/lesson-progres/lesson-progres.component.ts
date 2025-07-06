@@ -20,15 +20,8 @@ import { HttpHelperService } from '../../Shared/Service/http-helper.service';
 })
 export class LessonProgresComponent implements OnInit, AfterViewInit {
 
-  private lessonprogresGridApi!: any;
-  public DeafultCol = AGGridHelper.DeafultCol;
-  public rowData!: any[];
-
   public slotList: any[] = [];
   public instructorList: any[] = [];
-
-  public slotFromList: any[] = [];
-  public instructorFromList: any[] = [];
 
   public oLessonProgresRequestDto = new LessonProgresRequestDto();
   public oLessonProgresFilterRequestDto = new LessonProgresFilterRequestDto();
@@ -40,32 +33,13 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
   public lessonprogresId = 0;
   public bookingId = 0;
   // pagination setup
-  public pageIndex: number = 1;
-  public totalRecords: number = 0;
-  public totalPages: number = 0;
-  public hasPreviousPage: boolean = false;
-  public hasNextPage: boolean = false;
-  public totalPageNumbers: number[] = [];
+
+
   public oBookingResponseDto: any;
-  public colDefsTransection: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
-    { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
-    { field: 'lessonTitle', headerName: 'Lesson Title' },
-    { field: 'feedback', headerName: 'Feedback' },
-    { field: 'progressPercentage', headerName: 'Progress Percentage' },
-    { field: 'addedBy', headerName: 'Added By' },
-    { field: 'addedDate', headerName: 'Added Date', valueGetter: (params: any) => this.datePipe.transform(params.data.addedDate, 'MMM d, y') },
-    { field: 'remarks', headerName: 'Remarks' },
-    { field: 'isActive', headerName: 'Status' },
-  ];
+
   trackByFn: TrackByFunction<any> | any;
   trackBySlot: TrackByFunction<any> | any;
   trackBySlotFrom: TrackByFunction<any> | any;
-
-  trackByInstructor: TrackByFunction<any> | any;
-  trackByInstructorFrom: TrackByFunction<any> | any;
-
   trackByStatus: TrackByFunction<any> | any;
   constructor(
     public authService: AuthService,
@@ -82,7 +56,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.GetLessonProgres();
+
   }
 
 
@@ -92,15 +66,10 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
       this.bookingId = Number(id);
       this.GetBookingById();
     }
-    this.GetAllInstructores();
-    this.GetAllSlotes();
 
   }
 
-  onGridReadyTransection(params: any) {
-    this.lessonprogresGridApi = params.api;
-    this.rowData = [];
-  }
+
 
   detailToGrid(params: any) {
     const eDiv = document.createElement('div');
@@ -110,62 +79,6 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     });
     return eDiv;
   }
-
-  Filter() {
-    this.GetLessonProgres();
-  }
-
-  private GetLessonProgres() {
-
-    this.oLessonProgresFilterRequestDto.startDate = new Date(this.startDate);
-    this.oLessonProgresFilterRequestDto.endDate = new Date(this.endDate);
-    this.oLessonProgresFilterRequestDto.isActive = CommonHelper.booleanConvert(this.oLessonProgresFilterRequestDto.isActive);
-    // After the hash is generated, proceed with the API call
-    this.http.Post(`LessonProgres/GetLessonProgres?pageNumber=${this.pageIndex}`, this.oLessonProgresFilterRequestDto).subscribe(
-      (res: any) => {
-        console.log(res);
-        this.rowData = res.items;
-        this.pageIndex = res.pageIndex;
-        this.totalPages = res.totalPages;
-        this.totalRecords = res.totalRecords;
-        this.hasPreviousPage = res.hasPreviousPage;
-        this.hasNextPage = res.hasNextPage;
-        this.totalPageNumbers = CommonHelper.generateNumbers(this.pageIndex, this.totalPages)
-        this.lessonprogresGridApi.sizeColumnsToFit();
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
-
-  private GetAllSlotes() {
-    // After the hash is generated, proceed with the API call
-    this.http.Get(`Slot/GetAllSlotes`).subscribe(
-      (res: any) => {
-        this.slotList = res;
-        this.slotFromList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
-
-  private GetAllInstructores() {
-    this.http.Get(`Instructor/GetAllInstructores`).subscribe(
-      (res: any) => {
-        this.instructorList = res;
-        this.instructorFromList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-  }
-
 
   private GetBookingById() {
     this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
@@ -182,6 +95,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
   public InsertLessonProgres() {
     this.oLessonProgresRequestDto.bookingId = Number(this.bookingId);
+    this.oLessonProgresRequestDto.status = Number(this.oLessonProgresRequestDto.status);
     this.oLessonProgresRequestDto.progressPercentage = Number(this.oLessonProgresRequestDto.progressPercentage);
     this.oLessonProgresRequestDto.addedDate = new Date(this.addedDate);
     this.oLessonProgresRequestDto.isActive = CommonHelper.booleanConvert(this.oLessonProgresRequestDto.isActive);
@@ -197,9 +111,15 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
   }
 
+  BackToList() {
+    this.router.navigateByUrl('admin/lesson')
+  }
+
+
   public UpdateLessonProgres() {
     this.oLessonProgresRequestDto.bookingId = Number(this.oLessonProgresRequestDto.bookingId);
     this.oLessonProgresRequestDto.progressPercentage = Number(this.oLessonProgresRequestDto.progressPercentage);
+    this.oLessonProgresRequestDto.status = Number(this.oLessonProgresRequestDto.status);
     this.oLessonProgresRequestDto.addedDate = new Date(this.addedDate);
     this.oLessonProgresRequestDto.isActive = CommonHelper.booleanConvert(this.oLessonProgresRequestDto.isActive);
     // After the hash is generated, proceed with the API call
@@ -213,81 +133,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public DeleteLessonProgres() {
-    this.oLessonProgresRequestDto.isActive = CommonHelper.booleanConvert(this.oLessonProgresRequestDto.isActive);
-    // After the hash is generated, proceed with the API call
-    this.http.Post(`LessonProgres/DeleteLessonProgres/${this.lessonprogresId}`, this.oLessonProgresRequestDto).subscribe(
-      (res: any) => {
-        CommonHelper.CommonButtonClick("closeCommonDelete");
-        this.GetLessonProgres();
-        this.toast.success("Data Delete Successfully!!", "Success!!", { progressBar: true });
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
 
-  }
-  add() {
-    CommonHelper.CommonButtonClick("openCommonModel");
-    this.oLessonProgresRequestDto = new LessonProgresRequestDto();
-    this.lessonprogresId = 0;
-  }
-
-  edit() {
-    let getSelectedItem = AGGridHelper.GetSelectedRow(this.lessonprogresGridApi);
-    if (getSelectedItem == null) {
-      this.toast.warning("Please select an item", "Warning!!", { progressBar: true })
-    }
-    this.lessonprogresId = Number(getSelectedItem.id);
-    this.oLessonProgresRequestDto.bookingId = Number(getSelectedItem.bookingId);
-    this.oLessonProgresRequestDto.lessonTitle = getSelectedItem.lessonTitle;
-    this.oLessonProgresRequestDto.feedback = getSelectedItem.feedback;
-    this.oLessonProgresRequestDto.progressPercentage = Number(getSelectedItem.progressPercentage);
-    this.oLessonProgresRequestDto.addedDate = new Date(getSelectedItem.addedDate);
-    this.oLessonProgresRequestDto.isActive = CommonHelper.booleanConvert(getSelectedItem.isActive);
-    this.oLessonProgresRequestDto.remarks = getSelectedItem.remarks;
-    CommonHelper.CommonButtonClick("openCommonModel");
-  }
-
-  delete() {
-    let getSelectedItem = AGGridHelper.GetSelectedRow(this.lessonprogresGridApi);
-    if (getSelectedItem == null) {
-      this.toast.warning("Please select an item", "Warning!!", { progressBar: true })
-    }
-    this.oLessonProgresRequestDto.bookingId = Number(getSelectedItem.bookingId);
-    this.oLessonProgresRequestDto.lessonTitle = getSelectedItem.lessonTitle;
-    this.oLessonProgresRequestDto.feedback = getSelectedItem.feedback;
-    this.oLessonProgresRequestDto.progressPercentage = Number(getSelectedItem.progressPercentage);
-    this.oLessonProgresRequestDto.addedDate = new Date(getSelectedItem.addedDate);
-    this.oLessonProgresRequestDto.isActive = CommonHelper.booleanConvert(getSelectedItem.isActive);
-    this.oLessonProgresRequestDto.remarks = getSelectedItem.remarks;
-    CommonHelper.CommonButtonClick("openCommonDelete");
-
-  }
-
-
-  public onPreviousPage(): void {
-    if (this.hasPreviousPage) {
-      this.pageIndex--;
-      this.GetLessonProgres();
-    }
-  }
-
-  public onPage(pageNumber: number): void {
-    if (this.hasNextPage) {
-      this.pageIndex = pageNumber;
-      this.GetLessonProgres();
-    }
-  }
-
-  public onNextPage(): void {
-    if (this.hasNextPage) {
-      this.pageIndex++;
-      this.GetLessonProgres();
-    }
-  }
 
 
 }
-

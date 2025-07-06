@@ -4,6 +4,8 @@
             <h1 class="card-title fs-5" id="cxampleCardLabel">Lesson Progress
                 @if (lessonprogresId==0){Create} @if (lessonprogresId>0){Update}
             </h1>
+
+                     <button type="submit" class="btn btn-success float-end" (click)="BackToList()">Back To List</button>
         </div>
         <div class="card-body">
             <div class="row g-0">
@@ -17,7 +19,7 @@
 
                 <div class="col-md-6 px-2">
                     <div class="mb-2">
-                        <label for="progressPercentage" class="form-label">Progress Percentage</label>
+                        <label for="progressPercentage" class="form-label">Progress Weight</label>
                         <input type="number" class="form-control"
                             [(ngModel)]="oLessonProgresRequestDto.progressPercentage" name="progressPercentage">
                     </div>
@@ -42,12 +44,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="remarks" class="form-label">Remarks</label>
-                    <textarea class="form-control" name="remarks" [(ngModel)]="oLessonProgresRequestDto.remarks"
-                        id="remarks" rows="2"></textarea>
-                </div>
             </div>
+
+            
         </div>
         <div class="card-footer text-end">
             @if (lessonprogresId==0){

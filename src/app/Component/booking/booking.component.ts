@@ -49,7 +49,6 @@ export class BookingComponent implements OnInit, AfterViewInit {
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
     { field: 'userName', width: 150, headerName: 'Student Name', filter: true },
-    { field: 'instructorName', width: 150, headerName: 'Instructor Name', filter: true },
     {
       field: 'classDate', width: 150, headerName: 'Lesson Date', filter: true,
       valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'MMM d, y')
@@ -95,10 +94,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.GetAllInstructores();
     this.GetAllSlotes();
-    this.GetAllVehicles();
-
   }
 
   PageChange(event: any) {
@@ -182,32 +178,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
       }
     );
-
   }
-  private GetAllInstructores() {
-    this.http.Get(`Instructor/GetAllInstructores`).subscribe(
-      (res: any) => {
-        this.instructorList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
-
-  private GetAllVehicles() {
-    this.http.Get(`Vehicle/GetAllVehicles`).subscribe(
-      (res: any) => {
-        this.vehicleList = res;
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
-
 
   public InsertBooking() {
     this.oBookingRequestDto.slotId = Number(this.oBookingRequestDto.slotId);
