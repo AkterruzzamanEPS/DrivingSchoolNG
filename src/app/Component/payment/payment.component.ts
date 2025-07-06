@@ -50,12 +50,15 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'userName', width: 150, headerName: 'Name', filter: true },
-    { field: 'packageName', width: 150, headerName: 'Package', filter: true },
-    { field: 'amount', headerName: 'Amount' },
+    { field: 'receiptNo', width: 150, headerName: 'Receipt No', filter: true },
     { field: 'transactionDate', headerName: 'Transaction Date' ,cellRenderer: (params: ValueFormatterParams) => {
                 return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
               }},
+    { field: 'studentIdNo', width: 150, headerName: 'Reg No', filter: true },
+    { field: 'userName', width: 150, headerName: 'Name', filter: true },
+    { field: 'packageName', width: 150, headerName: 'Package', filter: true },
+    { field: 'amount', headerName: 'Amount' },
+    
     { field: 'isActive', headerName: 'Status' },
   ];
   trackByFn: TrackByFunction<any> | any;
