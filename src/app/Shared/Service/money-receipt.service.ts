@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpHelperService } from './http-helper.service';
 import { PdfService } from './pdf.service';
-import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ToastrService } from 'ngx-toastr';
 import { LessonProgresRequestDto, LessonProgresFilterRequestDto } from '../../Model/LessonProgres';
+import { BookingCheckListRequestDto } from '../../Model/BookingChecklist';
 import { AGGridHelper } from '../../Shared/Service/AGGridHelper';
 import { AuthService } from '../../Shared/Service/auth.service';
 import { CommonHelper } from '../../Shared/Service/common-helper.service';
@@ -22,11 +23,19 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
   public slotList: any[] = [];
   public instructorList: any[] = [];
+  public CheckList: any[] = [];
+    public DeafultCol = AGGridHelper.DeafultCol;
+    public nCHeckListId = 0;
+    public gridApi!: any;     
+    
+    public rowData!: any[];
 
   public oLessonProgresRequestDto = new LessonProgresRequestDto();
+  public oBookingCheckListRequestDto = new BookingCheckListRequestDto();
   public oLessonProgresFilterRequestDto = new LessonProgresFilterRequestDto();
 
   public startDate: any = "";
+  public remarks: any = "";
   public endDate: any = "";
   public addedDate: any = "";
 
@@ -36,6 +45,12 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
 
   public oBookingResponseDto: any;
+  public colDefsTransection: any[] = [
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
+    { field: 'ChekListName', width: 150, headerName: 'Check List', filter: true },
+    { field: 'Weight', width: 150, headerName: 'Weight', filter: true },
+    { field: 'Remarks', width: 150, headerName: 'Note', filter: true },
+  ];
 
   trackByFn: TrackByFunction<any> | any;
   trackBySlot: TrackByFunction<any> | any;
@@ -66,10 +81,26 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
       this.bookingId = Number(id);
       this.GetBookingById();
     }
+    this.GetBookingCheckListByBookingId()
+    this.GetCheckList();
 
   }
 
 
+   private GetCheckList() {
+      
+      // After the hash is generated, proceed with the API call
+      this.http.Get(`CheckList/GetAllCheckListes`).subscribe(
+        (res: any) => {
+          this.CheckList = res;
+        },
+        (err) => {
+          this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+        }
+      );
+  
+    }
+  
 
   detailToGrid(params: any) {
     const eDiv = document.createElement('div');
@@ -79,6 +110,10 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     });
     return eDiv;
   }
+    onGridReadyTransection(params: any) {
+    this.gridApi = params.api;
+    this.rowData = [];
+  }
 
   private GetBookingById() {
     this.http.Get(`Booking/GetBookingById/${this.bookingId}`).subscribe(
@@ -86,6 +121,18 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
         this.oBookingResponseDto = res;
         this.oLessonProgresRequestDto.lessonTitle = this.oBookingResponseDto.slotName;
         this.oLessonProgresRequestDto.status = Number(this.oBookingResponseDto.status);
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+  }
+
+  private GetBookingCheckListByBookingId() {
+    this.http.Get(`BookingCheckList/GetBookingCheckListByBookingId/${this.bookingId}`).subscribe(
+      (res: any) => {
+        this.rowData = res;
+        this.gridApi.sizeColumnsToFit();
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -113,6 +160,25 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
   BackToList() {
     this.router.navigateByUrl('admin/lesson')
+  }
+
+
+  public AddCheckList(){
+    this.oBookingCheckListRequestDto.bookingId = Number(this.bookingId);
+    this.oBookingCheckListRequestDto.checkListId = Number(this.nCHeckListId);
+    this.oBookingCheckListRequestDto.checkListName = this.CheckList.find(x => x.id == this.nCHeckListId)?.name || '';
+    this.oBookingCheckListRequestDto.remarks = this.remarks;
+    this.oBookingCheckListRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingCheckListRequestDto.isActive);
+    // After the hash is generated, proceed with the API call
+    this.http.Post(`BookingCheckList/InsertBookingCheckList`, this.oBookingCheckListRequestDto).subscribe(
+      (res: any) => {
+        this.toast.success("Data Save Successfully!!", "Success!!", { progressBar: true });
+        this.GetBookingCheckListByBookingId();
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
   }
 
 

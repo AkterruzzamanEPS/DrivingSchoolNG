@@ -56,5 +56,41 @@
             <button type="button" class="btn btn-primary" (click)="UpdateLessonProgres()">Update</button>
             }
         </div>
+
+        
+    </div>
+
+    <div class="row g-0 mt-3">
+
+        <div class="col-4 px-1">
+            <div class="mb-2">
+                <select class="form-select" [(ngModel)]="nCHeckListId" name="nCHeckListId"
+                    aria-label="">
+                    <option value="0">-- select CheckList -- </option>
+                    <option *ngFor="let item of CheckList; trackBy: trackBySlot" [value]="item.id">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+         <div class="col-4 px-1">
+            <div class="mb-2">
+                <input type="text" class="form-control" [(ngModel)]="remarks"
+                    name="remarks" placeholder="type note here ...">
+            </div>
+        </div>
+
+        <div class="col-2 px-1">
+            <div class="mb-2">
+                <button class="btn btn-success" (click)="AddCheckList()">Add Check List</button>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <ag-grid-angular class="ag-theme-alpine" style="height: 70vh;width: 100%;" [columnDefs]="colDefsTransection"
+                [rowData]="rowData" [rowSelection]="'single'" (gridReady)="onGridReadyTransection($event)"
+                [defaultColDef]="DeafultCol">
+            </ag-grid-angular>
+        </div>
     </div>
 </div>
