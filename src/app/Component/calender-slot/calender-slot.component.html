@@ -30,12 +30,12 @@
                         <div class="holiday pt-" id="{{ day.dateTxt }}">
                             {{day.day}}
                             <div class="row g-0">
-                                <div class="col-12 my-1 bg-info" *ngFor="let slot of day.Slots"
+                                <div class="col-12 my-1" style="background-color: #bb9524; color: whitesmoke;" *ngFor="let slot of day.Slots"
                                     (click)="daymathod(day,slot);$event.stopPropagation()" #manageBtn>
                                     {{day.dateTxt+' '+slot.StartTime | date:'shortTime' }}-{{day.dateTxt +'
                                     '+slot.EndTime | date:'shortTime'}}
                                     @if (slot.BookingStatus==2) {
-                                    <i class="bi ms-1 bi-check-circle text-success"></i>
+                                    <i class="bi ms-1 bi-check-circle text-primary"></i>
                                     }
 
                                 </div>

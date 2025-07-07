@@ -1,10 +1,12 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit, output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, output, QueryList, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Holiday, OffDayDetailsDto, OffDayFormDto, OffDayProjectDto } from '../../Model/Holiday';
 import { HttpHelperService } from '../../Shared/Service/http-helper.service';
+import { SlotRequestDto } from '../../Model/Slot';
+import { CommonHelper } from '../../Shared/Service/common-helper.service';
 
 @Component({
   selector: 'app-calender',
@@ -14,7 +16,7 @@ import { HttpHelperService } from '../../Shared/Service/http-helper.service';
   styleUrl: './calender.component.scss',
   providers: [DatePipe]
 })
-export class CalenderComponent implements OnInit {
+export class CalenderComponent implements OnInit, AfterViewInit {
 
   calenderEvent = output<Holiday>();
   oHoliday = new Holiday();
@@ -26,7 +28,13 @@ export class CalenderComponent implements OnInit {
   da = new Date();
 
   oOrgOffDayDetailsDto = new OffDayDetailsDto();
-  constructor(private http: HttpHelperService, private toast: ToastrService, private router: Router) { }
+  constructor(private http: HttpHelperService, private toast: ToastrService, private datePipe: DatePipe, private router: Router) { }
+  ngAfterViewInit(): void {
+    // Example: Call click manually after 1 second (simulate)
+    setTimeout(() => {
+      this.triggerSlotClickManually(0); // Triggers the first slot button
+    }, 1000);
+  }
 
   year = 2023;
   month = 3;
@@ -38,29 +46,45 @@ export class CalenderComponent implements OnInit {
 
   currentDate: any;
 
+  selectedDate: any;
+  // Get all manageBtn refs
+  @ViewChildren('manageBtn') manageButtons!: QueryList<ElementRef>;
+
+  public oSlotRequestDto = new SlotRequestDto();
+  public SlotId = 0;
+  public startTime = "";
+  public endTime = "";
+
+  public allSlots: any[] = [];
+
   ngOnInit() {
-    this.GetMonthlySlotAvailability();
     const d = new Date();
     this.year = d.getFullYear();
     this.month = d.getMonth() + 1;
     this.days = this.generateDays(this.year, this.month);
-    this.dataSet();
-    this.GetOrgOffDayDetails();// get data for dat
-    this.currentDate = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    this.GetMonthlySlot();
+
 
     console.log(this.oHolidays)
   }
 
-  private GetMonthlySlotAvailability() {
+  triggerSlotClickManually(index: number) {
+    const btn = this.manageButtons.toArray()[index];
+    if (btn) {
+      // btn.nativeElement.click(); // This will trigger daymathod() as if user clicked it
+    }
+  }
+
+  private GetMonthlySlot() {
     const startDate = `${this.year}-${('0' + this.month).slice(-2)}-01`;
     // After the hash is generated, proceed with the API call
-    this.http.Get(`Booking/GetMonthlySlotAvailability?StartDate=${startDate}`).subscribe(
+    this.http.Get(`Slot/GetMonthlySlot?StartDate=${startDate}`).subscribe(
       (res: any) => {
-        console.log(res);
-        res.forEach((item: any) => {
-
-        });
-
+        this.allSlots = res;
+        const d = new Date();
+        this.dataSet();
+        this.GetOrgOffDayDetails();// get data for dat
+        this.currentDate = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -86,31 +110,19 @@ export class CalenderComponent implements OnInit {
     this.oHolidays = [];
     this.days.forEach(element => {
       element.forEach((day: any) => {
+        let find = this.allSlots.filter(x => this.datePipe.transform(x.SlotDate, 'yyyy-MM-dd') == this.datePipe.transform(day.dateTxt, 'yyyy-MM-dd'));
+        day.Slots = find;
         this.oHolidays.push(day);
       });
     });
     this.selectedDates = [];
   }
 
-  dayselectedMathod() {
-    this.oOrgOffDayDetailsDto.offDayDatetimeList.forEach(element => {
-      this.da = new Date(element);
-      let holid = new Holiday();
-      holid.dateTxt = this.da.getFullYear() + '-' + ('0' + (this.da.getMonth() + 1)).slice(-2) + '-' + ('0' + this.da.getDate()).slice(-2);
-      holid.day = this.da.getDate();
-      holid.isMonth = this.da.getMonth() == this.month - 1;
-      this.daymathod(holid);
-    })
-  }
+
 
   daymathod(day: any) {
-    
-    console.log("day", day)
-    // this.router.navigateByUrl('/calender/' + day.dateTxt)
     this.calenderEvent.emit(day);
   }
-
-
 
   incrementMonth(increment: number) {
     this.month += increment;
@@ -126,7 +138,7 @@ export class CalenderComponent implements OnInit {
     this.days = this.generateDays(this.year, this.month);
     this.dataSet();
     this.GetOrgOffDayDetails();
-    this.GetMonthlySlotAvailability();
+    this.GetMonthlySlot();
   }
 
   incrementYear(increment: any) {
@@ -134,7 +146,7 @@ export class CalenderComponent implements OnInit {
     this.days = this.generateDays(this.year, this.month);
     this.dataSet();
     this.GetOrgOffDayDetails();
-    this.GetMonthlySlotAvailability();
+    this.GetMonthlySlot();
   }
 
   private generateDays(year: number, month: number) {
@@ -187,6 +199,86 @@ export class CalenderComponent implements OnInit {
       isMonth: date.getMonth() == month - 1,
       description: ""
     };
+  }
+
+
+  public InsertSlot() {
+    this.oSlotRequestDto.startTime = CommonHelper.formatTime(this.startTime);
+    this.oSlotRequestDto.endTime = CommonHelper.formatTime(this.endTime);
+    this.oSlotRequestDto.date = new Date(this.selectedDate);
+    this.oSlotRequestDto.isActive = CommonHelper.booleanConvert(this.oSlotRequestDto.isActive);
+
+    if (this.oSlotRequestDto.startTime == "" || this.oSlotRequestDto.startTime == '00:00:00') {
+      this.toast.warning("Please enter start time", "Warning!!", { progressBar: true });
+      return;
+    }
+    if (this.oSlotRequestDto.endTime == "" || this.oSlotRequestDto.endTime == '00:00:00') {
+      this.toast.warning("Please enter end time", "Warning!!", { progressBar: true });
+      return;
+    }
+
+
+    // After the hash is generated, proceed with the API call
+    this.http.Post(`Slot/InsertSlot`, this.oSlotRequestDto).subscribe(
+      (res: any) => {
+        this.toast.success("Data Save Successfully!!", "Success!!", { progressBar: true });
+        CommonHelper.CommonButtonClick("closeCommonModel");
+        this.GetMonthlySlot();
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+
+  }
+
+  public UpdateSlot() {
+    this.oSlotRequestDto.startTime = CommonHelper.formatTime(this.startTime);
+    this.oSlotRequestDto.endTime = CommonHelper.formatTime(this.endTime);
+    this.oSlotRequestDto.date = new Date(this.selectedDate);
+    this.oSlotRequestDto.isActive = CommonHelper.booleanConvert(this.oSlotRequestDto.isActive);
+
+    if (this.oSlotRequestDto.startTime == "" || this.oSlotRequestDto.startTime == '00:00:00') {
+      this.toast.warning("Please enter start time", "Warning!!", { progressBar: true });
+      return;
+    }
+    if (this.oSlotRequestDto.endTime == "" || this.oSlotRequestDto.endTime == '00:00:00') {
+      this.toast.warning("Please enter end time", "Warning!!", { progressBar: true });
+      return;
+    }
+
+
+    // After the hash is generated, proceed with the API call
+    this.http.Post(`Slot/UpdateSlot/${this.SlotId}`, this.oSlotRequestDto).subscribe(
+      (res: any) => {
+        this.toast.success("Data Update Successfully!!", "Success!!", { progressBar: true });
+        CommonHelper.CommonButtonClick("closeCommonModel");
+        this.GetMonthlySlot();
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+  }
+
+
+  public DeleteSlot() {
+    this.oSlotRequestDto.startTime = CommonHelper.formatTime(this.startTime);
+    this.oSlotRequestDto.endTime = CommonHelper.formatTime(this.endTime);
+    this.oSlotRequestDto.date = new Date(this.selectedDate);
+    this.oSlotRequestDto.isActive = CommonHelper.booleanConvert(this.oSlotRequestDto.isActive);
+    // After the hash is generated, proceed with the API call
+    this.http.Post(`Slot/DeleteSlot/${this.SlotId}`, this.oSlotRequestDto).subscribe(
+      (res: any) => {
+        CommonHelper.CommonButtonClick("closeCommonModel");
+        this.GetMonthlySlot();
+        this.toast.success("Data Delete Successfully!!", "Success!!", { progressBar: true });
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+
   }
 
 }

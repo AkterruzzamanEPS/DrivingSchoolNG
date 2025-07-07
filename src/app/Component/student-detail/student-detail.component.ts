@@ -68,7 +68,6 @@ export class StudentDetailComponent implements OnInit, AfterViewInit {
       valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'dd MMM yyyy')
     },
     { field: 'classDate', width: 150, headerName: 'Day', filter: true, valueGetter: (params: any) => this.datePipe.transform(params.data.classDate, 'EEEE') },
-    { field: 'slotName', headerName: 'Slot' },
     { field: 'startTime', headerName: 'Start Time' },
     { field: 'endTime', headerName: 'End Time' },
   ];

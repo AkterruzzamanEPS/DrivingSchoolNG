@@ -52,7 +52,7 @@ export class StudentComponent implements OnInit {
     { field: 'netAmount', width: 150, headerName: 'Net Amount', filter: true },
     { field: 'remainingAmount', width: 150, headerName: 'Remaining Amount', filter: true },
     { field: 'paymentAmount', width: 150, headerName: 'Payment Amount', filter: true },
-    { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.SlotAssignToGrid.bind(this) },
+    // { field: 'slotAssign', headerName: 'Slot Assign', width: 120, pinned: "right", resizable: true, cellRenderer: this.SlotAssignToGrid.bind(this) },
     { field: 'slotAssign', headerName: 'Detail', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
   ];
   trackByFn: TrackByFunction<any> | any;
