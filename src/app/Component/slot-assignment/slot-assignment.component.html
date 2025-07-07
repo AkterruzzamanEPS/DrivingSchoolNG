@@ -18,7 +18,7 @@
                 aria-label="Default select example">
                 <option value="0">-- select slot -- </option>
                 <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
-                    {{ item.name }}
+                    {{item.startTime }} - {{item.endTime }}
                 </option>
             </select>
         </div>
