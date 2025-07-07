@@ -35,6 +35,7 @@ export class RegistrationRequestDto {
         this.dateOfBirth = new Date();
         this.password = "";
         this.confirmPassword = "";
+        this.isRepeat = false;
     }
     public fullName: string;
     public userName: string;
@@ -60,5 +61,6 @@ export class RegistrationRequestDto {
     public dateOfBirth: Date;
     public password: string;
     public confirmPassword: string;
+    public isRepeat: boolean;
 }
 

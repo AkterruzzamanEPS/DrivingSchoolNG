@@ -41,6 +41,7 @@ export class BookingAssignRequestDto {
         this.packageStartDate = new Date();
         this.status = 0;
         this.isActive = true;
+        this.isRepeat = false;
         this.remarks = "";
         this.slots = [];
     }
@@ -55,6 +56,7 @@ export class BookingAssignRequestDto {
     public status: number;
     public remarks: string;
     public isActive: boolean;
+    public isRepeat: boolean;
     public slots: any[]
 }
 

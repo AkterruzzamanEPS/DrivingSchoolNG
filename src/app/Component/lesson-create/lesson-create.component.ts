@@ -280,6 +280,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
     this.oBookingAssignRequestDto.classDate = new Date(this.packageStartDate);
     this.oBookingAssignRequestDto.expiryDate = new Date(this.expiryDate);
 
+    this.oBookingAssignRequestDto.isRepeat = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isRepeat);
     this.oBookingAssignRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isActive);
     // After the hash is generated, proceed with the API call
     this.http.Post(`Booking/UpdateBooking/${this.bookingId}`, this.oBookingAssignRequestDto).subscribe(
@@ -297,22 +298,4 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
 
-  public DeleteBooking() {
-    this.oBookingAssignRequestDto.isActive = CommonHelper.booleanConvert(this.oBookingAssignRequestDto.isActive);
-    // After the hash is generated, proceed with the API call
-    this.http.Post(`Booking/DeleteBooking/${this.bookingId}`, this.oBookingAssignRequestDto).subscribe(
-      (res: any) => {
-        CommonHelper.CommonButtonClick("closeCommonDelete");
-
-        this.toast.success("Data Delete Successfully!!", "Success!!", { progressBar: true });
-      },
-      (err) => {
-        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
-      }
-    );
-
-  }
-
-
 }
-

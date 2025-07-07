@@ -1,7 +1,7 @@
 <div class="card card-warning card-outline mb-4">
     <div class="card-header">
         <h5 class="card-title mb-0">Student Lesson Assignment</h5>
-            <button type="submit" class="btn btn-success float-end" (click)="BackToList()">Back To List</button>
+        <button type="submit" class="btn btn-success float-end" (click)="BackToList()">Back To List</button>
     </div>
 
     <div class="card-body">
@@ -31,11 +31,23 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Slot</label>
                         <div class="col-sm-8">
-                            <select class="form-select" [disabled]="bookingId>0?true:false"
-                                [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId">
+                            <!--  -->
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId"
+                                [disabled]="bookingId>0?true:false" name="slotId">
                                 <option value="0">-- Select slot --</option>
-                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">{{
-                                    item.name }}</option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
+                                    {{item.startTime }} - {{item.endTime }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label">Repeat</label>
+                        <div class="col-sm-8">
+                            <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.isRepeat" name="isRepeat"
+                                aria-label="Default select example">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                     </div>
@@ -52,6 +64,7 @@
                                 [(ngModel)]="packageStartDate" name="packageStartDate">
                         </div>
                     </div>
+
 
                 </div>
 

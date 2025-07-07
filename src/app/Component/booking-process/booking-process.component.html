@@ -27,7 +27,7 @@
             <button class="btn btn-success" (click)="Filter()">Search</button>
         </div>
     </div>
-<!-- 
+    <!-- 
     <div class="col text-end">
         <button class="btn btn-success mx-1" (click)="edit()"><i class="bi bi-pencil-square"></i> Edit</button>
     </div> -->
@@ -84,12 +84,12 @@
                                 aria-label="Default select example">
                                 <option value="0">-- select slot -- </option>
                                 <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
-                                    {{ item.name }}
+                                    {{item.startTime }} - {{item.endTime }}
                                 </option>
                             </select>
                         </div>
                     </div>
-                   
+
 
                     <div class="col-12 px-1">
                         <div class="mb-2">
@@ -112,5 +112,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

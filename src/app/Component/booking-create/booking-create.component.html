@@ -36,8 +36,9 @@
                             <label class="form-label">Slot</label>
                             <select class="form-select" [(ngModel)]="oBookingAssignRequestDto.slotId" name="slotId">
                                 <option value="0">-- select slot -- </option>
-                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">{{
-                                    item.name }}</option>
+                                <option *ngFor="let item of slotList; trackBy: trackBySlot" [value]="item.id">
+                                   {{item.startTime }} - {{item.endTime }}
+                                    </option>
                             </select>
                         </div>
                     </div>
