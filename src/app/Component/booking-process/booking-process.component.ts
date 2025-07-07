@@ -48,12 +48,13 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
 
   public colDefsTransection: any[] = [
     { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'classDate', headerName: 'Available Date',cellRenderer: (params: ValueFormatterParams) => {
+    { field: 'userName', width: 150, headerName: 'Assign User', filter: true },
+    { field: 'classDate', headerName: 'Lesson Date',cellRenderer: (params: ValueFormatterParams) => {
                 return this.datePipe.transform(params.value, 'dd MMM yyyy') || '';
               } },
-    { field: 'slotName', width: 150, headerName: 'Slot Name', filter: true },
     { field: 'startTime', headerName: 'Start Time' },
     { field: 'endTime', headerName: 'End Time' },
+    { field: 'statusName', headerName: 'Status' },
     { field: '', headerName: 'Progress', width: 120, pinned: "right", resizable: true, cellRenderer: this.detailToGrid.bind(this) },
 
   ];
@@ -86,7 +87,7 @@ export class BookingProcessComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.GetAllSlotes();
+    // this.GetAllSlotes();
   }
 
 
