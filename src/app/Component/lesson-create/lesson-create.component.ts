@@ -76,6 +76,8 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   trackByInstructor: TrackByFunction<any> | any;
   trackByInstructorFrom: TrackByFunction<any> | any;
 
+  public slotDate: any;
+
   trackByStatus: TrackByFunction<any> | any;
   constructor(
     public authService: AuthService,
@@ -101,13 +103,19 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     var id = this.route.snapshot.paramMap.get('id');
+    var date = this.route.snapshot.paramMap.get('date');
+    if (date != null) {
+      this.slotDate = date;
+      this.GetAllSlotes();
+    }
     if (id != null) {
       this.bookingId = Number(id);
       if (this.bookingId > 0) {
         this.GetBookingById();
       }
     }
-    this.GetAllSlotes();
+
+
   }
 
 
@@ -184,7 +192,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
   private GetAllSlotes() {
     // After the hash is generated, proceed with the API call
-    this.http.Get(`Slot/GetAllSlotes?StartDate=`).subscribe(
+    this.http.Get(`Slot/GetAllSlotes?StartDate=${this.slotDate}`).subscribe(
       (res: any) => {
         this.slotList = res;
       },
@@ -242,7 +250,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
   }
 
   public InsertBooking() {
-    
+
     this.oBookingAssignRequestDto.slotId = Number(this.oBookingAssignRequestDto.slotId);
     this.oBookingAssignRequestDto.status = Number(Number(this.oBookingAssignRequestDto.studentId) == 0 ? 1 : 2);
     this.oBookingAssignRequestDto.purchaseDate = new Date(this.purchaseDate);
@@ -256,6 +264,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
       (res: any) => {
         CommonHelper.CommonButtonClick("closeCommonModel");
         this.toast.success("Data Save Successfully!!", "Success!!", { progressBar: true });
+        this.BackToList();
       },
       (err) => {
         this.toast.error(err.error, "Error!!", { progressBar: true });
@@ -278,6 +287,7 @@ export class LessonCreateComponent implements OnInit, AfterViewInit {
         CommonHelper.CommonButtonClick("closeCommonModel");
 
         this.toast.success("Data Update Successfully!!", "Success!!", { progressBar: true });
+        this.BackToList();
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });

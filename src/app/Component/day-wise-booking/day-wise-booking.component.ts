@@ -124,7 +124,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Assign</button>'
     eDiv.addEventListener('click', () => {
       if (params.data.StudentId <= 0) {
-        this.router.navigateByUrl('/admin/lesson-create/' + params.data.Id)
+        this.router.navigateByUrl('/admin/lesson-create/' + params.data.Id+'/'+ this.datePipe.transform(new Date(params.data.ClassDate), 'yyyy-MM-dd'))
       }
     });
 
@@ -137,7 +137,7 @@ export class DayWiseBookingComponent implements OnInit, AfterViewInit {
     eDiv.innerHTML = ' <button class="btn btn-success p-0 px-1"> <i class="bi bi-eye-fill"></i> Register</button>'
     eDiv.addEventListener('click', () => {
       if (params.data.StudentId <= 0) {
-        this.router.navigateByUrl('/admin/student-registration/' + params.data.Id)
+        this.router.navigateByUrl('/admin/student-registration/' + params.data.Id+'/'+ this.datePipe.transform(new Date(params.data.ClassDate), 'yyyy-MM-dd'));
       }
     });
     return eDiv;

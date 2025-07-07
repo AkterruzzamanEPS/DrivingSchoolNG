@@ -29,9 +29,15 @@
                         [class.today]="currentDate==day.dateTxt ">
                         <div class="holiday pt-" id="{{ day.dateTxt }}">
                             {{day.day}}
-                            <div class="row g-0" >
-                                <div class="col-12 my-1 bg-info"  *ngFor="let slot of day.Slots" (click)="daymathod(day,slot)" #manageBtn>
-                                    {{slot.StartTime}} To  {{slot.EndTime}}
+                            <div class="row g-0">
+                                <div class="col-12 my-1 bg-info" *ngFor="let slot of day.Slots"
+                                    (click)="daymathod(day,slot);$event.stopPropagation()" #manageBtn>
+                                    {{day.dateTxt+' '+slot.StartTime | date:'shortTime' }}-{{day.dateTxt +'
+                                    '+slot.EndTime | date:'shortTime'}}
+                                    @if (slot.BookingStatus==2) {
+                                    <i class="bi ms-1 bi-check-circle text-success"></i>
+                                    }
+
                                 </div>
                             </div>
 
@@ -59,7 +65,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Slot 
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Slot
                     @if (SlotId==0){Create} @if (SlotId>0){Update}
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeCommonModel"
@@ -83,13 +89,18 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-block">
                 @if (SlotId==0){
                 <button type="button" class="btn btn-success float-end" (click)="InsertSlot()">Save</button>
                 }
                 @if (SlotId>0){
                 <button type="button" class="btn btn-success float-end" (click)="UpdateSlot()">Update</button>
                 }
+
+                @if (SlotId>0){
+                <button type="button" class="btn btn-danger" (click)="DeleteSlot()">Delete</button>
+                }
+
             </div>
         </div>
     </div>

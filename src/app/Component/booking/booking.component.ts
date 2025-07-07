@@ -94,7 +94,7 @@ export class BookingComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.GetAllSlotes();
+    // this.GetAllSlotes();
   }
 
   PageChange(event: any) {

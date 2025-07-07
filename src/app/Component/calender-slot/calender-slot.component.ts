@@ -126,6 +126,14 @@ export class CalenderSlotComponent implements OnInit, AfterViewInit {
       this.selectedDate = day.dateTxt;
       CommonHelper.CommonButtonClick("openCommonModel");
     } else {
+
+      this.SlotId = Number(slot.SlotId);
+      this.oSlotRequestDto.name = "";
+      this.oSlotRequestDto.date = new Date(slot.SlotDate);
+      this.startTime = slot.StartTime;
+      this.endTime = slot.EndTime;
+      this.oSlotRequestDto.isActive = true;
+      this.oSlotRequestDto.remarks = '';
       this.selectedDate = day.dateTxt;
       CommonHelper.CommonButtonClick("openCommonModel");
     }
@@ -269,6 +277,26 @@ export class CalenderSlotComponent implements OnInit, AfterViewInit {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
       }
     );
+  }
+
+
+  public DeleteSlot() {
+    this.oSlotRequestDto.startTime = CommonHelper.formatTime(this.startTime);
+    this.oSlotRequestDto.endTime = CommonHelper.formatTime(this.endTime);
+    this.oSlotRequestDto.date = new Date(this.selectedDate);
+    this.oSlotRequestDto.isActive = CommonHelper.booleanConvert(this.oSlotRequestDto.isActive);
+    // After the hash is generated, proceed with the API call
+    this.http.Post(`Slot/DeleteSlot/${this.SlotId}`, this.oSlotRequestDto).subscribe(
+      (res: any) => {
+        CommonHelper.CommonButtonClick("closeCommonModel");
+        this.GetMonthlySlot();
+        this.toast.success("Data Delete Successfully!!", "Success!!", { progressBar: true });
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+
   }
 
 }
