@@ -63,12 +63,12 @@
         <!--begin::Footer-->
         <div class="card-footer">
             @if (ExpenditureId==0){
-            <button type="button" class="btn btn-primary" (click)="InsertExpenditure()">Save</button>
+            <button type="button" class="btn btn-primary float-end" (click)="InsertExpenditure()">Save</button>
             }
             @if (ExpenditureId>0){
-            <button type="button" class="btn btn-primary" (click)="UpdateExpenditure()">Update</button>
+            <button type="button" class="btn btn-primary float-end" (click)="UpdateExpenditure()">Update</button>
             }
-            <button type="submit" class="btn btn-secondary float-end" (click)="Reset()">Reset</button>
+            <button type="submit" class="btn btn-secondary " (click)="Reset()">Reset</button>
         </div>
         <!--end::Footer-->
     </form>
