@@ -65,7 +65,7 @@ export class PaymentCollectionReportsComponent implements OnInit, AfterViewInit 
     private datePipe: DatePipe
   ) {
     const currentDate = new Date();
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), 0, 1);
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd');
     this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
