@@ -64,6 +64,10 @@ export class PaymentCollectionReportsComponent implements OnInit, AfterViewInit 
     private router: Router,
     private datePipe: DatePipe
   ) {
+    const currentDate = new Date();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), 0, 1);
+    this.startDate = this.datePipe.transform(firstDayOfMonth, 'yyyy-MM-dd');
+    this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ngAfterViewInit(): void {
@@ -85,7 +89,8 @@ export class PaymentCollectionReportsComponent implements OnInit, AfterViewInit 
   }
 
   private GetPayment() {
-
+    this.oPaymentFilterRequestDto.startDate = new Date(this.startDate);
+    this.oPaymentFilterRequestDto.endDate = new Date(this.endDate);
     this.oPaymentFilterRequestDto.name = this.username;
     this.http.Post(`Payment/GetPayment?pageNumber=${this.pageIndex}`, this.oPaymentFilterRequestDto).subscribe(
       (res: any) => {
