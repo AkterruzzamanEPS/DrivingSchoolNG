@@ -50,12 +50,12 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
   public oBookingResponseDto: any;
 
   public colDefsTransection: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true, headerCheckboxSelection: true },
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true },
     { field: 'checkListName', width: 200, headerName: 'Check List', filter: true },
   ];
    
   public colDefsUnAssign: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true, headerCheckboxSelection: true },
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true },
     { field: 'name', width: 200, headerName: 'Check List', filter: true },
   ];
 
