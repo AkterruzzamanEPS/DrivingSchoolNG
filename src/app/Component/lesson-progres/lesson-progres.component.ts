@@ -26,9 +26,12 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
   public CheckList: any[] = [];
     public DeafultCol = AGGridHelper.DeafultCol;
     public nCHeckListId = 0;
-    public gridApi!: any;     
+    public BookingCheckListId = 0;
+    public gridApi!: any;  
+  public gridApiUnassign!: any;   
     
-    public rowData!: any[];
+    public rowData: any[] = [];
+    public rowDataUnassign: any[] = [];
 
   public oLessonProgresRequestDto = new LessonProgresRequestDto();
   public oBookingCheckListRequestDto = new BookingCheckListRequestDto();
@@ -45,12 +48,17 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
 
 
   public oBookingResponseDto: any;
+
   public colDefsTransection: any[] = [
-    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: false },
-    { field: 'ChekListName', width: 150, headerName: 'Check List', filter: true },
-    { field: 'Weight', width: 150, headerName: 'Weight', filter: true },
-    { field: 'Remarks', width: 150, headerName: 'Note', filter: true },
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true, headerCheckboxSelection: true },
+    { field: 'checkListName', width: 200, headerName: 'Check List', filter: true },
   ];
+   
+  public colDefsUnAssign: any[] = [
+    { valueGetter: "node.rowIndex + 1", headerName: 'SL', width: 90, editable: false, checkboxSelection: true, headerCheckboxSelection: true },
+    { field: 'name', width: 200, headerName: 'Check List', filter: true },
+  ];
+
 
   trackByFn: TrackByFunction<any> | any;
   trackBySlot: TrackByFunction<any> | any;
@@ -81,9 +89,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
       this.bookingId = Number(id);
       this.GetBookingById();
     }
-    this.GetBookingCheckListByBookingId()
     this.GetCheckList();
-
   }
 
 
@@ -93,6 +99,7 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
       this.http.Get(`CheckList/GetAllCheckListes`).subscribe(
         (res: any) => {
           this.CheckList = res;
+          this.GetBookingCheckListByBookingId();
         },
         (err) => {
           this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -110,9 +117,38 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     });
     return eDiv;
   }
-    onGridReadyTransection(params: any) {
+    
+  onGridReadyTransection(params: any) {
     this.gridApi = params.api;
-    this.rowData = [];
+    this.gridApi.forEachNode((node: any) => {      
+      node.setSelected(true);      
+    });
+  }
+  
+  UnassignSelectionChange()
+  {
+    const selectedRows = this.gridApiUnassign.getSelectedRows();
+    if (selectedRows.length > 0) {
+      this.nCHeckListId = selectedRows[0].id;
+      this.remarks = '';
+      this.AddCheckList();
+    }
+  }
+  AssignSelectionChange() {
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length > 0) {
+      this.BookingCheckListId = selectedRows[0].id;
+      this.oBookingCheckListRequestDto.bookingId = Number(selectedRows[0].bookingId);
+      this.oBookingCheckListRequestDto.checkListId = Number(selectedRows[0].checkListId);
+      this.oBookingCheckListRequestDto.checkListName = selectedRows[0].checkListName;
+      this.oBookingCheckListRequestDto.remarks = selectedRows[0].remarks;
+      this.oBookingCheckListRequestDto.isActive =  selectedRows[0].isActive;
+      this.DeleteBookingCheckList();
+    }
+  }
+
+  onGridReady(params: any) {
+    this.gridApiUnassign = params.api;
   }
 
   private GetBookingById() {
@@ -132,7 +168,15 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     this.http.Get(`BookingCheckList/GetBookingCheckListByBookingId/${this.bookingId}`).subscribe(
       (res: any) => {
         this.rowData = res;
-        this.gridApi.sizeColumnsToFit();
+        this.rowDataUnassign.filter(x => x.id == true);
+        let excludedIds = this.rowData.map(item => item.checkListId);
+        this.rowDataUnassign = this.CheckList.filter(x => !excludedIds.includes(x.id));
+        if(this.gridApi){
+          this.gridApi.sizeColumnsToFit();
+          this.gridApi.forEachNode((node: any) => {
+            node.setSelected(true);
+          });
+        }
       },
       (err) => {
         this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
@@ -162,6 +206,19 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('admin/lesson')
   }
 
+  public DeleteBookingCheckList() {
+     this.http.Post(`BookingCheckList/DeleteBookingCheckList/${this.BookingCheckListId}`, this.oBookingCheckListRequestDto).subscribe(
+      (res: any) => {
+        CommonHelper.CommonButtonClick("closeCommonDelete");
+        this.GetBookingCheckListByBookingId();
+        this.toast.success("Data Delete Successfully!!", "Success!!", { progressBar: true });
+      },
+      (err) => {
+        this.toast.error(err.ErrorMessage, "Error!!", { progressBar: true });
+      }
+    );
+
+  }
 
   public AddCheckList(){
     this.oBookingCheckListRequestDto.bookingId = Number(this.bookingId);
