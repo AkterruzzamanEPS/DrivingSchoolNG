@@ -208,7 +208,7 @@ export class ProfitAndLossDetailComponent implements OnInit, AfterViewInit {
 
       footer: function (currentPage: number, pageCount: number) {
         return {
-          text: `Software developed by: FawTime.`,
+          text: ``,
           alignment: 'center',
           margin: [0, 10, 0, 0]
         };
