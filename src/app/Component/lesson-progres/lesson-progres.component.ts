@@ -120,9 +120,9 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
     
   onGridReadyTransection(params: any) {
     this.gridApi = params.api;
-    this.gridApi.forEachNode((node: any) => {      
-      node.setSelected(true);      
-    });
+    // this.gridApi.forEachNode((node: any) => {      
+    //   node.setSelected(true);      
+    // });
   }
   
   UnassignSelectionChange()
@@ -173,9 +173,9 @@ export class LessonProgresComponent implements OnInit, AfterViewInit {
         this.rowDataUnassign = this.CheckList.filter(x => !excludedIds.includes(x.id));
         if(this.gridApi){
           this.gridApi.sizeColumnsToFit();
-          this.gridApi.forEachNode((node: any) => {
-            node.setSelected(true);
-          });
+          // this.gridApi.forEachNode((node: any) => {
+          //   // node.setSelected(true);
+          // });
         }
       },
       (err) => {
